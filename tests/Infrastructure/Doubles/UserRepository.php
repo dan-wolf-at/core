@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Tests\Infrastructure\Doubles;
 
 use Apiato\Core\Abstracts\Repositories\Repository as ParentRepository;
@@ -10,6 +12,7 @@ class UserRepository extends ParentRepository
         'name' => 'ilike',
     ];
 
+    #[\Override]
     public function model(): string
     {
         return User::class;

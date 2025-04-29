@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Illuminate\Support\Facades\File;
 
 trait MigrationsLoaderTrait
 {
-    public function loadMigrationsFromContainers($containerPath): void
+    public function loadMigrationsFromContainers(string $containerPath): void
     {
         $containerMigrationDirectory = $containerPath . '/Data/Migrations';
         $this->loadMigrations($containerMigrationDirectory);

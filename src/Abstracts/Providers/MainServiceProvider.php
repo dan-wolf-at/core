@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Providers;
 
 use Apiato\Core\Loaders\AliasesLoaderTrait;
@@ -14,6 +16,7 @@ abstract class MainServiceProvider extends LaravelAppServiceProvider
     /**
      * Register any application services.
      */
+    #[\Override]
     public function register(): void
     {
         $this->loadServiceProviders();

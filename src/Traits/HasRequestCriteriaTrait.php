@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 use Apiato\Core\Abstracts\Repositories\Repository;
@@ -45,6 +47,7 @@ trait HasRequestCriteriaTrait
             if (!isset($this->repository)) {
                 throw new CoreInternalErrorException('No protected or public accessible repository available');
             }
+
             $validatedRepository = $this->repository;
         }
 
@@ -63,7 +66,7 @@ trait HasRequestCriteriaTrait
 
     private function shouldDecodeSearch(): bool
     {
-        return $this->hashIdEnabled() && $this->isSearching(request()->query());
+        return $this->hashIdEnabled() && $this->isSearching(request()?->query() ?? []);
     }
 
     private function hashIdEnabled(): bool
@@ -78,7 +81,7 @@ trait HasRequestCriteriaTrait
 
     private function decodeSearchQueryString(array $fieldsToDecode): void
     {
-        $query = request()->query();
+        $query = request()?->query();
         $searchQuery = $query['search'];
 
         $decodedValue = $this->decodeValue($searchQuery);
@@ -115,8 +118,8 @@ trait HasRequestCriteriaTrait
 
     private function parserSearchValue($search)
     {
-        if (strpos($search, ';') || strpos($search, ':')) {
-            $values = explode(';', $search);
+        if (strpos((string) $search, ';') || strpos((string) $search, ':')) {
+            $values = explode(';', (string) $search);
             foreach ($values as $value) {
                 $s = explode(':', $value);
                 if (1 === count($s)) {
@@ -134,12 +137,13 @@ trait HasRequestCriteriaTrait
     {
         $searchArray = $this->parserSearchData($searchQuery);
 
-        foreach ($fieldsToDecode as $field) {
-            if (array_key_exists($field, $searchArray)) {
-                if (empty(Hashids::decode($searchArray[$field]))) {
-                    throw new \InvalidArgumentException("Only hash ids are allowed. {$field}:$searchArray[$field]");
+        foreach ($fieldsToDecode as $fieldToDecode) {
+            if (array_key_exists($fieldToDecode, $searchArray)) {
+                if (empty(Hashids::decode($searchArray[$fieldToDecode]))) {
+                    throw new \InvalidArgumentException(sprintf('Only hash ids are allowed. %s:%s', $fieldToDecode, $searchArray[$fieldToDecode]));
                 }
-                $searchArray[$field] = Hashids::decode($searchArray[$field])[0];
+
+                $searchArray[$fieldToDecode] = Hashids::decode($searchArray[$fieldToDecode])[0];
             }
         }
 
@@ -150,14 +154,14 @@ trait HasRequestCriteriaTrait
     {
         $searchData = [];
 
-        if (strpos($search, ':')) {
-            $fields = explode(';', $search);
+        if (strpos((string) $search, ':')) {
+            $fields = explode(';', (string) $search);
 
             foreach ($fields as $row) {
                 try {
                     [$field, $value] = explode(':', $row);
                     $searchData[$field] = $value;
-                } catch (\Exception $e) {
+                } catch (\Exception) {
                     // Surround offset error
                 }
             }
@@ -171,11 +175,12 @@ trait HasRequestCriteriaTrait
         $decodedSearchQuery = '';
 
         $fields = array_keys($decodedSearchArray);
-        $length = count($fields);
-        for ($i = 0; $i < $length; ++$i) {
-            $field = $fields[$i];
-            $decodedSearchQuery .= "{$field}:$decodedSearchArray[$field]";
-            if (1 !== $length && $i < $length - 1) {
+        $length = \count($fields);
+        foreach ($fields as $i => $iValue) {
+            $field = $iValue;
+            $decodedSearchQuery .= sprintf('%s:%s', $field, $decodedSearchArray[$field]);
+
+            if ($length !== 1 && $i < $length - 1) {
                 $decodedSearchQuery .= ';';
             }
         }

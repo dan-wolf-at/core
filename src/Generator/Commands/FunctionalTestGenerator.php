@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -19,30 +21,36 @@ class FunctionalTestGenerator extends GeneratorCommand implements ComponentsGene
         ['stub', null, InputOption::VALUE_OPTIONAL, 'The stub file to load for this generator.'],
         ['url', null, InputOption::VALUE_OPTIONAL, 'The URL of the endpoint (/stores, /cars, ...)'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:test:functional';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a Functional Test file.';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Functional Test';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Tests/Functional/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -59,13 +67,14 @@ class FunctionalTestGenerator extends GeneratorCommand implements ComponentsGene
         if ('api' === $ui) {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Functional/API/*';
         }
+
         if ('cli' === $ui) {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Functional/CLI/*';
         }
 
         $this->stubName = $stub ? 'tests/functional/' . Str::lower($stub) . '.stub' : 'tests/functional/' . $ui . '.stub';
 
-        $model = $model ?? $this->containerName;
+        $model ??= $this->containerName;
         $models = Str::plural($model);
 
         return [
@@ -92,6 +101,7 @@ class FunctionalTestGenerator extends GeneratorCommand implements ComponentsGene
         ];
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'DefaultFunctionalTest';

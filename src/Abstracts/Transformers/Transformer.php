@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Transformers;
 
 use Apiato\Core\Exceptions\CoreInternalErrorException;
@@ -21,27 +23,30 @@ abstract class Transformer extends FractalTransformer
         return $this->item($data, $transformer, $resourceKey);
     }
 
-    public function item($data, $transformer, $resourceKey = null): Item
+    #[\Override]
+    public function item($data, $transformer, ?string $resourceKey = null): Item
     {
         // set a default resource key if none is set
-        if (!$resourceKey && $data) {
+        if (($resourceKey === null || $resourceKey === '' || $resourceKey === '0') && $data) {
             $resourceKey = $data->getResourceKey();
         }
 
         return parent::item($data, $transformer, $resourceKey);
     }
 
-    public function collection($data, $transformer, $resourceKey = null): Collection
+    #[\Override]
+    public function collection($data, $transformer, ?string $resourceKey = null): Collection
     {
         // set a default resource key if none is set
-        if (!$resourceKey && $data->isNotEmpty()) {
+        if (($resourceKey === null || $resourceKey === '' || $resourceKey === '0') && $data->isNotEmpty()) {
             $resourceKey = $data->first()->getResourceKey();
         }
 
         return parent::collection($data, $transformer, $resourceKey);
     }
 
-    protected function callIncludeMethod(Scope $scope, $includeName, $data)
+    #[\Override]
+    protected function callIncludeMethod(Scope $scope, string $includeName, $data)
     {
         try {
             return parent::callIncludeMethod($scope, $includeName, $data);
@@ -52,11 +57,12 @@ abstract class Transformer extends FractalTransformer
         } catch (\Exception $exception) {
             throw new CoreInternalErrorException($exception->getMessage());
         }
+        return null;
     }
 
     public static function empty(): callable
     {
-        return static function () {
+        return static function (): array {
             return [];
         };
     }

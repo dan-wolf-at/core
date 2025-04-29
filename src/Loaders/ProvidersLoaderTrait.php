@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Apiato\Core\Foundation\Facades\Apiato;
@@ -15,7 +17,7 @@ trait ProvidersLoaderTrait
      * loaded from the `boot()` function on the parent of the Main
      * Service Providers.
      */
-    public function loadOnlyMainProvidersFromContainers($containerPath): void
+    public function loadOnlyMainProvidersFromContainers(string $containerPath): void
     {
         $containerProvidersDirectory = $containerPath . '/Providers';
         $this->loadProviders($containerProvidersDirectory);

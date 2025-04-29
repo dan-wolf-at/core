@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -18,37 +20,44 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
         ['event-listeners', null, InputOption::VALUE_OPTIONAL, 'The Event Listeners that this Provider should register.'],
         ['event-service-provider', null, InputOption::VALUE_OPTIONAL, 'The Event Service Provider that this Provider should register.'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:provider';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a Service Provider for a Container';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'ServiceProvider';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Providers/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
     protected string $stubName = 'providers/generic.stub';
 
-    private const TAB2 = '        ';
-    private const TAB3 = '            ';
+    private const string TAB2 = '        ';
+
+    private const string TAB3 = '            ';
 
     public function getUserInputs(): array|null
     {
@@ -69,47 +78,37 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
                 default => 'generic',
             };
         }
-        $this->stubName = "providers/$stub.stub";
+
+        $this->stubName = sprintf('providers/%s.stub', $stub);
         $eventListeners = $this->option('event-listeners');
         $eventListenersString = '[]';
         $listenersUseStatements = '';
         $eventsUseStatements = '';
         if ($eventListeners) {
-            $listenersWithClass = array_map(static function ($listeners, $listener) {
-                return [$listener . '::class' => array_map(static fn ($event) => $event . '::class', $listeners)];
+            $listenersWithClass = array_map(static function ($listeners, string $listener) {
+                return [$listener . '::class' => array_map(static fn ($event): string => $event . '::class', $listeners)];
             }, $eventListeners, array_keys($eventListeners));
-            $eventListenersString = '[' . PHP_EOL . array_reduce($listenersWithClass, static function ($carry, $item) {
-                $carry .= array_reduce(array_keys($item), static function ($carry, $key) use ($item) {
+            $eventListenersString = '[' . PHP_EOL . array_reduce($listenersWithClass, static function (string $carry, $item): string {
+                return $carry . array_reduce(array_keys($item), static function ($carry, string $key) use ($item): string {
                     $carry .= self::TAB2 . $key . ' => [' . PHP_EOL;
-                    $carry .= array_reduce($item[$key], static function ($carry, $event) {
-                        $carry .= self::TAB3 . $event . ',' . PHP_EOL;
-
-                        return $carry;
+                    $carry .= array_reduce($item[$key], static function (string $carry, string $event): string {
+                        return $carry . (self::TAB3 . $event . ',' . PHP_EOL);
                     });
-                    $carry .= self::TAB2 . '],' . PHP_EOL;
 
-                    return $carry;
+                    return $carry . (self::TAB2 . '],' . PHP_EOL);
                 });
-
-                return $carry;
             }) . '    ]';
-            $listenersUseStatements = array_reduce(array_keys($eventListeners), function ($carry, $item) {
-                $carry .= 'use App\Containers\\' . $this->sectionName . '\\' . $this->containerName . '\Listeners\\' . $item . ';' . PHP_EOL;
-
-                return $carry;
+            $listenersUseStatements = array_reduce(array_keys($eventListeners), function (string $carry, string $item): string {
+                return $carry . ('use App\Containers\\' . $this->sectionName . '\\' . $this->containerName . '\Listeners\\' . $item . ';' . PHP_EOL);
             });
 
-            $eventsUseStatements = array_map(function ($listeners, $listener) {
-                return array_map(fn ($event) => 'use App\Containers\\' . $this->sectionName . '\\' . $this->containerName . '\Events\\' . $event . ';', $listeners);
+            $eventsUseStatements = array_map(function ($listeners, $listener): array {
+                return array_map(fn ($event): string => 'use App\Containers\\' . $this->sectionName . '\\' . $this->containerName . '\Events\\' . $event . ';', $listeners);
             }, $eventListeners, array_keys($eventListeners));
-            $eventsUseStatements = array_reduce($eventsUseStatements, static function ($carry, $item) {
-                $carry .= array_reduce(array_keys($item), static function ($carry, $key) use ($item) {
-                    $carry .= $item[$key] . PHP_EOL;
-
-                    return $carry;
+            $eventsUseStatements = array_reduce($eventsUseStatements, static function (string $carry, $item): string {
+                return $carry . array_reduce(array_keys($item), static function (string $carry, $key) use ($item): string {
+                    return $carry . ($item[$key] . PHP_EOL);
                 });
-
-                return $carry;
             });
         }
 
@@ -139,6 +138,7 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
     /**
      * Get the default file name for this component to be generated.
      */
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'MainServiceProvider';

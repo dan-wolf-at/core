@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Macros\Collection;
 
 use Illuminate\Support\Collection;

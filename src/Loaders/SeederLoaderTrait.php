@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Apiato\Core\Foundation\Facades\Apiato;
@@ -44,12 +46,12 @@ trait SeederLoaderTrait
             if (File::isDirectory($directory)) {
                 $files = File::allFiles($directory);
 
-                foreach ($files as $seederClass) {
-                    if (File::isFile($seederClass)) {
+                foreach ($files as $file) {
+                    if (File::isFile($file)) {
                         // do not seed the classes now, just store them in a collection and w
                         $seedersClasses->push(
                             Apiato::getClassFullNameFromFile(
-                                $seederClass->getPathname(),
+                                $file->getPathname(),
                             ),
                         );
                     }
@@ -70,7 +72,7 @@ trait SeederLoaderTrait
 
         foreach ($seedersClasses as $key => $seederFullClassName) {
             // if the class full namespace contain "_" it means it needs to be seeded in order
-            if (str_contains($seederFullClassName, '_')) {
+            if (str_contains((string) $seederFullClassName, '_')) {
                 // move all the seeder classes that needs to be seeded in order to their own Collection
                 $orderedSeederClasses->push($seederFullClassName);
                 // delete the moved classes from the original collection
@@ -79,9 +81,9 @@ trait SeederLoaderTrait
         }
 
         // sort the classes that needed to be ordered
-        $orderedSeederClasses = $orderedSeederClasses->sortBy(function ($seederFullClassName) {
+        $orderedSeederClasses = $orderedSeederClasses->sortBy(function ($seederFullClassName): string {
             // get the order number form the end of each class name
-            return substr($seederFullClassName, strpos($seederFullClassName, '_') + 1);
+            return substr((string) $seederFullClassName, strpos((string) $seederFullClassName, '_') + 1);
         });
 
         // append the randomly ordered seeder classes to the end of the ordered seeder classes
@@ -94,9 +96,9 @@ trait SeederLoaderTrait
 
     private function loadSeeders($seedersClasses): void
     {
-        foreach ($seedersClasses as $seeder) {
+        foreach ($seedersClasses as $seederClass) {
             // seed it with call
-            $this->call($seeder);
+            $this->call($seederClass);
         }
     }
 }

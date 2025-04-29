@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -25,30 +27,36 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         ['tests', null, InputOption::VALUE_OPTIONAL, 'Generate Tests for this Container?'],
         ['maincalled', false, InputOption::VALUE_NONE],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:container:api';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a Container for apiato from scratch (API Part)';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Container';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -115,7 +123,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         ]);
 
         $this->printInfoMessage('Generating Default Routes');
-        $version = $this->checkParameterOrAsk('docversion', 'Enter the version for all API endpoints (integer)', 1);
+        $version = $this->checkParameterOrAsk('docversion', 'Enter the version for all API endpoints (integer)', '1');
         $doctype = $this->checkParameterOrChoice('doctype', 'Select the type for all API endpoints', ['private', 'public'], 0);
 
         // get the URI and remove the first trailing slash
@@ -133,6 +141,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
                 $registerListeners = $this->checkParameterOrConfirm('register-listeners', 'Do you want the Event Listeners to be registered in the EventServiceProvider?', true);
             }
         }
+
         $generateTests = $this->checkParameterOrConfirm('tests', 'Do you want to generate the corresponding Tests for this Container?', true);
 
         $generateEvents ?: $this->printInfoMessage('Generating CRUD Events');
@@ -454,11 +463,13 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         return null;
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'composer';
     }
 
+    #[\Override]
     public function getDefaultFileExtension(): string
     {
         return 'json';

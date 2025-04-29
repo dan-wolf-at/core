@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Tests\Unit\Abstracts\Repositories;
 
 use Apiato\Core\Abstracts\Repositories\Repository;
@@ -17,45 +19,43 @@ use PHPUnit\Framework\Attributes\DataProvider;
 #[CoversClass(Repository::class)]
 final class RepositoryTest extends UnitTestCase
 {
-    public static function includeDataProvider(): array
+    public static function includeDataProvider(): \Iterator
     {
-        return [
-            'single relation' => [
-                'books',
-                ['books'],
-                [],
-                ['children', 'parent'],
-            ],
-            'works with duplicate include' => [
-                'books,books',
-                ['books'],
-                [],
-                ['children', 'parent'],
-            ],
-            'multiple relations' => [
-                'books,children',
-                ['books', 'children'],
-                [],
-                ['parent'],
-            ],
-            'single nested relation' => [
-                'books.author',
-                ['books'],
-                ['author'],
-                ['children', 'parent'],
-            ],
-            'multiple nested relations' => [
-                'books.author.children,children.parent',
-                ['books', 'children'],
-                ['author'],
-                ['parent'],
-            ],
-            'multiple and single nested relations' => [
-                'parent,books.author',
-                ['parent', 'books'],
-                ['author'],
-                ['children'],
-            ],
+        yield 'single relation' => [
+            'books',
+            ['books'],
+            [],
+            ['children', 'parent'],
+        ];
+        yield 'works with duplicate include' => [
+            'books,books',
+            ['books'],
+            [],
+            ['children', 'parent'],
+        ];
+        yield 'multiple relations' => [
+            'books,children',
+            ['books', 'children'],
+            [],
+            ['parent'],
+        ];
+        yield 'single nested relation' => [
+            'books.author',
+            ['books'],
+            ['author'],
+            ['children', 'parent'],
+        ];
+        yield 'multiple nested relations' => [
+            'books.author.children,children.parent',
+            ['books', 'children'],
+            ['author'],
+            ['parent'],
+        ];
+        yield 'multiple and single nested relations' => [
+            'parent,books.author',
+            ['parent', 'books'],
+            ['author'],
+            ['children'],
         ];
     }
 
@@ -66,7 +66,7 @@ final class RepositoryTest extends UnitTestCase
         array $booksMustLoadRelations,
         array $mustNotLoadRelations,
     ): void {
-        request()->merge(compact('include'));
+        request()->merge(['include' => $include]);
         UserFactory::new()
             ->has(
                 UserFactory::new()
@@ -83,17 +83,19 @@ final class RepositoryTest extends UnitTestCase
 
         $result = $repository->all();
 
-        $result->each(function (User $user) use ($userMustLoadRelations, $booksMustLoadRelations, $mustNotLoadRelations) {
+        $result->each(function (User $user) use ($userMustLoadRelations, $booksMustLoadRelations, $mustNotLoadRelations): void {
             foreach ($userMustLoadRelations as $relation) {
                 $this->assertTrue($user->relationLoaded($relation));
             }
+
             foreach ($booksMustLoadRelations as $relation) {
-                $user->books->each(function (Book $book) use ($relation) {
+                $user->books->each(function (Book $book) use ($relation): void {
                     $this->assertTrue($book->relationLoaded($relation));
                 });
             }
-            foreach ($mustNotLoadRelations as $relation) {
-                $this->assertFalse($user->relationLoaded($relation));
+
+            foreach ($mustNotLoadRelations as $mustNotLoadRelation) {
+                $this->assertFalse($user->relationLoaded($mustNotLoadRelation));
             }
         });
     }
@@ -117,7 +119,7 @@ final class RepositoryTest extends UnitTestCase
         /** @var Collection<int, User> $result */
         $result = $repository->with('books')->with('children.books')->all();
 
-        $result->each(function (User $user) {
+        $result->each(function (User $user): void {
             $this->assertTrue($user->relationLoaded('books'));
             $this->assertTrue($user->relationLoaded('children'));
             foreach ($user->children as $child) {
@@ -128,23 +130,44 @@ final class RepositoryTest extends UnitTestCase
 
     public function testCanCache(): void
     {
-        $this->markTestIncomplete('This test has not been fully implemented yet.');
         config()->set('repository.cache.enabled', true);
         config()->set('repository.cache.minutes', 1);
-        //        config()->set('cache.default', 'database');
-        //        UserFactory::new()->create()->transformWith()->toArray();
-        $user = UserFactory::new()->createOne();
-        $repository = $this->app->make(UserRepository::class);
-        /** @var User $cachedUser */
-        $cachedUser = $repository->find($user->id);
-        DB::table('cache')->get()->dump();
+        config()->set('cache.default', 'array');
 
-        $this->assertEquals($cachedUser->name, $repository->find($user->id)->name);
-        $this->assertEquals($cachedUser->name, $repository->find($user->id)->name);
-        $cachedUser->update(['name' => 'new name']);
-        $this->assertEquals($cachedUser->name, $repository->find($user->id)->name);
+        $model = UserFactory::new()->createOne();
+        $repository = $this->app->make(UserRepository::class);
+
+        DB::enableQueryLog();
+        $firstUser = $repository->find($model->id);
+        $this->assertCount(
+            1,
+            DB::getQueryLog(),
+            'The first call must query the database to store the result in cache.'
+        );
+
+        DB::flushQueryLog();
+        $secondUser = $repository->find($model->id);
+        $this->assertCount(
+            0,
+            DB::getQueryLog(),
+            'The second call should be served from cache without touching the database.'
+        );
+        $this->assertEquals($firstUser->toArray(), $secondUser->toArray());
+
+        $updatedName = 'new name';
+        $repository->update(['name' => $updatedName], $model->id);
+
+        DB::flushQueryLog();
+        $thirdUser = $repository->find($model->id);
+        $this->assertCount(
+            1,
+            DB::getQueryLog(),
+            'After update() the cache must be flushed, so a fresh DB query is expected.'
+        );
+        $this->assertEquals($updatedName, $thirdUser->name);
     }
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

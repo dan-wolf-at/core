@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -45,7 +47,7 @@ trait MiddlewaresLoaderTrait
 
     public function registerMiddlewarePriority(array $middlewarePriority = []): void
     {
-        foreach ($middlewarePriority as $key => $middleware) {
+        foreach ($middlewarePriority as $middleware) {
             if (!in_array($middleware, $this->app['router']->middlewarePriority)) {
                 $this->app['router']->middlewarePriority[] = $middleware;
             }
@@ -54,8 +56,8 @@ trait MiddlewaresLoaderTrait
 
     public function registerMiddlewareAliases(): void
     {
-        foreach ($this->getMiddlewareAliases() as $key => $value) {
-            $this->app['router']->aliasMiddleware($key, $value);
+        foreach ($this->getMiddlewareAliases() as $key => $middlewareAlias) {
+            $this->app['router']->aliasMiddleware($key, $middlewareAlias);
         }
     }
 

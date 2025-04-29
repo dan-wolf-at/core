@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -18,30 +20,36 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         ['model', null, InputOption::VALUE_OPTIONAL, 'The model to generate this Transformer for'],
         ['full', null, InputOption::VALUE_OPTIONAL, 'Generate a Transformer with all fields of the model'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:transformer';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Transformer class for a given Model';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Transformer';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/UI/API/Transformers/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -75,7 +83,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         ];
     }
 
-    private function getListOfAllAttributes($full, $model): string
+    private function getListOfAllAttributes($full, string $model): string
     {
         $indent = str_repeat(' ', 12);
         $_model = Str::lower($model);
@@ -104,7 +112,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
 
         $attributes = '';
         foreach ($fields as $key => $value) {
-            $attributes .= $indent . "'$key' => $value," . $this->getEndOfLine($key, $fields);
+            $attributes .= $indent . sprintf("'%s' => %s,", $key, $value) . $this->getEndOfLine($key, $fields);
         }
 
         return $attributes;

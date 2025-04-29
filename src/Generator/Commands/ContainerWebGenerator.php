@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -19,30 +21,36 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
         ['controllertype', null, InputOption::VALUE_OPTIONAL, 'The controller type (SAC, MAC)'],
         ['maincalled', false, InputOption::VALUE_NONE],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:container:web';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a Container for apiato from scratch (WEB Part)';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Container';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -299,11 +307,13 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
         return null;
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'composer';
     }
 
+    #[\Override]
     public function getDefaultFileExtension(): string
     {
         return 'json';

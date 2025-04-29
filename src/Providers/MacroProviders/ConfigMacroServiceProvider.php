@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Providers\MacroProviders;
 
 use Apiato\Core\Abstracts\Providers\MainServiceProvider as AbstractMainServiceProvider;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Tests\Unit\Traits;
 
 use Apiato\Core\Abstracts\Transformers\Transformer;
@@ -12,14 +14,19 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(ResponseTrait::class)]
-class ResponseTraitTest extends UnitTestCase
+final class ResponseTraitTest extends UnitTestCase
 {
-    private $trait;
+    private object $trait;
+
     private User $user;
+
     private Transformer $transformer;
+
     private array $customMetadata;
+
     private array $metadata;
 
+    #[\Override]
     public function setUp(): void
     {
         parent::setUp();
@@ -75,38 +82,28 @@ class ResponseTraitTest extends UnitTestCase
         $this->assertContains($include, $result['meta']['include']);
     }
 
-    public static function resourceKeyProvider(): array
+    public static function resourceKeyProvider(): \Iterator
     {
-        return [
-            'null' => [
-                'resourceKey' => null,
-                'expected' => 'User',
-            ],
-            'false' => [
-                'resourceKey' => false,
-                'expected' => 'User',
-            ],
-            'empty string' => [
-                'resourceKey' => '',
-                'expected' => 'User',
-            ],
-            'empty array' => [
-                'resourceKey' => [],
-                'expected' => 'User',
-            ],
-            //            'empty object' => [
-            //                'resourceKey' => new \stdClass(),
-            //                'expected' => 'User',
-            //            ],
-            //            'override resource key' => [
-            //                'resource key' => 'override-key',
-            //                'expected' => 'override-key',
-            //            ],
+        yield 'null' => [
+            null,
+            'User',
+        ];
+        yield 'false' => [
+            false,
+            'User',
+        ];
+        yield 'empty string' => [
+            '',
+            'User',
+        ];
+        yield 'empty array' => [
+            [],
+            'User',
         ];
     }
 
     #[DataProvider('resourceKeyProvider')]
-    public function testCanOverrideResourceKey($resourceKey, $expected): void
+    public function testCanOverrideResourceKey(bool|string|array|null $resourceKey, string $expected): void
     {
         $result = $this->trait
             ->withMeta($this->metadata)
@@ -127,6 +124,7 @@ class ResponseTraitTest extends UnitTestCase
             $this->assertArrayHasKey($key, $result['meta']);
             $this->assertEquals($value, $result['meta'][$key]);
         }
+
         $this->assertArrayHasKey('include', $result['meta']);
         $this->assertArrayHasKey('custom', $result['meta']);
         foreach ($this->customMetadata as $key => $value) {

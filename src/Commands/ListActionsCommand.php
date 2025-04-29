@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Commands;
 
 use Apiato\Core\Abstracts\Commands\ConsoleCommand;
@@ -9,6 +11,10 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class ListActionsCommand extends ConsoleCommand
 {
+    /**
+     * @var \Symfony\Component\Console\Output\ConsoleOutput
+     */
+    public $console;
     /**
      * The name and signature of the console command.
      */
@@ -30,17 +36,17 @@ class ListActionsCommand extends ConsoleCommand
     {
         foreach (Apiato::getSectionNames() as $sectionName) {
             foreach (Apiato::getSectionContainerNames($sectionName) as $containerName) {
-                $this->console->writeln("<fg=yellow> [$containerName]</fg=yellow>");
+                $this->console->writeln(sprintf('<fg=yellow> [%s]</fg=yellow>', $containerName));
 
                 $directory = base_path('app/Containers/' . $sectionName . '/' . $containerName . '/Actions');
 
                 if (File::isDirectory($directory)) {
                     $files = File::allFiles($directory);
 
-                    foreach ($files as $action) {
+                    foreach ($files as $file) {
                         // Get the file name as is
-                        $fileName = $originalFileName = $action->getFilename();
-
+                        $fileName = $file->getFilename();
+                        $originalFileName = $fileName;
                         // Remove the Action.php postfix from each file name
                         // Further, remove the `.php', if the file does not end on 'Action.php'
                         $fileName = str_replace(['Action.php', '.php'], '', $fileName);
@@ -51,10 +57,10 @@ class ListActionsCommand extends ConsoleCommand
                         // Check if flag exists
                         $includeFileName = '';
                         if ($this->option('withfilename')) {
-                            $includeFileName = "<fg=red>($originalFileName)</fg=red>";
+                            $includeFileName = sprintf('<fg=red>(%s)</fg=red>', $originalFileName);
                         }
 
-                        $this->console->writeln("<fg=green>  - $fileName</fg=green>  $includeFileName");
+                        $this->console->writeln(sprintf('<fg=green>  - %s</fg=green>  %s', $fileName, $includeFileName));
                     }
                 }
             }

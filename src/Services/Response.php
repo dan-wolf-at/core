@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Services;
 
 use Apiato\Core\Abstracts\Transformers\Transformer;
@@ -30,6 +32,7 @@ class Response extends Fractal
         return static::create()->manager->parseIncludes($requestedIncludes)->getRequestedIncludes();
     }
 
+    #[\Override]
     public function createData(): Scope
     {
         $this->withResourceName($this->defaultResourceName());
@@ -53,15 +56,15 @@ class Response extends Fractal
 
         $this->manager->setRecursionLimit($this->recursionLimit);
 
-        if (!empty($this->includes)) {
+        if ($this->includes !== []) {
             $this->manager->parseIncludes($this->includes);
         }
 
-        if (!empty($this->excludes)) {
+        if ($this->excludes !== []) {
             $this->manager->parseExcludes($this->excludes);
         }
 
-        if (!empty($this->fieldsets)) {
+        if ($this->fieldsets !== []) {
             $this->manager->parseFieldsets($this->fieldsets);
         }
 
@@ -122,6 +125,7 @@ class Response extends Fractal
         return $this->respond(202);
     }
 
+    #[\Override]
     public function getTransformer(): string|callable|TransformerAbstract|null
     {
         return $this->transformer;

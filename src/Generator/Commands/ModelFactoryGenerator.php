@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -16,30 +18,36 @@ class ModelFactoryGenerator extends GeneratorCommand implements ComponentsGenera
     public array $inputs = [
         ['model', null, InputOption::VALUE_OPTIONAL, 'The model to generate this Factory for'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:factory';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Model Factory class for a given Model';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Factory';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Data/Factories/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */

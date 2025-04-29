@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Tests\Infrastructure\Doubles;
 
 use Orchestra\Testbench\Factories\UserFactory as TestbenchUserFactory;
@@ -18,7 +20,7 @@ class UserFactory extends TestbenchUserFactory
 
     public function withParent(): static
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function (array $attributes): array {
             return [
                 'parent_id' => static::new()->createOne()->id,
             ];
@@ -27,7 +29,7 @@ class UserFactory extends TestbenchUserFactory
 
     public function withChildren(int $count = 1): static
     {
-        return $this->afterCreating(function (User $user) use ($count) {
+        return $this->afterCreating(function (User $user) use ($count): void {
             static::new()->count($count)->create([
                 'parent_id' => $user->id,
             ]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -20,30 +22,36 @@ class ContainerGenerator extends GeneratorCommand implements ComponentsGenerator
         ['register-listeners', null, InputOption::VALUE_OPTIONAL, 'Register the Event Listeners in the EventServiceProvider?'],
         ['tests', null, InputOption::VALUE_OPTIONAL, 'Generate Tests for this Container?'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:container';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a Container for apiato from scratch';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Container';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -61,6 +69,7 @@ class ContainerGenerator extends GeneratorCommand implements ComponentsGenerator
                 $registerListeners = $this->checkParameterOrConfirm('register-listeners', 'Do you want the Event Listeners to be registered in the EventServiceProvider?', true);
             }
         }
+
         $generateTests = $this->checkParameterOrConfirm('tests', 'Do you want to generate the corresponding Tests for this Container?', true);
         if ($generateTests) {
             $this->call('apiato:generate:test:testcase', [
@@ -157,11 +166,13 @@ class ContainerGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * Get the default file name for this component to be generated.
      */
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'composer';
     }
 
+    #[\Override]
     public function getDefaultFileExtension(): string
     {
         return 'json';

@@ -18,6 +18,7 @@ storage/logs/laravel.log
 _ide_helper*.php
 .phpstorm.meta.php
 /.vagrant
+/.fleet
 /.idea
 /.vscode
 html-coverage
@@ -30,3 +31,8 @@ aliases
 .DS_Store
 /.ddev/*
 !/.ddev/config.yaml
+
+# Docker
+docker/nginx/logs
+make/configs/options.local.mk
+/docker-compose.yml

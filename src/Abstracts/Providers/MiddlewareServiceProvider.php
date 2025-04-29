@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Providers;
 
 use Apiato\Core\Loaders\MiddlewaresLoaderTrait;
@@ -59,6 +61,7 @@ abstract class MiddlewareServiceProvider extends MainServiceProvider
     /**
      * Register anything in the container.
      */
+    #[\Override]
     public function register(): void
     {
     }

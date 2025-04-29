@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Repositories;
 
 use Apiato\Core\Traits\CanEagerLoadTrait;
@@ -26,7 +28,8 @@ abstract class Repository extends BaseRepository implements CacheableInterface
 
     protected bool|null $allowDisablePagination = null;
 
-    public function boot()
+    #[\Override]
+    public function boot(): void
     {
         parent::boot();
 
@@ -93,10 +96,10 @@ abstract class Repository extends BaseRepository implements CacheableInterface
      * The client can request all data (skipping pagination) by applying ?limit=0 to the request, if
      * skipping pagination is allowed.
      *
-     * @param null $limit
      * @param array $columns
      * @param string $method
      */
+    #[\Override]
     public function paginate($limit = null, $columns = ['*'], $method = 'paginate'): mixed
     {
         $limit = $this->setPaginationLimit($limit);
@@ -150,7 +153,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
         return $this;
     }
 
-    public function removeRequestCriteria(): static
+    public function removeRequestCriteria($repository = null): static
     {
         $this->popCriteria(RequestCriteria::class);
 

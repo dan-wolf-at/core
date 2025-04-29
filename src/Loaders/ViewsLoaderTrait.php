@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Illuminate\Support\Facades\File;
@@ -7,7 +9,7 @@ use Illuminate\Support\Str;
 
 trait ViewsLoaderTrait
 {
-    public function loadViewsFromContainers($containerPath): void
+    public function loadViewsFromContainers(string $containerPath): void
     {
         $containerViewDirectory = $containerPath . '/UI/WEB/Views/';
         $containerMailTemplatesDirectory = $containerPath . '/Mails/Templates/';
@@ -29,7 +31,7 @@ trait ViewsLoaderTrait
 
     private function buildViewNamespace(string|null $sectionName, string $containerName): string
     {
-        return $sectionName ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
+        return $sectionName !== null && $sectionName !== '' && $sectionName !== '0' ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
     }
 
     public function loadViewsFromShip(): void

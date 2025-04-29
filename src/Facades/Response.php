@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Facades;
 
 use Illuminate\Http\JsonResponse;

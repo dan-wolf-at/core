@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Actions;
 
 use Apiato\Core\Traits\HasRequestCriteriaTrait;
