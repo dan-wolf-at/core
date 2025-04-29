@@ -15,6 +15,7 @@ class ListTasksCommand extends ConsoleCommand
      * @var \Symfony\Component\Console\Output\ConsoleOutput
      */
     public $console;
+
     /**
      * The name and signature of the console command.
      */

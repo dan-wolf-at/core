@@ -84,13 +84,13 @@ final class RepositoryTest extends UnitTestCase
         $result = $repository->all();
 
         $result->each(function (User $user) use ($userMustLoadRelations, $booksMustLoadRelations, $mustNotLoadRelations): void {
-            foreach ($userMustLoadRelations as $relation) {
-                $this->assertTrue($user->relationLoaded($relation));
+            foreach ($userMustLoadRelations as $userMustLoadRelation) {
+                $this->assertTrue($user->relationLoaded($userMustLoadRelation));
             }
 
-            foreach ($booksMustLoadRelations as $relation) {
-                $user->books->each(function (Book $book) use ($relation): void {
-                    $this->assertTrue($book->relationLoaded($relation));
+            foreach ($booksMustLoadRelations as $bookMustLoadRelation) {
+                $user->books->each(function (Book $book) use ($bookMustLoadRelation): void {
+                    $this->assertTrue($book->relationLoaded($bookMustLoadRelation));
                 });
             }
 

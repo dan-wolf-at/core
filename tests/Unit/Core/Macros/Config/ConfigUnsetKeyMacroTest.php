@@ -13,6 +13,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(Response::class)]
 final class ConfigUnsetKeyMacroTest extends UnitTestCase
 {
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
