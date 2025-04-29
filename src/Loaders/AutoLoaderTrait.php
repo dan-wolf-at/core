@@ -8,10 +8,9 @@ use Apiato\Core\Foundation\Facades\Apiato;
 
 trait AutoLoaderTrait
 {
+    // Using each component loader trait
     use AliasesLoaderTrait;
     use CommandsLoaderTrait;
-
-    // Using each component loader trait
     use ConfigsLoaderTrait;
     use HelpersLoaderTrait;
     use LocalizationLoaderTrait;
