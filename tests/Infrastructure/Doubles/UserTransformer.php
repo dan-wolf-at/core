@@ -22,10 +22,10 @@ class UserTransformer extends Transformer
     public function transform(User $user): array
     {
         return [
-            'object' => $user->getResourceKey(),
-            'id' => $user->getHashedKey(),
-            'name' => $user->name,
-            'email' => $user->email,
+            'object'     => $user->getResourceKey(),
+            'id'         => $user->getHashedKey(),
+            'name'       => $user->name,
+            'email'      => $user->email,
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at,
         ];

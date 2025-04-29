@@ -42,17 +42,19 @@ trait CanOwnTrait
     public function owns(Model $ownable, null|string $relation = null): bool
     {
         if ($relation !== null && $relation !== '' && $relation !== '0') {
-            return $this->$relation()->find($ownable) !== null;
+            return $this->{$relation}()->find($ownable) !== null;
         }
 
         $relation = $this->guessSingularRelationshipName($ownable);
+
         if (method_exists($this, $relation)) {
-            return $this->$relation()->find($ownable) !== null;
+            return $this->{$relation}()->find($ownable) !== null;
         }
 
         $relation = $this->guessPluralRelationshipName($ownable);
+
         if (method_exists($this, $relation)) {
-            return $this->$relation()->find($ownable) !== null;
+            return $this->{$relation}()->find($ownable) !== null;
         }
 
         throw new CoreInternalErrorException('No relationship found. Please pass the relationship name as the second parameter.');

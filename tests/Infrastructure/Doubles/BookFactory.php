@@ -21,7 +21,7 @@ class BookFactory extends CoreFactory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence,
+            'title'     => fake()->sentence,
             'author_id' => UserFactory::new(),
         ];
     }

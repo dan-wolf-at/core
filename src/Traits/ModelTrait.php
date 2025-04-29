@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 trait ModelTrait
 {
-    use HashIdTrait;
     use CanOwnTrait;
-    use HashedRouteBindingTrait;
-    use HasResourceKeyTrait;
-    use HasFactory, FactoryLocatorTrait {
+    use FactoryLocatorTrait, HasFactory {
         FactoryLocatorTrait::newFactory insteadof HasFactory;
     }
+    use HashedRouteBindingTrait;
+    use HashIdTrait;
+    use HasResourceKeyTrait;
 }

@@ -26,7 +26,7 @@ trait ValidationTrait
         Validator::extend('unique_composite', static function ($attribute, $value, $parameters, $validator) {
             $queryBuilder = DB::table($parameters[0]);
 
-            $queryBuilder = is_array($value) ? $queryBuilder->whereIn($parameters[1], $value) : $queryBuilder->where($parameters[1], $value);
+            $queryBuilder = \is_array($value) ? $queryBuilder->whereIn($parameters[1], $value) : $queryBuilder->where($parameters[1], $value);
 
             $queryBuilder->where($parameters[2], $validator->getData()[$parameters[2]]);
 

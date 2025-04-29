@@ -16,7 +16,7 @@ trait ViewsLoaderTrait
 
         $containerName = basename($containerPath);
         $pathParts = explode(DIRECTORY_SEPARATOR, $containerPath);
-        $sectionName = $pathParts[count($pathParts) - 2];
+        $sectionName = $pathParts[\count($pathParts) - 2];
 
         $this->loadViews($containerViewDirectory, $containerName, $sectionName);
         $this->loadViews($containerMailTemplatesDirectory, $containerName, $sectionName);

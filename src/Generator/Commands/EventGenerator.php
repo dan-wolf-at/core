@@ -59,14 +59,16 @@ class EventGenerator extends GeneratorCommand implements ComponentsGenerator
     {
         $model = $this->checkParameterOrAsk('model', 'Enter the name of the Model to generate this Event for', Str::ucfirst($this->containerName));
         $listener = $this->option('listener');
-        if (is_null($listener)) {
+
+        if (\is_null($listener)) {
             $listener = $this->checkParameterOrConfirm('listener', 'Do you want to generate a Listener for this Event?', false);
+
             if ($listener) {
                 $this->call('apiato:generate:listener', [
-                    '--section' => $this->sectionName,
+                    '--section'   => $this->sectionName,
                     '--container' => $this->containerName,
-                    '--file' => $this->fileName . 'Listener',
-                    '--event' => $this->fileName,
+                    '--file'      => $this->fileName . 'Listener',
+                    '--event'     => $this->fileName,
                 ]);
             }
         }
@@ -77,17 +79,17 @@ class EventGenerator extends GeneratorCommand implements ComponentsGenerator
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
+                '_section-name'   => Str::lower($this->sectionName),
+                'section-name'    => $this->sectionName,
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $model,
-                '_model' => Str::lower($model),
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'model'           => $model,
+                '_model'          => Str::lower($model),
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,

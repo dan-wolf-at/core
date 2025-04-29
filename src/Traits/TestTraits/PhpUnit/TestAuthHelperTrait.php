@@ -24,7 +24,7 @@ trait TestAuthHelperTrait
      */
     protected array $access = [
         'permissions' => null,
-        'roles' => null,
+        'roles'       => null,
     ];
 
     /**
@@ -56,9 +56,9 @@ trait TestAuthHelperTrait
      * `$access` property. But the $access parameter can be used to override the
      * defined roles and permissions in the `$access` property of your class.
      *
-     * @param array|null $userDetails what to be attached on the User object
-     * @param array|null $access roles and permissions you'd like to provide this user with
-     * @param bool $createUserAsAdmin should create testing user as admin
+     * @param array|null $userDetails       what to be attached on the User object
+     * @param array|null $access            roles and permissions you'd like to provide this user with
+     * @param bool       $createUserAsAdmin should create testing user as admin
      */
     public function getTestingUser(null|array $userDetails = null, null|array $access = null, bool $createUserAsAdmin = false): UserModel
     {
@@ -71,7 +71,7 @@ trait TestAuthHelperTrait
 
         $this->userAdminState = config('apiato.tests.user-admin-state');
 
-        if (is_null($userDetails)) {
+        if (\is_null($userDetails)) {
             return $this->findOrCreateTestingUser($userDetails, $access);
         }
 
@@ -101,10 +101,11 @@ trait TestAuthHelperTrait
     private function factoryCreateUser(null|array $userDetails = null): UserModel
     {
         $user = str_replace('::class', '', $this->userClass);
+
         if ($this->createUserAsAdmin) {
             $state = $this->userAdminState;
 
-            return $user::factory()->$state()->create($this->prepareUserDetails($userDetails));
+            return $user::factory()->{$state}()->create($this->prepareUserDetails($userDetails));
         }
 
         return $user::factory()->create($this->prepareUserDetails($userDetails));
@@ -113,8 +114,8 @@ trait TestAuthHelperTrait
     private function prepareUserDetails(null|array $userDetails = null): array
     {
         $defaultUserDetails = [
-            'name' => fake()->name,
-            'email' => fake()->email,
+            'name'     => fake()->name,
+            'email'    => fake()->email,
             'password' => 'testing-password',
         ];
 
@@ -171,7 +172,7 @@ trait TestAuthHelperTrait
     {
         return [
             'permissions' => null,
-            'roles' => null,
+            'roles'       => null,
         ];
     }
 }

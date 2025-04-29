@@ -58,6 +58,7 @@ class TestCaseGenerator extends GeneratorCommand implements ComponentsGenerator
         $type = Str::lower($this->checkParameterOrChoice('type', 'Select the TestCase type', ['Container', 'Unit', 'Functional', 'E2E', 'API', 'CLI', 'WEB'], 0));
 
         $this->stubName = 'tests/testcase/' . $type . '.stub';
+
         if ($type === 'e2e') {
             $this->fileName = Str::upper($type) . $this->fileName;
         } else {
@@ -74,15 +75,15 @@ class TestCaseGenerator extends GeneratorCommand implements ComponentsGenerator
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
+                '_section-name'   => Str::lower($this->sectionName),
+                'section-name'    => $this->sectionName,
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,

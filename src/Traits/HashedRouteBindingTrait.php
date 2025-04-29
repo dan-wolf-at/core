@@ -15,7 +15,7 @@ trait HashedRouteBindingTrait
      * Retrieve the model for a bound value.
      *
      * @param Model|Relation $query
-     * @param string|null $field
+     * @param string|null    $field
      *
      * @throws IncorrectIdException
      */
@@ -23,7 +23,8 @@ trait HashedRouteBindingTrait
     {
         if (config('apiato.hash-id')) {
             $decodingResult = $this->decode($value);
-            if (is_null($decodingResult)) {
+
+            if (\is_null($decodingResult)) {
                 throw new IncorrectIdException();
             }
 
@@ -36,6 +37,7 @@ trait HashedRouteBindingTrait
     protected function childRouteBindingRelationshipName($childType): string
     {
         $relationship = Str::camel($childType);
+
         if (!method_exists($this, $relationship)) {
             return Str::plural($relationship);
         }

@@ -8,7 +8,6 @@ use Apiato\Core\Services\Response;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Illuminate\Support\Stringable;
 
 /**
  * @internal
@@ -32,6 +31,7 @@ trait CanEagerLoadTrait
                 foreach (Response::getRequestedIncludes() as $includeName) {
                     $relationParts = explode('.', $includeName);
                     $camelCasedIncludeName = $this->filterInvalidRelations($this->model, $relationParts);
+
                     if ($camelCasedIncludeName) {
                         $validIncludes[] = $camelCasedIncludeName;
                     }
@@ -58,7 +58,7 @@ trait CanEagerLoadTrait
             return null;
         }
 
-        $nextModel = $model->$relation()->getRelated();
+        $nextModel = $model->{$relation}()->getRelated();
 
         if ($relationParts === []) {
             return $relation;
@@ -66,7 +66,7 @@ trait CanEagerLoadTrait
 
         $nextRelation = $this->filterInvalidRelations($nextModel, $relationParts);
 
-        if (is_null($nextRelation)) {
+        if (\is_null($nextRelation)) {
             return null;
         }
 

@@ -65,7 +65,7 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
         $exists = false;
 
         $folder = $this->parsePathStructure($this->pathStructure, [
-            'section-name' => $this->sectionName,
+            'section-name'   => $this->sectionName,
             'container-name' => $this->containerName,
         ]);
         $folder = $this->getFilePath($folder);
@@ -88,19 +88,19 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
+                '_section-name'   => Str::lower($this->sectionName),
+                'section-name'    => $this->sectionName,
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => Str::studly($this->fileName),
-                'table-name' => $tableName,
+                'container-name'  => $this->containerName,
+                'class-name'      => Str::studly($this->fileName),
+                'table-name'      => $tableName,
             ],
             'file-parameters' => [
-                'date' => Carbon::now()->format('Y_m_d_His'),
+                'date'      => Carbon::now()->format('Y_m_d_His'),
                 'file-name' => $this->fileName,
             ],
         ];

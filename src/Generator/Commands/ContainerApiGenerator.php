@@ -77,49 +77,49 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
 
         $this->printInfoMessage('Generating README File');
         $this->call('apiato:generate:readme', [
-            '--section' => $sectionName,
+            '--section'   => $sectionName,
             '--container' => $containerName,
-            '--file' => 'README',
+            '--file'      => 'README',
         ]);
 
         $this->printInfoMessage('Generating Configuration File');
         $this->call('apiato:generate:configuration', [
-            '--section' => $sectionName,
+            '--section'   => $sectionName,
             '--container' => $containerName,
-            '--file' => Str::camel($this->sectionName) . '-' . Str::camel($this->containerName),
+            '--file'      => Str::camel($this->sectionName) . '-' . Str::camel($this->containerName),
         ]);
 
         $this->printInfoMessage('Generating Model and Repository');
         $this->call('apiato:generate:model', [
-            '--section' => $sectionName,
-            '--container' => $containerName,
-            '--file' => $model,
+            '--section'    => $sectionName,
+            '--container'  => $containerName,
+            '--file'       => $model,
             '--repository' => true,
         ]);
 
         $this->printInfoMessage('Generating a basic Migration file');
         $this->call('apiato:generate:migration', [
-            '--section' => $sectionName,
+            '--section'   => $sectionName,
             '--container' => $containerName,
-            '--file' => 'create_' . Str::snake($models) . '_table',
+            '--file'      => 'create_' . Str::snake($models) . '_table',
             '--tablename' => Str::snake($models),
         ]);
 
         $this->printInfoMessage('Generating Transformer for the Model');
         $this->call('apiato:generate:transformer', [
-            '--section' => $sectionName,
+            '--section'   => $sectionName,
             '--container' => $containerName,
-            '--file' => $containerName . 'Transformer',
-            '--model' => $model,
-            '--full' => false,
+            '--file'      => $containerName . 'Transformer',
+            '--model'     => $model,
+            '--full'      => false,
         ]);
 
         $this->printInfoMessage('Generating Factory for the Model');
         $this->call('apiato:generate:factory', [
-            '--section' => $sectionName,
+            '--section'   => $sectionName,
             '--container' => $containerName,
-            '--file' => $containerName . 'Factory',
-            '--model' => $model,
+            '--file'      => $containerName . 'Factory',
+            '--model'     => $model,
         ]);
 
         $this->printInfoMessage('Generating Default Routes');
@@ -135,8 +135,10 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         $generateEvents = $this->checkParameterOrConfirm('events', 'Do you want to generate the corresponding CRUD Events for this Container?', false);
         $generateListeners = false;
         $registerListeners = false;
+
         if ($generateEvents) {
             $generateListeners = $this->checkParameterOrConfirm('listeners', 'Do you want to generate the corresponding Event Listeners for this Events?', false);
+
             if ($generateListeners) {
                 $registerListeners = $this->checkParameterOrConfirm('register-listeners', 'Do you want the Event Listeners to be registered in the EventServiceProvider?', true);
             }
@@ -154,224 +156,224 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         $events = [];
         $routes = [
             [
-                'stub' => 'List',
-                'name' => 'List' . $models,
+                'stub'      => 'List',
+                'name'      => 'List' . $models,
                 'operation' => 'list',
-                'verb' => 'GET',
-                'url' => $url,
-                'action' => 'List' . $models . 'Action',
-                'request' => 'List' . $models . 'Request',
-                'task' => 'List' . $models . 'Task',
-                'unittest' => [
+                'verb'      => 'GET',
+                'url'       => $url,
+                'action'    => 'List' . $models . 'Action',
+                'request'   => 'List' . $models . 'Request',
+                'task'      => 'List' . $models . 'Task',
+                'unittest'  => [
                     'task' => [
                         'stubfoldername' => 'tasks',
-                        'foldername' => 'Tasks',
-                        'filename' => 'List' . $models . 'TaskTest',
+                        'foldername'     => 'Tasks',
+                        'filename'       => 'List' . $models . 'TaskTest',
                     ],
                 ],
                 'functionaltest' => 'List' . $models . 'Test',
-                'event' => $models . 'Listed',
-                'controller' => 'List' . $models . 'Controller',
+                'event'          => $models . 'Listed',
+                'controller'     => 'List' . $models . 'Controller',
             ],
             [
-                'stub' => 'Find',
-                'name' => 'Find' . $model . 'ById',
+                'stub'      => 'Find',
+                'name'      => 'Find' . $model . 'ById',
                 'operation' => 'findById',
-                'verb' => 'GET',
-                'url' => $url . '/{id}',
-                'action' => 'Find' . $model . 'ByIdAction',
-                'request' => 'Find' . $model . 'ByIdRequest',
-                'task' => 'Find' . $model . 'ByIdTask',
-                'unittest' => [
+                'verb'      => 'GET',
+                'url'       => $url . '/{id}',
+                'action'    => 'Find' . $model . 'ByIdAction',
+                'request'   => 'Find' . $model . 'ByIdRequest',
+                'task'      => 'Find' . $model . 'ByIdTask',
+                'unittest'  => [
                     'task' => [
                         'stubfoldername' => 'tasks',
-                        'foldername' => 'Tasks',
-                        'filename' => 'Find' . $model . 'ByIdTaskTest',
+                        'foldername'     => 'Tasks',
+                        'filename'       => 'Find' . $model . 'ByIdTaskTest',
                     ],
                 ],
                 'functionaltest' => 'Find' . $model . 'ByIdTest',
-                'event' => $model . 'Requested',
-                'controller' => 'Find' . $model . 'ByIdController',
+                'event'          => $model . 'Requested',
+                'controller'     => 'Find' . $model . 'ByIdController',
             ],
             [
-                'stub' => 'Create',
-                'name' => 'Create' . $model,
+                'stub'      => 'Create',
+                'name'      => 'Create' . $model,
                 'operation' => 'create',
-                'verb' => 'POST',
-                'url' => $url,
-                'action' => 'Create' . $model . 'Action',
-                'request' => 'Create' . $model . 'Request',
-                'task' => 'Create' . $model . 'Task',
-                'unittest' => [
+                'verb'      => 'POST',
+                'url'       => $url,
+                'action'    => 'Create' . $model . 'Action',
+                'request'   => 'Create' . $model . 'Request',
+                'task'      => 'Create' . $model . 'Task',
+                'unittest'  => [
                     'task' => [
                         'stubfoldername' => 'tasks',
-                        'foldername' => 'Tasks',
-                        'filename' => 'Create' . $model . 'TaskTest',
+                        'foldername'     => 'Tasks',
+                        'filename'       => 'Create' . $model . 'TaskTest',
                     ],
                 ],
                 'functionaltest' => 'Create' . $model . 'Test',
-                'event' => $model . 'Created',
-                'controller' => 'Create' . $model . 'Controller',
+                'event'          => $model . 'Created',
+                'controller'     => 'Create' . $model . 'Controller',
             ],
             [
-                'stub' => 'Update',
-                'name' => 'Update' . $model,
+                'stub'      => 'Update',
+                'name'      => 'Update' . $model,
                 'operation' => 'update',
-                'verb' => 'PATCH',
-                'url' => $url . '/{id}',
-                'action' => 'Update' . $model . 'Action',
-                'request' => 'Update' . $model . 'Request',
-                'task' => 'Update' . $model . 'Task',
-                'unittest' => [
+                'verb'      => 'PATCH',
+                'url'       => $url . '/{id}',
+                'action'    => 'Update' . $model . 'Action',
+                'request'   => 'Update' . $model . 'Request',
+                'task'      => 'Update' . $model . 'Task',
+                'unittest'  => [
                     'task' => [
                         'stubfoldername' => 'tasks',
-                        'foldername' => 'Tasks',
-                        'filename' => 'Update' . $model . 'TaskTest',
+                        'foldername'     => 'Tasks',
+                        'filename'       => 'Update' . $model . 'TaskTest',
                     ],
                 ],
                 'functionaltest' => 'Update' . $model . 'Test',
-                'event' => $model . 'Updated',
-                'controller' => 'Update' . $model . 'Controller',
+                'event'          => $model . 'Updated',
+                'controller'     => 'Update' . $model . 'Controller',
             ],
             [
-                'stub' => 'Delete',
-                'name' => 'Delete' . $model,
+                'stub'      => 'Delete',
+                'name'      => 'Delete' . $model,
                 'operation' => 'delete',
-                'verb' => 'DELETE',
-                'url' => $url . '/{id}',
-                'action' => 'Delete' . $model . 'Action',
-                'request' => 'Delete' . $model . 'Request',
-                'task' => 'Delete' . $model . 'Task',
-                'unittest' => [
+                'verb'      => 'DELETE',
+                'url'       => $url . '/{id}',
+                'action'    => 'Delete' . $model . 'Action',
+                'request'   => 'Delete' . $model . 'Request',
+                'task'      => 'Delete' . $model . 'Task',
+                'unittest'  => [
                     'task' => [
                         'stubfoldername' => 'tasks',
-                        'foldername' => 'Tasks',
-                        'filename' => 'Delete' . $model . 'TaskTest',
+                        'foldername'     => 'Tasks',
+                        'filename'       => 'Delete' . $model . 'TaskTest',
                     ],
                 ],
                 'functionaltest' => 'Delete' . $model . 'Test',
-                'event' => $model . 'Deleted',
-                'controller' => 'Delete' . $model . 'Controller',
+                'event'          => $model . 'Deleted',
+                'controller'     => 'Delete' . $model . 'Controller',
             ],
         ];
 
         foreach ($routes as $route) {
             $this->call('apiato:generate:request', [
-                '--section' => $sectionName,
+                '--section'   => $sectionName,
                 '--container' => $containerName,
-                '--file' => $route['request'],
-                '--ui' => $ui,
-                '--stub' => $route['stub'],
+                '--file'      => $route['request'],
+                '--ui'        => $ui,
+                '--stub'      => $route['stub'],
             ]);
 
             $this->call('apiato:generate:action', [
-                '--section' => $sectionName,
+                '--section'   => $sectionName,
                 '--container' => $containerName,
-                '--file' => $route['action'],
-                '--ui' => $ui,
-                '--model' => $model,
-                '--stub' => $route['stub'],
+                '--file'      => $route['action'],
+                '--ui'        => $ui,
+                '--model'     => $model,
+                '--stub'      => $route['stub'],
             ]);
 
             $this->call('apiato:generate:task', [
-                '--section' => $sectionName,
+                '--section'   => $sectionName,
                 '--container' => $containerName,
-                '--file' => $route['task'],
-                '--model' => $model,
-                '--stub' => $route['stub'],
-                '--event' => $generateEvents ? $route['event'] : false,
+                '--file'      => $route['task'],
+                '--model'     => $model,
+                '--stub'      => $route['stub'],
+                '--event'     => $generateEvents ? $route['event'] : false,
             ]);
 
             if ($generateEvents) {
                 $this->call('apiato:generate:event', [
-                    '--section' => $sectionName,
+                    '--section'   => $sectionName,
                     '--container' => $containerName,
-                    '--file' => $route['event'],
-                    '--model' => $model,
-                    '--stub' => $route['stub'],
-                    '--listener' => false,
+                    '--file'      => $route['event'],
+                    '--model'     => $model,
+                    '--stub'      => $route['stub'],
+                    '--listener'  => false,
                 ]);
                 $events[] = $route['event'];
             }
 
             if ($generateTests) {
                 $this->call('apiato:generate:test:unit', [
-                    '--section' => $sectionName,
-                    '--container' => $containerName,
-                    '--file' => $route['unittest']['task']['filename'],
+                    '--section'        => $sectionName,
+                    '--container'      => $containerName,
+                    '--file'           => $route['unittest']['task']['filename'],
                     '--stubfoldername' => $route['unittest']['task']['stubfoldername'],
-                    '--foldername' => $route['unittest']['task']['foldername'],
-                    '--model' => $model,
-                    '--stub' => $route['stub'],
-                    '--event' => $generateEvents ? $route['event'] : false,
+                    '--foldername'     => $route['unittest']['task']['foldername'],
+                    '--model'          => $model,
+                    '--stub'           => $route['stub'],
+                    '--event'          => $generateEvents ? $route['event'] : false,
                 ]);
 
                 $this->call('apiato:generate:test:unit', [
-                    '--section' => $sectionName,
-                    '--container' => $containerName,
-                    '--file' => $model . 'FactoryTest',
+                    '--section'    => $sectionName,
+                    '--container'  => $containerName,
+                    '--file'       => $model . 'FactoryTest',
                     '--foldername' => 'Factories',
-                    '--model' => $model,
-                    '--stub' => 'factory',
-                    '--event' => false,
+                    '--model'      => $model,
+                    '--stub'       => 'factory',
+                    '--event'      => false,
                 ]);
 
                 $this->call('apiato:generate:test:unit', [
-                    '--section' => $sectionName,
-                    '--container' => $containerName,
-                    '--file' => $models . 'MigrationTest',
+                    '--section'        => $sectionName,
+                    '--container'      => $containerName,
+                    '--file'           => $models . 'MigrationTest',
                     '--stubfoldername' => 'data',
-                    '--foldername' => 'Data/Migrations',
-                    '--model' => $model,
-                    '--stub' => 'migration',
-                    '--event' => false,
-                    '--tablename' => Str::snake(Pluralizer::plural($containerName)),
+                    '--foldername'     => 'Data/Migrations',
+                    '--model'          => $model,
+                    '--stub'           => 'migration',
+                    '--event'          => false,
+                    '--tablename'      => Str::snake(Pluralizer::plural($containerName)),
                 ]);
 
                 $this->call('apiato:generate:test:functional', [
-                    '--section' => $sectionName,
+                    '--section'   => $sectionName,
                     '--container' => $containerName,
-                    '--file' => $route['functionaltest'],
-                    '--model' => $model,
-                    '--ui' => $ui,
-                    '--stub' => $route['stub'],
-                    '--url' => $route['url'],
+                    '--file'      => $route['functionaltest'],
+                    '--model'     => $model,
+                    '--ui'        => $ui,
+                    '--stub'      => $route['stub'],
+                    '--url'       => $route['url'],
                 ]);
             }
 
             if ($controllertype === 'sac') {
                 $this->call('apiato:generate:route', [
-                    '--section' => $sectionName,
-                    '--container' => $containerName,
-                    '--file' => $route['name'],
-                    '--ui' => $ui,
-                    '--operation' => '__invoke',
-                    '--doctype' => $doctype,
+                    '--section'    => $sectionName,
+                    '--container'  => $containerName,
+                    '--file'       => $route['name'],
+                    '--ui'         => $ui,
+                    '--operation'  => '__invoke',
+                    '--doctype'    => $doctype,
                     '--docversion' => $version,
-                    '--url' => $route['url'],
-                    '--verb' => $route['verb'],
+                    '--url'        => $route['url'],
+                    '--verb'       => $route['verb'],
                     '--controller' => $route['controller'],
                 ]);
 
                 $this->call('apiato:generate:controller', [
-                    '--section' => $sectionName,
+                    '--section'   => $sectionName,
                     '--container' => $containerName,
-                    '--file' => $route['controller'],
-                    '--model' => $model,
-                    '--ui' => $ui,
-                    '--stub' => $route['stub'],
+                    '--file'      => $route['controller'],
+                    '--model'     => $model,
+                    '--ui'        => $ui,
+                    '--stub'      => $route['stub'],
                 ]);
             } else {
                 $this->call('apiato:generate:route', [
-                    '--section' => $sectionName,
-                    '--container' => $containerName,
-                    '--file' => $route['name'],
-                    '--ui' => $ui,
-                    '--operation' => $route['operation'],
-                    '--doctype' => $doctype,
+                    '--section'    => $sectionName,
+                    '--container'  => $containerName,
+                    '--file'       => $route['name'],
+                    '--ui'         => $ui,
+                    '--operation'  => $route['operation'],
+                    '--doctype'    => $doctype,
                     '--docversion' => $version,
-                    '--url' => $route['url'],
-                    '--verb' => $route['verb'],
+                    '--url'        => $route['url'],
+                    '--verb'       => $route['verb'],
                     '--controller' => 'Controller',
                 ]);
             }
@@ -380,74 +382,76 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         if ($controllertype === 'mac') {
             $this->printInfoMessage('Generating Controller to wire everything together');
             $this->call('apiato:generate:controller', [
-                '--section' => $sectionName,
+                '--section'   => $sectionName,
                 '--container' => $containerName,
-                '--model' => $model,
-                '--file' => 'Controller',
-                '--ui' => $ui,
-                '--stub' => 'crud',
+                '--model'     => $model,
+                '--file'      => 'Controller',
+                '--ui'        => $ui,
+                '--stub'      => 'crud',
             ]);
         }
 
         if ($generateEvents) {
             $listeners = [];
+
             if ($generateListeners) {
                 $this->printInfoMessage('Generating Event Listeners');
                 foreach ($events as $event) {
                     $listener = $event . 'Listener';
                     $listeners[$listener] = [$event];
                     $this->call('apiato:generate:listener', [
-                        '--section' => $this->sectionName,
+                        '--section'   => $this->sectionName,
                         '--container' => $this->containerName,
-                        '--file' => $listener,
-                        '--event' => $event,
+                        '--file'      => $listener,
+                        '--event'     => $event,
                     ]);
                 }
             }
 
             $stub = 'generic-event-service-provider';
+
             if ($generateListeners && $registerListeners) {
                 $stub = 'event-service-provider-with-listener';
             }
 
             $this->printInfoMessage('Generating EventServiceProvider');
             $this->call('apiato:generate:provider', [
-                '--section' => $sectionName,
-                '--container' => $containerName,
-                '--file' => 'EventServiceProvider',
-                '--stub' => $stub,
+                '--section'         => $sectionName,
+                '--container'       => $containerName,
+                '--file'            => 'EventServiceProvider',
+                '--stub'            => $stub,
                 '--event-listeners' => $listeners,
             ]);
 
             $this->printInfoMessage('Generating MainServiceProvider');
             $this->call('apiato:generate:provider', [
-                '--section' => $sectionName,
-                '--container' => $containerName,
-                '--file' => 'MainServiceProvider',
-                '--stub' => 'main-service-provider-with-event-provider',
+                '--section'                => $sectionName,
+                '--container'              => $containerName,
+                '--file'                   => 'MainServiceProvider',
+                '--stub'                   => 'main-service-provider-with-event-provider',
                 '--event-service-provider' => 'EventServiceProvider',
             ]);
         } else {
             $this->printInfoMessage('Generating MainServiceProvider');
             $this->call('apiato:generate:provider', [
-                '--section' => $sectionName,
+                '--section'   => $sectionName,
                 '--container' => $containerName,
-                '--file' => 'MainServiceProvider',
-                '--stub' => 'main-service-provider',
+                '--file'      => 'MainServiceProvider',
+                '--stub'      => 'main-service-provider',
             ]);
         }
 
         $generateComposerFile = [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => $_sectionName,
-                'section-name' => $this->sectionName,
+                '_section-name'   => $_sectionName,
+                'section-name'    => $this->sectionName,
                 '_container-name' => $_containerName,
-                'container-name' => $containerName,
-                'class-name' => $this->fileName,
+                'container-name'  => $containerName,
+                'class-name'      => $this->fileName,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,

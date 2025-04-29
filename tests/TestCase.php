@@ -12,8 +12,8 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-    use WithWorkbench;
     use RefreshDatabase;
+    use WithWorkbench;
 
     public function decode(string $hashedId): null|int
     {

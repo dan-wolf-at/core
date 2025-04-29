@@ -36,10 +36,10 @@ trait RoutesLoaderTrait
     {
         return [
             'middleware' => $this->getMiddlewares(),
-            'domain' => $this->getApiUrl(),
+            'domain'     => $this->getApiUrl(),
             // If $endpointFileOrPrefixString is a string, use that string as prefix
             // else, if it is a file then get the version name from the file name, and use it as prefix
-            'prefix' => is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString : $this->getApiVersionPrefix($endpointFileOrPrefixString),
+            'prefix' => \is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString : $this->getApiVersionPrefix($endpointFileOrPrefixString),
         ];
     }
 

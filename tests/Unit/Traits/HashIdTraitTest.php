@@ -102,7 +102,7 @@ final class HashIdTraitTest extends UnitTestCase
 
         config()->set('apiato.hash-id', true);
 
-        $this->trait = new class {
+        $this->trait = new class () {
             use HashIdTrait;
 
             public function publicDecodeHashedIdsBeforeValidation(array $requestData): array
@@ -255,11 +255,11 @@ final class HashIdTraitTest extends UnitTestCase
     private function recursiveEncode(array $data): array
     {
         return array_map(function ($value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 return $this->recursiveEncode($value);
             }
 
-            if (is_int($value)) {
+            if (\is_int($value)) {
                 return $this->trait->encode($value);
             }
 

@@ -18,32 +18,28 @@ use Symfony\Component\Console\Input\InputOption;
 
 abstract class GeneratorCommand extends Command
 {
-    use ParserTrait;
-    use PrinterTrait;
     use FileSystemTrait;
     use FormatterTrait;
+    use ParserTrait;
+    use PrinterTrait;
 
     /**
      * Root directory of all sections.
-     *
      */
     private const ROOT = 'app/Containers';
 
     /**
      * Relative path for the stubs (relative to this directory / file).
-     *
      */
     private const STUB_PATH = 'Stubs/*';
 
     /**
      * Relative path for the custom stubs (relative to the app/Ship directory!).
-     *
      */
     private const CUSTOM_STUB_PATH = 'Generators/CustomStubs/*';
 
     /**
      * Default section name.
-     *
      */
     private const DEFAULT_SECTION_NAME = 'AppSection';
 
@@ -105,6 +101,7 @@ abstract class GeneratorCommand extends Command
         // Now fix the section, container and file name
         $this->sectionName = $this->removeSpecialChars($this->sectionName);
         $this->containerName = $this->removeSpecialChars($this->containerName);
+
         if ($this->fileType !== 'Configuration') {
             $this->fileName = $this->removeSpecialChars($this->fileName);
         }
@@ -147,6 +144,7 @@ abstract class GeneratorCommand extends Command
     {
         // Check if we already have a param set
         $value = $this->option($param);
+
         if ($value === null) {
             // There was no value provided via CLI, so ask the user…
             return $this->ask($question, $default);
@@ -233,6 +231,7 @@ abstract class GeneratorCommand extends Command
     {
         // Check if we already have a param set
         $value = $this->option($param);
+
         if ($value === null) {
             // There was no value provided via CLI, so ask the user…
             return $this->choice($question, $choices, $default);
@@ -245,6 +244,7 @@ abstract class GeneratorCommand extends Command
     {
         // Check if we already have a param set
         $value = $this->option($param);
+
         if ($value === null) {
             // There was no value provided via CLI, so ask the user...
             return $this->confirm($question, $default);
@@ -269,15 +269,15 @@ abstract class GeneratorCommand extends Command
      */
     private function sanitizeUserData(array $data): mixed
     {
-        if (!array_key_exists('path-parameters', $data)) {
+        if (!\array_key_exists('path-parameters', $data)) {
             $data['path-parameters'] = [];
         }
 
-        if (!array_key_exists('stub-parameters', $data)) {
+        if (!\array_key_exists('stub-parameters', $data)) {
             $data['stub-parameters'] = [];
         }
 
-        if (!array_key_exists('file-parameters', $data)) {
+        if (!\array_key_exists('file-parameters', $data)) {
             $data['file-parameters'] = [];
         }
 
