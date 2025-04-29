@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -20,30 +22,36 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
         ['stub', null, InputOption::VALUE_OPTIONAL, 'The stub file to load for this generator.'],
         ['model', null, InputOption::VALUE_OPTIONAL, 'The model you want to use for this controller.'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:controller';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a controller for a container';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Controller';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/UI/{user-interface}/Controllers/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -99,6 +107,7 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
         ];
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'Controller';

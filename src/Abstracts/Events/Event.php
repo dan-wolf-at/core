@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;

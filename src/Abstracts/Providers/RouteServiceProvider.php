@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Providers;
 
 use Apiato\Core\Loaders\RoutesLoaderTrait;
@@ -21,6 +23,7 @@ abstract class RouteServiceProvider extends LaravelRouteServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      */
+    #[\Override]
     public function boot(): void
     {
         //        $this->routes(function () {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -14,30 +16,36 @@ class ReadmeGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     public array $inputs = [
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:readme';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a README file for a Container';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Readme';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -66,11 +74,13 @@ class ReadmeGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * Get the default file name for this component to be generated.
      */
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'README';
     }
 
+    #[\Override]
     public function getDefaultFileExtension(): string
     {
         return 'md';

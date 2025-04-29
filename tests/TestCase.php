@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Tests;
 
 use Apiato\Core\Providers\ApiatoServiceProvider;
@@ -13,6 +15,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     use WithWorkbench;
     use RefreshDatabase;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Tests\Unit\Abstracts\Tests\PhpUnit;
 
 use Apiato\Core\Abstracts\Tests\PhpUnit\TestCase;

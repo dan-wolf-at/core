@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 use Apiato\Core\Exceptions\IncorrectIdException;
@@ -24,6 +26,7 @@ trait HashedRouteBindingTrait
             if (is_null($decodingResult)) {
                 throw new IncorrectIdException();
             }
+
             $value = $decodingResult;
         }
 
@@ -34,7 +37,7 @@ trait HashedRouteBindingTrait
     {
         $relationship = Str::camel($childType);
         if (!method_exists($this, $relationship)) {
-            $relationship = Str::plural($relationship);
+            return Str::plural($relationship);
         }
 
         return $relationship;

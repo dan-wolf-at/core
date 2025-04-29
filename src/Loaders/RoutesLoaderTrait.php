@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Apiato\Core\Foundation\Facades\Apiato;
@@ -24,19 +26,15 @@ trait RoutesLoaderTrait
 
         $allContainerPaths = Apiato::getAllContainerPaths();
 
-        foreach ($allContainerPaths as $containerPath) {
-            $this->loadApiContainerRoutes($containerPath);
-            $this->loadWebContainerRoutes($containerPath);
+        foreach ($allContainerPaths as $allContainerPath) {
+            $this->loadApiContainerRoutes($allContainerPath);
+            $this->loadWebContainerRoutes($allContainerPath);
         }
     }
 
     private function shouldRegisterRoutes(): bool
     {
-        if ($this->app->routesAreCached()) {
-            return false;
-        }
-
-        return true;
+        return !$this->app->routesAreCached();
     }
 
     /**
@@ -70,18 +68,17 @@ trait RoutesLoaderTrait
     private function getFilesSortedByName(string $apiRoutesPath): array
     {
         $files = File::allFiles($apiRoutesPath);
-        $files = Arr::sort($files, function ($file) {
+
+        return Arr::sort($files, function ($file) {
             return $file->getFilename();
         });
-
-        return $files;
     }
 
     private function loadApiRoute(SplFileInfo $file): void
     {
         $routeGroupArray = $this->getApiRouteGroup($file);
 
-        Route::group($routeGroupArray, function ($router) use ($file) {
+        Route::group($routeGroupArray, function ($router) use ($file): void {
             require $file->getPathname();
         });
     }
@@ -147,7 +144,7 @@ trait RoutesLoaderTrait
     {
         $fileNameWithoutExtension = $this->getRouteFileNameWithoutExtension($file);
 
-        $fileNameWithoutExtensionExploded = explode('.', $fileNameWithoutExtension);
+        $fileNameWithoutExtensionExploded = explode('.', (string) $fileNameWithoutExtension);
 
         end($fileNameWithoutExtensionExploded);
 
@@ -179,7 +176,7 @@ trait RoutesLoaderTrait
     {
         Route::group([
             'middleware' => ['web'],
-        ], function ($router) use ($file) {
+        ], function ($router) use ($file): void {
             require $file->getPathname();
         });
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 use JetBrains\PhpStorm\Deprecated;
@@ -12,20 +14,18 @@ trait TestCaseTrait
     /**
      * Override default URL subDomain in case you want to change it for some tests.
      *
-     * @param null $url
      *
-     * @return string|void
      */
-    public function overrideSubDomain($url = null)
+    public function overrideSubDomain($url = null): ?string
     {
         // `subDomain` is a property defined in your class.
         if (!property_exists($this, 'subDomain')) {
-            return;
+            return null;
         }
 
         $url = ($url) ?: $this->baseUrl;
 
-        $info = parse_url($url);
+        $info = parse_url((string) $url);
 
         $array = explode('.', $info['host']);
 
@@ -50,8 +50,8 @@ trait TestCaseTrait
             'http://localhost',
         );
 
-        $accessClient = new PersonalAccessClient();
-        $accessClient->client_id = $client->id;
-        $accessClient->save();
+        $personalAccessClient = new PersonalAccessClient();
+        $personalAccessClient->client_id = $client->id;
+        $personalAccessClient->save();
     }
 }

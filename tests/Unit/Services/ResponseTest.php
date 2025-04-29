@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Tests\Unit\Services;
 
 use Apiato\Core\Services\Response;
@@ -15,331 +17,316 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(Response::class)]
-class ResponseTest extends UnitTestCase
+final class ResponseTest extends UnitTestCase
 {
-    private const FIELDSET_KEY = 'fields';
+    private const string FIELDSET_KEY = 'fields';
+
     private User $user;
 
-    public static function csvIncludeDataProvider(): array
+    public static function csvIncludeDataProvider(): \Iterator
     {
-        return [
-            'single string' => [
-                'include' => 'parent',
-                'expected' => ['data.parent'],
-            ],
-            'single string nested' => [
-                'include' => 'children.books',
-                'expected' => ['data.children.data.0.books'],
-            ],
-            'csv string' => [
-                'include' => 'parent,children',
-                'expected' => ['data.parent', 'data.children'],
-            ],
-            'csv string and nested' => [
-                'include' => 'parent,children.books',
-                'expected' => ['data.parent', 'data.children.data.0.books'],
-            ],
+        yield 'single string' => [
+            'parent',
+            ['data.parent'],
+        ];
+        yield 'single string nested' => [
+            'children.books',
+            ['data.children.data.0.books'],
+        ];
+        yield 'csv string' => [
+            'parent,children',
+            ['data.parent', 'data.children'],
+        ];
+        yield 'csv string and nested' => [
+            'parent,children.books',
+            ['data.parent', 'data.children.data.0.books'],
         ];
     }
 
-    public static function arrayIncludeDataProvider(): array
+    public static function arrayIncludeDataProvider(): \Iterator
     {
-        return [
-            'single array' => [
-                'include' => ['parent'],
-                'expected' => ['data.parent'],
-            ],
-            'multiple array' => [
-                'include' => ['parent', 'children'],
-                'expected' => ['data.parent', 'data.children'],
-            ],
-            'multiple array nested' => [
-                'include' => ['parent.books', 'children'],
-                'expected' => ['data.parent.data.books', 'data.children'],
-            ],
+        yield 'single array' => [
+            ['parent'],
+            ['data.parent'],
+        ];
+        yield 'multiple array' => [
+            ['parent', 'children'],
+            ['data.parent', 'data.children'],
+        ];
+        yield 'multiple array nested' => [
+            ['parent.books', 'children'],
+            ['data.parent.data.books', 'data.children'],
         ];
     }
 
-    public static function paginatedIncludeMetaDataDataProvider(): array
+    public static function paginatedIncludeMetaDataDataProvider(): \Iterator
     {
-        return [
-            'single string' => [
-                'include' => 'parent',
-            ],
-            'single string nested' => [
-                'include' => 'children.books',
-            ],
-            'csv string' => [
-                'include' => 'parent,children',
-            ],
-            'csv string and nested' => [
-                'include' => 'parent,children.books',
-            ],
-            'single array' => [
-                'include' => ['parent'],
-            ],
-            'multiple array' => [
-                'include' => ['parent', 'children'],
-            ],
-            'multiple array nested' => [
-                'include' => ['parent.books', 'children'],
-            ],
+        yield 'single string' => [
+            'parent',
+        ];
+        yield 'single string nested' => [
+            'children.books',
+        ];
+        yield 'csv string' => [
+            'parent,children',
+        ];
+        yield 'csv string and nested' => [
+            'parent,children.books',
+        ];
+        yield 'single array' => [
+            ['parent'],
+        ];
+        yield 'multiple array' => [
+            ['parent', 'children'],
+        ];
+        yield 'multiple array nested' => [
+            ['parent.books', 'children'],
         ];
     }
 
-    public static function csvExcludeDataProvider(): array
+    public static function csvExcludeDataProvider(): \Iterator
     {
-        return [
-            'single string' => [
-                'exclude' => 'parent',
-                'expected' => ['data.parent'],
-            ],
-            'single string nested' => [
-                'exclude' => 'children.books',
-                'expected' => ['data.children.data.0.books'],
-            ],
-            'csv string' => [
-                'exclude' => 'parent,children',
-                'expected' => ['data.parent', 'data.children'],
-            ],
-            'csv string and nested' => [
-                'exclude' => 'parent,children.books',
-                'expected' => ['data.parent', 'data.children.data.0.books'],
-            ],
+        yield 'single string' => [
+            'parent',
+            ['data.parent'],
+        ];
+        yield 'single string nested' => [
+            'children.books',
+            ['data.children.data.0.books'],
+        ];
+        yield 'csv string' => [
+            'parent,children',
+            ['data.parent', 'data.children'],
+        ];
+        yield 'csv string and nested' => [
+            'parent,children.books',
+            ['data.parent', 'data.children.data.0.books'],
         ];
     }
 
-    public static function arrayExcludeDataProvider(): array
+    public static function arrayExcludeDataProvider(): \Iterator
     {
-        return [
-            'single array' => [
-                'exclude' => ['parent'],
-                'expected' => ['data.parent'],
-            ],
-            'multiple array' => [
-                'exclude' => ['parent', 'children'],
-                'expected' => ['data.parent', 'data.children'],
-            ],
-            'multiple array nested' => [
-                'exclude' => ['parent.books', 'children'],
-                'expected' => ['data.parent.data.books', 'data.children'],
-            ],
+        yield 'single array' => [
+            ['parent'],
+            ['data.parent'],
+        ];
+        yield 'multiple array' => [
+            ['parent', 'children'],
+            ['data.parent', 'data.children'],
+        ];
+        yield 'multiple array nested' => [
+            ['parent.books', 'children'],
+            ['data.parent.data.books', 'data.children'],
         ];
     }
 
-    public static function paginatedExcludeMetaDataDataProvider(): array
+    public static function paginatedExcludeMetaDataDataProvider(): \Iterator
     {
-        return [
-            'single string' => [
-                'exclude' => 'parent',
-            ],
-            'single string nested' => [
-                'exclude' => 'children.books',
-            ],
-            'csv string' => [
-                'exclude' => 'parent,children',
-            ],
-            'csv string and nested' => [
-                'exclude' => 'parent,children.books',
-            ],
-            'single array' => [
-                'exclude' => ['parent'],
-            ],
-            'multiple array' => [
-                'exclude' => ['parent', 'children'],
-            ],
-            'multiple array nested' => [
-                'exclude' => ['parent.books', 'children'],
-            ],
+        yield 'single string' => [
+            'parent',
+        ];
+        yield 'single string nested' => [
+            'children.books',
+        ];
+        yield 'csv string' => [
+            'parent,children',
+        ];
+        yield 'csv string and nested' => [
+            'parent,children.books',
+        ];
+        yield 'single array' => [
+            ['parent'],
+        ];
+        yield 'multiple array' => [
+            ['parent', 'children'],
+        ];
+        yield 'multiple array nested' => [
+            ['parent.books', 'children'],
         ];
     }
 
-    public static function validResourceNameProvider(): array
+    public static function validResourceNameProvider(): \Iterator
     {
-        return [
-            'empty string' => [
-                'resourceName' => '',
-            ],
-            'string' => [
-                'resourceName' => 'wat',
-            ],
+        yield 'empty string' => [
+            '',
+        ];
+        yield 'string' => [
+            'wat',
         ];
     }
 
-    public static function invalidResourceNameProvider(): array
+    public static function invalidResourceNameProvider(): \Iterator
     {
-        return [
-            'null' => [
-                'resourceName' => null,
-            ],
-            'false' => [
-                'resourceName' => false,
-            ],
+        yield 'null' => [
+            null,
+        ];
+        yield 'false' => [
+            false,
         ];
     }
 
-    public static function fieldsetDataProvider(): array
+    public static function fieldsetDataProvider(): \Iterator
     {
-        return [
-            'without includes' => [
-                self::FIELDSET_KEY => ['User' => 'id,email'],
-                'expected' => ['data.id', 'data.email'],
-                'missing' => ['data.object', 'data.name', 'data.created_at', 'data.updated_at', 'data.children', 'data.books'],
-            ],
-            'only filter nested include keys' => [
-                self::FIELDSET_KEY => ['Book' => 'author,title'],
-                'expected' => ['data.object', 'data.id', 'data.email', 'data.name', 'data.created_at', 'data.updated_at', 'data.books.data.0.author', 'data.books.data.0.title'],
-                'missing' => ['data.books.data.0.id', 'data.books.data.0.created_at', 'data.books.data.0.updated_at'],
-            ],
-            'with first level includes - no filter' => [
-                self::FIELDSET_KEY => ['User' => 'object,id,email,books'],
-                'expected' => ['data.object', 'data.id', 'data.email', 'data.books.data.0.object', 'data.books.data.0.id', 'data.books.data.0.title', 'data.books.data.0.author', 'data.books.data.0.created_at', 'data.books.data.0.updated_at'],
-                'missing' => ['data.name', 'data.created_at', 'data.updated_at'],
-            ],
-            'with first level includes - filter' => [
-                self::FIELDSET_KEY => ['User' => 'object,id,email,books', 'Book' => 'object,author'],
-                'expected' => ['data.object', 'data.id', 'data.email', 'data.books.data.0.object', 'data.books.data.0.author'],
-                'missing' => ['data.children', 'data.books.data.0.id', 'data.books.data.0.title', 'data.books.data.0.created_at', 'data.books.data.0.updated_at', 'data.name', 'data.created_at', 'data.updated_at'],
-            ],
-            'with nested includes - no filter' => [
-                self::FIELDSET_KEY => ['User' => 'object,id,email,children,books'],
-                'expected' => ['data.object', 'data.id', 'data.email', 'data.children.data.0.object', 'data.children.data.0.id', 'data.children.data.0.email', 'data.children.data.0.books.data.0.object', 'data.children.data.0.books.data.0.id', 'data.children.data.0.books.data.0.title', 'data.children.data.0.books.data.0.author', 'data.children.data.0.books.data.0.created_at', 'data.children.data.0.books.data.0.updated_at'],
-                'missing' => ['data.name', 'data.created_at', 'data.updated_at'],
-            ],
-            'with nested includes - filter' => [
-                self::FIELDSET_KEY => ['User' => 'id,email,children,books', 'Book' => 'id'],
-                'expected' => ['data.id', 'data.email', 'data.children.data.0.id', 'data.children.data.0.email', 'data.children.data.0.books.data.0.id'],
-                'missing' => ['data.object', 'data.children.data.0.object', 'data.children.data.0.books.data.0.object', 'data.children.data.0.books.data.0.title', 'data.children.data.0.books.data.0.author', 'data.children.data.0.books.data.0.created_at', 'data.children.data.0.books.data.0.updated_at', 'data.name', 'data.created_at', 'data.updated_at'],
-            ],
+        yield 'without includes' => [
+            ['User' => 'id,email'],
+            ['data.id', 'data.email'],
+            ['data.object', 'data.name', 'data.created_at', 'data.updated_at', 'data.children', 'data.books'],
+        ];
+        yield 'only filter nested include keys' => [
+            ['Book' => 'author,title'],
+            ['data.object', 'data.id', 'data.email', 'data.name', 'data.created_at', 'data.updated_at', 'data.books.data.0.author', 'data.books.data.0.title'],
+            ['data.books.data.0.id', 'data.books.data.0.created_at', 'data.books.data.0.updated_at'],
+        ];
+        yield 'with first level includes - no filter' => [
+            ['User' => 'object,id,email,books'],
+            ['data.object', 'data.id', 'data.email', 'data.books.data.0.object', 'data.books.data.0.id', 'data.books.data.0.title', 'data.books.data.0.author', 'data.books.data.0.created_at', 'data.books.data.0.updated_at'],
+            ['data.name', 'data.created_at', 'data.updated_at'],
+        ];
+        yield 'with first level includes - filter' => [
+            ['User' => 'object,id,email,books', 'Book' => 'object,author'],
+            ['data.object', 'data.id', 'data.email', 'data.books.data.0.object', 'data.books.data.0.author'],
+            ['data.children', 'data.books.data.0.id', 'data.books.data.0.title', 'data.books.data.0.created_at', 'data.books.data.0.updated_at', 'data.name', 'data.created_at', 'data.updated_at'],
+        ];
+        yield 'with nested includes - no filter' => [
+            ['User' => 'object,id,email,children,books'],
+            ['data.object', 'data.id', 'data.email', 'data.children.data.0.object', 'data.children.data.0.id', 'data.children.data.0.email', 'data.children.data.0.books.data.0.object', 'data.children.data.0.books.data.0.id', 'data.children.data.0.books.data.0.title', 'data.children.data.0.books.data.0.author', 'data.children.data.0.books.data.0.created_at', 'data.children.data.0.books.data.0.updated_at'],
+            ['data.name', 'data.created_at', 'data.updated_at'],
+        ];
+        yield 'with nested includes - filter' => [
+            ['User' => 'id,email,children,books', 'Book' => 'id'],
+            ['data.id', 'data.email', 'data.children.data.0.id', 'data.children.data.0.email', 'data.children.data.0.books.data.0.id'],
+            ['data.object', 'data.children.data.0.object', 'data.children.data.0.books.data.0.object', 'data.children.data.0.books.data.0.title', 'data.children.data.0.books.data.0.author', 'data.children.data.0.books.data.0.created_at', 'data.children.data.0.books.data.0.updated_at', 'data.name', 'data.created_at', 'data.updated_at'],
         ];
     }
 
     #[DataProvider('csvIncludeDataProvider')]
-    public function testSingleResourceCanHandleCSVInclude($include, $expected): void
+    public function testSingleResourceCanHandleCSVInclude(string $include, array $expected): void
     {
-        request()->merge(compact('include'));
+        request()->merge(['include' => $include]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
         foreach ($expected as $expectation) {
-            $result->has($expectation);
+            $assertableJson->has($expectation);
         }
     }
 
     #[DataProvider('arrayIncludeDataProvider')]
-    public function testSingleResourceCanHandleArrayInclude($include, $expected): void
+    public function testSingleResourceCanHandleArrayInclude(array $include, array $expected): void
     {
-        request()->merge(compact('include'));
+        request()->merge(['include' => $include]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
         foreach ($expected as $expectation) {
-            $result->has($expectation);
+            $assertableJson->has($expectation);
         }
     }
 
     #[DataProvider('paginatedIncludeMetaDataDataProvider')]
-    public function testPaginatedResourceMetaDataAndInclude($include): void
+    public function testPaginatedResourceMetaDataAndInclude(string|array $include): void
     {
-        request()->merge(compact('include'));
+        request()->merge(['include' => $include]);
         UserFactory::new()->count(3)->create();
         $users = app(UserRepository::class, ['app' => $this->app])->paginate();
         $response = Response::create($users)->transformWith(UserTransformer::class);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
-        $result->has('meta.include', fn (AssertableJson $json) => $json->whereAll(['parent', 'children', 'books']));
+        $assertableJson->has('meta.include', fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
     }
 
     #[DataProvider('fieldsetDataProvider')]
-    public function testCanFilterResponse($fields, $expected, $missing): void
+    public function testCanFilterResponse(array $fields, array $expected, array $missing): void
     {
         request()->merge(['include' => 'books,children.books', self::FIELDSET_KEY => $fields]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
         foreach ($expected as $expectation) {
-            $result->has($expectation);
-            $result->has('meta.include', fn (AssertableJson $json) => $json->whereAll(['parent', 'children', 'books']));
+            $assertableJson->has($expectation);
+            $assertableJson->has('meta.include', fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
         }
+
         foreach ($missing as $expectation) {
-            $result->missing($expectation);
+            $assertableJson->missing($expectation);
         }
     }
 
     #[DataProvider('csvExcludeDataProvider')]
-    public function testSingleResourceCanHandleCSVExclude($exclude, $expected): void
+    public function testSingleResourceCanHandleCSVExclude(string $exclude, array $expected): void
     {
-        request()->merge(compact('exclude'));
+        request()->merge(['exclude' => $exclude]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class)->parseIncludes($exclude);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
         foreach ($expected as $expectation) {
-            $result->missing($expectation);
+            $assertableJson->missing($expectation);
         }
     }
 
     #[DataProvider('arrayExcludeDataProvider')]
-    public function testSingleResourceCanHandleArrayExclude($exclude, $expected): void
+    public function testSingleResourceCanHandleArrayExclude(array $exclude, array $expected): void
     {
-        request()->merge(compact('exclude'));
+        request()->merge(['exclude' => $exclude]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class)->parseIncludes($exclude);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
         foreach ($expected as $expectation) {
-            $result->missing($expectation);
+            $assertableJson->missing($expectation);
         }
     }
 
     #[DataProvider('paginatedExcludeMetaDataDataProvider')]
-    public function testPaginatedResourceMetaDataAndExclude($exclude): void
+    public function testPaginatedResourceMetaDataAndExclude(string|array $exclude): void
     {
-        request()->merge(compact('exclude'));
+        request()->merge(['exclude' => $exclude]);
         UserFactory::new()->count(3)->create();
         $users = app(UserRepository::class, ['app' => $this->app])->paginate();
         $response = Response::create($users)->transformWith(UserTransformer::class)->parseIncludes($exclude);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
-        $result->has('meta.include', fn (AssertableJson $json) => $json->whereAll(['parent', 'children', 'books']));
+        $assertableJson->has('meta.include', fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
     }
 
     #[DataProvider('validResourceNameProvider')]
-    public function testCanOverrideMainResourceName($resourceName): void
+    public function testCanOverrideMainResourceName(string $resourceName): void
     {
         request()->merge(['include' => 'books,children.books', self::FIELDSET_KEY => [$resourceName => 'id', 'Book' => 'author,title']]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
         $response->withResourceName($resourceName);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
-        $result->missing('data.object');
+        $assertableJson->missing('data.object');
     }
 
     #[DataProvider('invalidResourceNameProvider')]
-    public function testGivenInvalidNameProvidedRevertToDefaultMainResourceName($resourceName): void
+    public function testGivenInvalidNameProvidedRevertToDefaultMainResourceName(?bool $resourceName): void
     {
         request()->merge(['include' => 'books,children.books', self::FIELDSET_KEY => [$resourceName => 'id', 'Book' => 'author,title']]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
         $response->withResourceName($resourceName);
 
-        $result = AssertableJson::fromArray($response->toArray());
+        $assertableJson = AssertableJson::fromArray($response->toArray());
 
-        $result->has('data.object');
+        $assertableJson->has('data.object');
     }
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -359,9 +346,9 @@ class ResponseTest extends UnitTestCase
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
 
-        $result = $response->ok();
+        $jsonResponse = $response->ok();
 
-        $this->assertEquals(200, $result->getStatusCode());
+        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_OK, $jsonResponse->getStatusCode());
     }
 
     public function testCanGenerate202OAcceptedResponse(): void
@@ -369,9 +356,9 @@ class ResponseTest extends UnitTestCase
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
 
-        $result = $response->accepted();
+        $jsonResponse = $response->accepted();
 
-        $this->assertEquals(202, $result->getStatusCode());
+        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_ACCEPTED, $jsonResponse->getStatusCode());
     }
 
     public function testCanGenerate201CreatedResponse(): void
@@ -379,9 +366,9 @@ class ResponseTest extends UnitTestCase
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
 
-        $result = $response->created();
+        $jsonResponse = $response->created();
 
-        $this->assertEquals(201, $result->getStatusCode());
+        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_CREATED, $jsonResponse->getStatusCode());
     }
 
     public function testCanGenerate204NoContentResponse(): void
@@ -389,9 +376,9 @@ class ResponseTest extends UnitTestCase
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
 
-        $result = $response->noContent();
+        $jsonResponse = $response->noContent();
 
-        $this->assertEquals(204, $result->getStatusCode());
+        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT, $jsonResponse->getStatusCode());
     }
 
     public function testCanGetRequestedIncludes(): void
@@ -400,13 +387,13 @@ class ResponseTest extends UnitTestCase
 
         $result = Response::getRequestedIncludes();
 
-        $this->assertEquals(['books', 'children', 'children.books'], $result);
+        $this->assertSame(['books', 'children', 'children.books'], $result);
     }
 
     public function testCanProcessIncludeParamsWithResourceName(): void
     {
         $include = 'books';
-        $includeWithParams = "$include:test(2|value)";
+        $includeWithParams = $include . ':test(2|value)';
         request()->merge(['include' => $includeWithParams]);
         $response = Response::create($this->user);
         $response->transformWith(UserTransformer::class);
@@ -417,9 +404,9 @@ class ResponseTest extends UnitTestCase
         $scope = $response->getTransformer()?->getCurrentScope();
         $identifier = $scope?->getIdentifier($include);
         $actualParams = $scope?->getManager()->getIncludeParams($identifier);
-        $expectedParams = new ParamBag([
+        $paramBag = new ParamBag([
             'test' => ['2', 'value'],
         ]);
-        $this->assertEquals($expectedParams, $actualParams);
+        $this->assertEquals($paramBag, $actualParams);
     }
 }

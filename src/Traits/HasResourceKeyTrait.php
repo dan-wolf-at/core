@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 trait HasResourceKeyTrait
@@ -13,12 +15,9 @@ trait HasResourceKeyTrait
     public function getResourceKey(): string
     {
         if (isset($this->resourceKey)) {
-            $resourceKey = $this->resourceKey;
-        } else {
-            $reflect = new \ReflectionClass($this);
-            $resourceKey = $reflect->getShortName();
+            return $this->resourceKey;
         }
-
-        return $resourceKey;
+        $reflectionClass = new \ReflectionClass($this);
+        return $reflectionClass->getShortName();
     }
 }

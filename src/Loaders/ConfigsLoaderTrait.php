@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Illuminate\Support\Facades\File;
@@ -12,7 +14,7 @@ trait ConfigsLoaderTrait
         $this->loadConfigs($shipConfigsDirectory);
     }
 
-    private function loadConfigs($configFolder): void
+    private function loadConfigs(string $configFolder): void
     {
         if (File::isDirectory($configFolder)) {
             $files = File::files($configFolder);
@@ -26,7 +28,7 @@ trait ConfigsLoaderTrait
         }
     }
 
-    public function loadConfigsFromContainers($containerPath): void
+    public function loadConfigsFromContainers(string $containerPath): void
     {
         $containerConfigsDirectory = $containerPath . '/Configs';
         $this->loadConfigs($containerConfigsDirectory);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Commands;
 
 use Apiato\Core\Abstracts\Commands\ConsoleCommand;

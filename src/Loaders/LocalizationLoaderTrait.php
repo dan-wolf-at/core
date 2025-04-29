@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Illuminate\Support\Facades\File;
@@ -7,7 +9,7 @@ use Illuminate\Support\Str;
 
 trait LocalizationLoaderTrait
 {
-    public function loadLocalsFromContainers($containerPath): void
+    public function loadLocalsFromContainers(string $containerPath): void
     {
         $containerLocaleDirectory = $containerPath . '/Languages';
         $containerName = basename($containerPath);
@@ -27,7 +29,7 @@ trait LocalizationLoaderTrait
 
     private function buildLocaleNamespace(string|null $sectionName, string $containerName): string
     {
-        return $sectionName ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
+        return $sectionName !== null && $sectionName !== '' && $sectionName !== '0' ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
     }
 
     public function loadLocalsFromShip(): void

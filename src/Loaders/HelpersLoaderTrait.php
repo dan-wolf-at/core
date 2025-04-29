@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\File;
 
 trait HelpersLoaderTrait
 {
-    public function loadHelpersFromContainers($containerPath): void
+    public function loadHelpersFromContainers(string $containerPath): void
     {
         $containerHelpersDirectory = $containerPath . '/Helpers';
         $this->loadHelpers($containerHelpersDirectory);
@@ -21,7 +23,7 @@ trait HelpersLoaderTrait
             foreach ($files as $file) {
                 try {
                     require $file;
-                } catch (FileNotFoundException $e) {
+                } catch (FileNotFoundException) {
                 }
             }
         }

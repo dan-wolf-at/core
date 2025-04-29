@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -15,30 +17,36 @@ class ValueGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     public array $inputs = [
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:value';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Value class';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Value';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Values/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -65,6 +73,7 @@ class ValueGenerator extends GeneratorCommand implements ComponentsGenerator
         ];
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'DefaultValue';

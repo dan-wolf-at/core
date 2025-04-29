@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Providers;
 
 use Apiato\Core\Abstracts\Providers\MainServiceProvider as AbstractMainServiceProvider;
@@ -20,6 +22,7 @@ class ApiatoServiceProvider extends AbstractMainServiceProvider
         ConfigMacroServiceProvider::class,
     ];
 
+    #[\Override]
     public function register(): void
     {
         // NOTE: function order of this calls bellow are important. Do not change it.

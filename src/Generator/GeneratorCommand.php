@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator;
 
 use Apiato\Core\Exceptions\GeneratorErrorException;
@@ -21,6 +23,12 @@ abstract class GeneratorCommand extends Command
     use FileSystemTrait;
     use FormatterTrait;
 
+    protected array $inputs;
+
+    protected string $fileType;
+
+    protected string $stubName;
+
     /**
      * Root directory of all sections.
      *
@@ -37,6 +45,8 @@ abstract class GeneratorCommand extends Command
 
     /**
      * Relative path for the custom stubs (relative to the app/Ship directory!).
+     *
+     * @var string
      */
     private const CUSTOM_STUB_PATH = 'Generators/CustomStubs/*';
 
@@ -72,19 +82,15 @@ abstract class GeneratorCommand extends Command
 
     protected $renderedStubContent;
 
-    private IlluminateFilesystem $fileSystem;
-
     private array $defaultInputs = [
         ['section', null, InputOption::VALUE_OPTIONAL, 'The name of the section'],
         ['container', null, InputOption::VALUE_OPTIONAL, 'The name of the container'],
         ['file', null, InputOption::VALUE_OPTIONAL, 'The name of the file'],
     ];
 
-    public function __construct(IlluminateFilesystem $fileSystem)
+    public function __construct(private IlluminateFilesystem $fileSystem)
     {
         parent::__construct();
-
-        $this->fileSystem = $fileSystem;
     }
 
     /**
@@ -96,14 +102,14 @@ abstract class GeneratorCommand extends Command
     {
         $this->validateGenerator($this);
 
-        $this->sectionName = ucfirst($this->checkParameterOrAsk('section', 'Enter the name of the Section', self::DEFAULT_SECTION_NAME));
-        $this->containerName = ucfirst($this->checkParameterOrAsk('container', 'Enter the name of the Container'));
+        $this->sectionName = ucfirst((string) $this->checkParameterOrAsk('section', 'Enter the name of the Section', self::DEFAULT_SECTION_NAME));
+        $this->containerName = ucfirst((string) $this->checkParameterOrAsk('container', 'Enter the name of the Container'));
         $this->fileName = $this->checkParameterOrAsk('file', 'Enter the name of the ' . $this->fileType . ' file', $this->getDefaultFileName());
 
         // Now fix the section, container and file name
         $this->sectionName = $this->removeSpecialChars($this->sectionName);
         $this->containerName = $this->removeSpecialChars($this->containerName);
-        if (!('Configuration' === $this->fileType)) {
+        if ('Configuration' !== $this->fileType) {
             $this->fileName = $this->removeSpecialChars($this->fileName);
         }
 
@@ -115,8 +121,9 @@ abstract class GeneratorCommand extends Command
 
         if (null === $this->userData) {
             // The user skipped this step
-            return;
+            return null;
         }
+
         $this->userData = $this->sanitizeUserData($this->userData);
 
         // Get the actual path of the output file as well as the correct filename
@@ -156,7 +163,7 @@ abstract class GeneratorCommand extends Command
         $value = $this->option($param);
         if (null === $value) {
             // There was no value provided via CLI, so ask the user…
-            $value = $this->ask($question, $default);
+            return $this->ask($question, $default);
         }
 
         return $value;
@@ -176,14 +183,14 @@ abstract class GeneratorCommand extends Command
     protected function removeSpecialChars($str): string
     {
         // remove everything that is NOT a character or digit
-        return preg_replace('/[^A-Za-z0-9]/', '', $str);
+        return preg_replace('/[^A-Za-z0-9]/', '', (string) $str);
     }
 
     /**
      * Checks, if the data from the generator contains path, stub and file-parameters.
      * Adds empty arrays, if they are missing.
      */
-    private function sanitizeUserData($data): mixed
+    private function sanitizeUserData(array $data): mixed
     {
         if (!array_key_exists('path-parameters', $data)) {
             $data['path-parameters'] = [];
@@ -257,13 +264,13 @@ abstract class GeneratorCommand extends Command
     /**
      * Checks if the param is set (via CLI), otherwise proposes choices to the user.
      */
-    protected function checkParameterOrChoice($param, $question, $choices, mixed $default = null): bool|array|string|null
+    protected function checkParameterOrChoice($param, $question, array $choices, mixed $default = null): bool|array|string|null
     {
         // Check if we already have a param set
         $value = $this->option($param);
         if (null === $value) {
             // There was no value provided via CLI, so ask the user…
-            $value = $this->choice($question, $choices, $default);
+            return $this->choice($question, $choices, $default);
         }
 
         return $value;
@@ -275,7 +282,7 @@ abstract class GeneratorCommand extends Command
         $value = $this->option($param);
         if (null === $value) {
             // There was no value provided via CLI, so ask the user...
-            $value = $this->confirm($question, $default);
+            return $this->confirm($question, $default);
         }
 
         return $value;

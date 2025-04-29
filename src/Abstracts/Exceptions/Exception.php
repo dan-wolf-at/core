@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Exceptions;
 
 use Exception as BaseException;
@@ -8,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 abstract class Exception extends BaseException
 {
     protected string $environment;
+
     protected array $errors = [];
 
     public function __construct(
@@ -34,8 +37,6 @@ abstract class Exception extends BaseException
     /**
      * Help developers debug the error without showing these details to the end user.
      * Usage: `throw (new MyCustomException())->debug($e)`.
-     *
-     * @return $this
      */
     public function debug($error, bool $force = false): Exception
     {
@@ -52,11 +53,7 @@ abstract class Exception extends BaseException
 
     public function withErrors(array $errors, bool $override = true): Exception
     {
-        if ($override) {
-            $this->errors = $errors;
-        } else {
-            $this->errors = array_merge($this->errors, $errors);
-        }
+        $this->errors = $override ? $errors : array_merge($this->errors, $errors);
 
         return $this;
     }

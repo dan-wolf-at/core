@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Foundation;
 
 use Illuminate\Support\Facades\File;
@@ -11,15 +13,16 @@ class Apiato
      */
     public const VERSION = '12.0.0';
 
-    private const SHIP_NAME = 'ship';
-    private const CONTAINERS_DIRECTORY_NAME = 'Containers';
+    private const string SHIP_NAME = 'ship';
+
+    private const string CONTAINERS_DIRECTORY_NAME = 'Containers';
 
     public function getShipFoldersNames(): array
     {
         $shipFoldersNames = [];
 
         foreach ($this->getShipPath() as $shipFoldersPath) {
-            $shipFoldersNames[] = basename($shipFoldersPath);
+            $shipFoldersNames[] = basename((string) $shipFoldersPath);
         }
 
         return $shipFoldersNames;
@@ -33,8 +36,8 @@ class Apiato
     public function getSectionContainerNames(string $sectionName): array
     {
         $containerNames = [];
-        foreach (File::directories($this->getSectionPath($sectionName)) as $key => $name) {
-            $containerNames[] = basename($name);
+        foreach (File::directories($this->getSectionPath($sectionName)) as $name) {
+            $containerNames[] = basename((string) $name);
         }
 
         return $containerNames;
@@ -61,7 +64,7 @@ class Apiato
      */
     public function getClassFullNameFromFile(string $filePathName): string
     {
-        return "{$this->getClassNamespaceFromFile($filePathName)}\\{$this->getClassNameFromFile($filePathName)}";
+        return sprintf('%s\%s', $this->getClassNamespaceFromFile($filePathName), $this->getClassNameFromFile($filePathName));
     }
 
     /**
@@ -87,13 +90,16 @@ class Apiato
 
                         break;
                     }
+
                     $namespace .= is_array($tokens[$i]) ? $tokens[$i][1] : $tokens[$i];
                 }
 
                 break;
             }
+
             ++$i;
         }
+
         if (!$namespace_ok) {
             return null;
         }
@@ -140,7 +146,7 @@ class Apiato
         $containersNames = [];
 
         foreach ($this->getAllContainerPaths() as $containersPath) {
-            $containersNames[] = basename($containersPath);
+            $containersNames[] = basename((string) $containersPath);
         }
 
         return $containersNames;
@@ -150,10 +156,10 @@ class Apiato
     {
         $sectionNames = $this->getSectionNames();
         $containerPaths = [];
-        foreach ($sectionNames as $name) {
-            $sectionContainerPaths = $this->getSectionContainerPaths($name);
-            foreach ($sectionContainerPaths as $containerPath) {
-                $containerPaths[] = $containerPath;
+        foreach ($sectionNames as $sectionName) {
+            $sectionContainerPaths = $this->getSectionContainerPaths($sectionName);
+            foreach ($sectionContainerPaths as $sectionContainerPath) {
+                $containerPaths[] = $sectionContainerPath;
             }
         }
 
@@ -165,7 +171,7 @@ class Apiato
         $sectionNames = [];
 
         foreach ($this->getSectionPaths() as $sectionPath) {
-            $sectionNames[] = basename($sectionPath);
+            $sectionNames[] = basename((string) $sectionPath);
         }
 
         return $sectionNames;

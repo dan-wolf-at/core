@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -14,30 +16,36 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     public array $inputs = [
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:seeder';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Seeder class';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Seeder';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Data/Seeders/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -66,6 +74,7 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * Get the default file name for this component to be generated.
      */
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return $this->containerName . 'Seeder';

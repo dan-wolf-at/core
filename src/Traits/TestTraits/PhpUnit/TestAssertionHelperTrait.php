@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits\TestTraits\PhpUnit;
 
 use Apiato\Core\Abstracts\Models\Model;
@@ -10,6 +12,7 @@ use JetBrains\PhpStorm\Deprecated;
 use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
+use ReflectionException;
 
 trait TestAssertionHelperTrait
 {
@@ -76,24 +79,25 @@ trait TestAssertionHelperTrait
      */
     protected function assertDatabaseTable(string $table, array $expectedColumns): void
     {
-        $this->assertSameSize($expectedColumns, Schema::getColumnListing($table), "Column count mismatch for '{$table}' table.");
+        $this->assertSameSize($expectedColumns, Schema::getColumnListing($table), sprintf("Column count mismatch for '%s' table.", $table));
         foreach ($expectedColumns as $column => $type) {
-            $this->assertTrue(Schema::hasColumn($table, $column), "Column '{$column}' not found in '{$table}' table.");
-            $this->assertEquals($type, Schema::getColumnType($table, $column), "Column '{$column}' in '{$table}' table does not match expected {$type} type.");
+            $this->assertTrue(Schema::hasColumn($table, $column), sprintf("Column '%s' not found in '%s' table.", $column, $table));
+            $this->assertEquals($type, Schema::getColumnType($table, $column), sprintf("Column '%s' in '%s' table does not match expected %s type.", $column, $table, $type));
         }
     }
 
     /**
      * Get the given inaccessible (private/protected) property value.
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     protected function getInaccessiblePropertyValue(object $object, string $property): mixed
     {
-        $reflection = new \ReflectionClass($object);
-        $property = $reflection->getProperty($property);
+        $reflectionClass = new \ReflectionClass($object);
 
-        return $property->getValue($object);
+        return $reflectionClass
+            ->getProperty($property)
+            ->getValue($object);
     }
 
     /**
@@ -104,18 +108,18 @@ trait TestAssertionHelperTrait
      */
     protected function createSpyWithRepository(string $className, string $repositoryClassName, bool $allowRun = true): MockInterface
     {
-        /** @var MockInterface $taskSpy */
-        $taskSpy = \Mockery::mock($className, [app($repositoryClassName)])
+        /** @var MockInterface $legacyMock */
+        $legacyMock = \Mockery::mock($className, [app($repositoryClassName)])
             ->shouldIgnoreMissing(null, true)
             ->makePartial();
 
         if ($allowRun) {
-            $taskSpy->allows('run')->andReturn();
+            $legacyMock->allows('run')->andReturn();
         }
 
-        $this->swap($className, $taskSpy);
+        $this->swap($className, $legacyMock);
 
-        return $taskSpy;
+        return $legacyMock;
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 use Apiato\Core\Abstracts\Models\Model;
@@ -78,12 +80,10 @@ trait ResponseTrait
 
         // apply request filters if available in the request
         if ($requestFilters = request()?->input(config('apiato.requests.params.filter', 'filter'))) {
-            $result = $this->filterResponse($fractal->toArray(), explode(';', $requestFilters));
-        } else {
-            $result = $fractal->toArray();
+            return $this->filterResponse($fractal->toArray(), explode(';', (string) $requestFilters));
         }
 
-        return $result;
+        return $fractal->toArray();
     }
 
     protected function parseRequestedIncludes(): array
@@ -108,11 +108,9 @@ trait ResponseTrait
                 } else {
                     $responseArray[$k] = $v;
                 }
-            } else {
+            } elseif (!in_array($k, $filters)) {
                 // check if the array is not in our filter-list
-                if (!in_array($k, $filters)) {
-                    unset($responseArray[$k]);
-                }
+                unset($responseArray[$k]);
             }
         }
 
@@ -138,7 +136,7 @@ trait ResponseTrait
 
     public function deleted(Model|null $deletedModel = null): JsonResponse
     {
-        if (!$deletedModel) {
+        if ($deletedModel === null) {
             return $this->accepted();
         }
 
@@ -146,7 +144,7 @@ trait ResponseTrait
         $className = (new \ReflectionClass($deletedModel))->getShortName();
 
         return $this->accepted([
-            'message' => "$className ($id) Deleted Successfully.",
+            'message' => sprintf('%s (%s) Deleted Successfully.', $className, $id),
         ]);
     }
 

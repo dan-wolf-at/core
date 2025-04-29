@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Loaders;
 
 use Apiato\Core\Foundation\Facades\Apiato;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\File;
 
 trait CommandsLoaderTrait
 {
-    public function loadCommandsFromContainers($containerPath): void
+    public function loadCommandsFromContainers(string $containerPath): void
     {
         $containerCommandsDirectory = $containerPath . '/UI/CLI/Commands';
         $this->loadTheConsoles($containerCommandsDirectory);
@@ -18,10 +20,10 @@ trait CommandsLoaderTrait
         if (File::isDirectory($directory)) {
             $files = File::allFiles($directory);
 
-            foreach ($files as $consoleFile) {
+            foreach ($files as $file) {
                 // Do not load route files
-                if (!$this->isRouteFile($consoleFile)) {
-                    $consoleClass = Apiato::getClassFullNameFromFile($consoleFile->getPathname());
+                if (!$this->isRouteFile($file)) {
+                    $consoleClass = Apiato::getClassFullNameFromFile($file->getPathname());
                     // When user from the Main Service Provider, which extends Laravel
                     // service provider you get access to `$this->commands`
                     $this->commands([$consoleClass]);

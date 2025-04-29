@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -18,30 +20,36 @@ class EventGenerator extends GeneratorCommand implements ComponentsGenerator
         ['stub', null, InputOption::VALUE_OPTIONAL, 'The stub file to load for this generator.'],
         ['listener', null, InputOption::VALUE_OPTIONAL, 'Generate a Listener for this Event?'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:event';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Event class and its corresponding Listener';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Event';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Events/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */

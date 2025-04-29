@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits\TestTraits\PhpUnit;
 
 use Apiato\Core\Exceptions\MissingTestEndpointException;
@@ -78,7 +80,7 @@ trait TestRequestHelperTrait
     }
 
     /**
-     * read `$this->endpoint` property from the test class (`verb@uri`) and convert it to usable data.
+     * Read `$this->endpoint` property from the test class (`verb@uri`) and convert it to usable data.
      *
      * @return array<string, string>
      *
@@ -95,11 +97,12 @@ trait TestRequestHelperTrait
 
         $asArray = explode($separator, $this->getEndpoint(), 2);
 
-        // get the verb and uri values from the array
-        extract(array_combine(['verb', 'uri'], $asArray));
+        // Get the verb and uri values from the array
+        $parts = array_combine(['verb', 'uri'], $asArray);
+        extract($parts);
 
-        /* @var string $verb */
-        /* @var string $uri */
+        /** @var string $verb */
+        /** @var string $uri */
         return [
             'verb' => $verb,
             'uri' => $uri,
@@ -131,7 +134,7 @@ trait TestRequestHelperTrait
      */
     private function validateEndpointFormat(string $separator): void
     {
-        if (!strpos($this->getEndpoint(), $separator)) {
+        if (in_array(strpos($this->getEndpoint(), $separator), [0, false], true)) {
             throw new WrongEndpointFormatException();
         }
     }
@@ -155,7 +158,7 @@ trait TestRequestHelperTrait
 
     private function dataArrayToQueryParam(array $data, string $url): string
     {
-        if (empty($data)) {
+        if ($data === []) {
             return $url;
         }
 
@@ -221,7 +224,7 @@ trait TestRequestHelperTrait
     }
 
     // TODO: @next - add return type
-    public function setResponseContent(TestResponse $httpResponse)
+    public function setResponseContent(TestResponse $httpResponse): string|false
     {
         return $this->responseContent = $httpResponse->getContent();
     }

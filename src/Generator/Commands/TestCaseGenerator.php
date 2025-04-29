@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -16,30 +18,36 @@ class TestCaseGenerator extends GeneratorCommand implements ComponentsGenerator
     public array $inputs = [
         ['type', null, InputOption::VALUE_OPTIONAL, 'The TestCase type.'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:test:testcase';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create the TestCase file.';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'TestCase';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Tests/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -55,9 +63,11 @@ class TestCaseGenerator extends GeneratorCommand implements ComponentsGenerator
         } else {
             $this->fileName = Str::ucfirst($type) . $this->fileName;
         }
+
         if ('api' === $type || 'cli' === $type) {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Functional/*';
         }
+
         if ('web' === $type) {
             $this->pathStructure = '{section-name}/{container-name}/Tests/E2E/*';
         }
@@ -80,6 +90,7 @@ class TestCaseGenerator extends GeneratorCommand implements ComponentsGenerator
         ];
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'TestCase';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -14,30 +16,36 @@ class MiddlewareGenerator extends GeneratorCommand implements ComponentsGenerato
      */
     public array $inputs = [
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:middleware';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Middleware class';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Middleware';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Middlewares/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -63,6 +71,7 @@ class MiddlewareGenerator extends GeneratorCommand implements ComponentsGenerato
         ];
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'DefaultMiddleware';

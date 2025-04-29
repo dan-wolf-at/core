@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -21,30 +23,36 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
         ['foldername', null, InputOption::VALUE_OPTIONAL, 'The folder name to create the test in'],
         ['stubfoldername', null, InputOption::VALUE_OPTIONAL, 'The folder name to load the stub from'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:test:unit';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a Unit Test file.';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Unit Test';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/Tests/Unit/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
@@ -76,7 +84,7 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
             }
         }
 
-        $model = $model ?? $this->containerName;
+        $model ??= $this->containerName;
         $models = Str::plural($model);
 
         return [
@@ -104,6 +112,7 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
         ];
     }
 
+    #[\Override]
     public function getDefaultFileName(): string
     {
         return 'DefaultUnitTest';

@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 use Apiato\Core\Services\Response;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
 /**
  * @internal
@@ -45,7 +48,7 @@ trait CanEagerLoadTrait
     // Returning null causes multiple if() guard clauses as you can see
     private function filterInvalidRelations(Builder|Model $model, array $relationParts): string|null
     {
-        if (empty($relationParts)) {
+        if ($relationParts === []) {
             return null;
         }
 
@@ -57,7 +60,7 @@ trait CanEagerLoadTrait
 
         $nextModel = $model->$relation()->getRelated();
 
-        if (empty($relationParts)) {
+        if ($relationParts === []) {
             return $relation;
         }
 
@@ -77,6 +80,7 @@ trait CanEagerLoadTrait
             ->replace('_', ' ')
             ->title()
             ->replace(' ', '')
-            ->camel();
+            ->camel()
+            ->toString();
     }
 }

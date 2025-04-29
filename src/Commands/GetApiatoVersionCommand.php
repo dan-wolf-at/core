@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Commands;
 
 use Apiato\Core\Abstracts\Commands\ConsoleCommand;
@@ -22,7 +24,7 @@ class GetApiatoVersionCommand extends ConsoleCommand
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->info(Apiato::VERSION);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 use Apiato\Core\Exceptions\CoreInternalErrorException;
@@ -39,7 +41,7 @@ trait CanOwnTrait
      */
     public function owns(Model $ownable, string|null $relation = null): bool
     {
-        if ($relation) {
+        if ($relation !== null && $relation !== '' && $relation !== '0') {
             return null !== $this->$relation()->find($ownable);
         }
 

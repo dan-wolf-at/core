@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits\TestTraits\PhpUnit;
 
 use Apiato\Core\Abstracts\Models\UserModel;
@@ -39,8 +41,6 @@ trait TestAuthHelperTrait
      * Same as `getTestingUser()` but always overrides the User Access
      * (roles and permissions) with null. So the user can be used to test
      * if unauthorized user tried to access your protected endpoint.
-     *
-     * @param null $userDetails
      */
     public function getTestingUserWithoutAccess($userDetails = null, bool $createUserAsAdmin = false): UserModel
     {
@@ -119,7 +119,7 @@ trait TestAuthHelperTrait
         ];
 
         // if no user detail provided, use the default details, to find the password or generate one before encoding it
-        return $this->prepareUserPassword($userDetails ?: $defaultUserDetails);
+        return $this->prepareUserPassword($userDetails !== null && $userDetails !== [] ? $userDetails : $defaultUserDetails);
     }
 
     private function prepareUserPassword(array|null $userDetails): array|null
@@ -135,12 +135,11 @@ trait TestAuthHelperTrait
 
     private function setupTestingUserAccess($user, array|null $access = null)
     {
-        $access = $access ?: $this->getAccess();
+        $access = $access !== null && $access !== [] ? $access : $this->getAccess();
 
         $user = $this->setupTestingUserPermissions($user, $access);
-        $user = $this->setupTestingUserRoles($user, $access);
 
-        return $user;
+        return $this->setupTestingUserRoles($user, $access);
     }
 
     private function getAccess(): array|null

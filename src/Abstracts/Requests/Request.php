@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Abstracts\Requests;
 
 use Apiato\Core\Abstracts\Models\UserModel as User;
@@ -57,16 +59,16 @@ abstract class Request extends LaravelRequest
     public static function injectData(array $parameters = [], User|null $user = null, array $cookies = [], array $files = [], array $server = []): static
     {
         // if user is passed, will be returned when asking for the authenticated user using `\Auth::user()`
-        if ($user) {
+        if ($user !== null) {
             $app = App::getInstance();
             $app['auth']->guard($driver = 'api')->setUser($user);
             $app['auth']->shouldUse($driver);
         }
 
         // For now doesn't matter which URI or Method is used.
-        $request = parent::create('/', 'GET', $parameters, $cookies, $files, $server);
+        $request = parent::create('/', \Symfony\Component\HttpFoundation\Request::METHOD_GET, $parameters, $cookies, $files, $server);
 
-        $request->setUserResolver(function () use ($user) {
+        $request->setUserResolver(function () use ($user): ?User {
             return $user;
         });
 
@@ -113,7 +115,7 @@ abstract class Request extends LaravelRequest
     public function hasAccess(User|null $user = null): bool
     {
         // if not in parameters, take from the request object {$this}
-        $user = $user ?: $this->user();
+        $user = $user instanceof User ? $user : $this->user();
 
         if ($user) {
             $autoAccessRoles = config('apiato.requests.allow-roles-to-access-all-routes');
@@ -133,7 +135,7 @@ abstract class Request extends LaravelRequest
         );
 
         // allow access if user has access to any of the defined roles or permissions.
-        return empty($hasAccess) || in_array(true, $hasAccess, true);
+        return $hasAccess === [] || in_array(true, $hasAccess, true);
     }
 
     protected function hasAnyPermissionAccess($user): array
@@ -197,7 +199,6 @@ abstract class Request extends LaravelRequest
      * Overriding this function to modify the any user input before
      * applying the validation rules.
      *
-     * @param null $keys
      *
      * @throws IncorrectIdException
      * @throws \Throwable
@@ -208,9 +209,7 @@ abstract class Request extends LaravelRequest
 
         $requestData = $this->mergeUrlParametersWithRequestData($requestData);
 
-        $requestData = $this->decodeHashedIdsBeforeValidation($requestData);
-
-        return $requestData;
+        return $this->decodeHashedIdsBeforeValidation($requestData);
     }
 
     /**
@@ -221,10 +220,8 @@ abstract class Request extends LaravelRequest
      */
     protected function mergeUrlParametersWithRequestData(array $requestData): array
     {
-        if (!empty($this->urlParameters)) {
-            foreach ($this->urlParameters as $param) {
-                $requestData[$param] = $this->route($param);
-            }
+        foreach ($this->urlParameters as $urlParameter) {
+            $requestData[$urlParameter] = $this->route($urlParameter);
         }
 
         return $requestData;
@@ -254,7 +251,7 @@ abstract class Request extends LaravelRequest
         // iterate all functions in the array
         foreach ($functions as $function) {
             // in case the value doesn't contain a separator (single function per key)
-            if (!strpos($function, $orIndicator)) {
+            if (in_array(strpos((string) $function, $orIndicator), [0, false], true)) {
                 // simply call the single function and store the response.
                 $returns[] = $this->{$function}();
             } else {
@@ -262,7 +259,7 @@ abstract class Request extends LaravelRequest
                 $orReturns = [];
 
                 // iterate over each function in the key
-                foreach (explode($orIndicator, $function) as $orFunction) {
+                foreach (explode($orIndicator, (string) $function) as $orFunction) {
                     // dynamically call each function
                     $orReturns[] = $this->{$orFunction}();
                 }

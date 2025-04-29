@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Traits;
 
 use Illuminate\Support\Facades\DB;
@@ -13,7 +15,7 @@ trait ValidationTrait
     public function extendValidationRules(): void
     {
         // Validate String contains no space.
-        Validator::extend('no_spaces', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('no_spaces', function ($attribute, $value, $parameters, $validator): int|false {
             return preg_match('/^\S*$/u', $value);
         }, 'String should not contain space.');
 

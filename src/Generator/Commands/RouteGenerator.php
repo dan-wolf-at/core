@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
@@ -22,30 +24,36 @@ class RouteGenerator extends GeneratorCommand implements ComponentsGenerator
         ['verb', null, InputOption::VALUE_OPTIONAL, 'The HTTP verb of the endpoint (GET, POST, ...)'],
         ['controller', null, InputOption::VALUE_OPTIONAL, 'The controller used in this route'],
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:route';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Route class';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Route';
+
     /**
      * The structure of the file path.
      */
     protected string $pathStructure = '{section-name}/{container-name}/UI/{user-interface}/Routes/*';
+
     /**
      * The structure of the file name.
      */
     protected string $nameStructure = '{endpoint-name}.{endpoint-version}.{documentation-type}';
+
     /**
      * The name of the stub file.
      */
@@ -54,7 +62,7 @@ class RouteGenerator extends GeneratorCommand implements ComponentsGenerator
     public function getUserInputs(): array|null
     {
         $ui = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the controller', ['API', 'WEB'], 0));
-        $version = $this->checkParameterOrAsk('docversion', 'Enter the endpoint version (integer)', 1);
+        $version = $this->checkParameterOrAsk('docversion', 'Enter the endpoint version (integer)', '1');
         $doctype = $this->checkParameterOrChoice('doctype', 'Select the type for this endpoint', ['private', 'public'], 0);
         $operation = $this->checkParameterOrAsk('operation', 'Enter the name of the controller action', '__invoke');
         $verb = Str::upper($this->checkParameterOrAsk('verb', 'Enter the HTTP verb of this endpoint (GET, POST,...)', 'GET'));
@@ -66,6 +74,7 @@ class RouteGenerator extends GeneratorCommand implements ComponentsGenerator
         if ('__invoke' === $operation) {
             $invokable = true;
         }
+
         $controllerName = $this->checkParameterOrAsk('controller', 'Enter the controller name', 'Controller');
 
         $docUrl = preg_replace('~{(.+?)}~', ':$1', $url);
