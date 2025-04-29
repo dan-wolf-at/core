@@ -56,7 +56,7 @@ abstract class Request extends LaravelRequest
     /**
      * To be used mainly from unit tests.
      */
-    public static function injectData(array $parameters = [], User|null $user = null, array $cookies = [], array $files = [], array $server = []): static
+    public static function injectData(array $parameters = [], null|User $user = null, array $cookies = [], array $files = [], array $server = []): static
     {
         // if user is passed, will be returned when asking for the authenticated user using `\Auth::user()`
         if ($user !== null) {
@@ -68,7 +68,7 @@ abstract class Request extends LaravelRequest
         // For now doesn't matter which URI or Method is used.
         $request = parent::create('/', \Symfony\Component\HttpFoundation\Request::METHOD_GET, $parameters, $cookies, $files, $server);
 
-        $request->setUserResolver(function () use ($user): ?User {
+        $request->setUserResolver(static function () use ($user): ?User {
             return $user;
         });
 
@@ -112,7 +112,7 @@ abstract class Request extends LaravelRequest
      * User can set multiple permissions (separated with "|") and if the user has
      * any of the permissions, he will be authorized to proceed with this action.
      */
-    public function hasAccess(User|null $user = null): bool
+    public function hasAccess(null|User $user = null): bool
     {
         // if not in parameters, take from the request object {$this}
         $user = $user instanceof User ? $user : $this->user();
@@ -136,34 +136,6 @@ abstract class Request extends LaravelRequest
 
         // allow access if user has access to any of the defined roles or permissions.
         return $hasAccess === [] || in_array(true, $hasAccess, true);
-    }
-
-    protected function hasAnyPermissionAccess($user): array
-    {
-        if (!array_key_exists('permissions', $this->access) || !$this->access['permissions']) {
-            return [];
-        }
-
-        $permissions = is_array($this->access['permissions']) ? $this->access['permissions'] :
-            explode('|', $this->access['permissions']);
-
-        return array_map(static function ($permission) use ($user) {
-            return $user->hasPermissionTo($permission);
-        }, $permissions);
-    }
-
-    protected function hasAnyRoleAccess($user): array
-    {
-        if (!array_key_exists('roles', $this->access) || !$this->access['roles']) {
-            return [];
-        }
-
-        $roles = is_array($this->access['roles']) ? $this->access['roles'] :
-            explode('|', $this->access['roles']);
-
-        return array_map(static function ($role) use ($user) {
-            return $user->hasRole($role);
-        }, $roles);
     }
 
     /**
@@ -213,6 +185,45 @@ abstract class Request extends LaravelRequest
     }
 
     /**
+     * This method mimics the $request->input() method but works on the "decoded" values.
+     *
+     * @throws IncorrectIdException
+     * @throws \Throwable
+     */
+    public function getInputByKey($key = null, $default = null): mixed
+    {
+        return data_get($this->all(), $key, $default);
+    }
+
+    protected function hasAnyPermissionAccess($user): array
+    {
+        if (!array_key_exists('permissions', $this->access) || !$this->access['permissions']) {
+            return [];
+        }
+
+        $permissions = is_array($this->access['permissions']) ? $this->access['permissions'] :
+            explode('|', $this->access['permissions']);
+
+        return array_map(static function ($permission) use ($user) {
+            return $user->hasPermissionTo($permission);
+        }, $permissions);
+    }
+
+    protected function hasAnyRoleAccess($user): array
+    {
+        if (!array_key_exists('roles', $this->access) || !$this->access['roles']) {
+            return [];
+        }
+
+        $roles = is_array($this->access['roles']) ? $this->access['roles'] :
+            explode('|', $this->access['roles']);
+
+        return array_map(static function ($role) use ($user) {
+            return $user->hasRole($role);
+        }, $roles);
+    }
+
+    /**
      * apply validation rules to the ID's in the URL, since Laravel
      * doesn't validate them by default!
      *
@@ -225,17 +236,6 @@ abstract class Request extends LaravelRequest
         }
 
         return $requestData;
-    }
-
-    /**
-     * This method mimics the $request->input() method but works on the "decoded" values.
-     *
-     * @throws IncorrectIdException
-     * @throws \Throwable
-     */
-    public function getInputByKey($key = null, $default = null): mixed
-    {
-        return data_get($this->all(), $key, $default);
     }
 
     /**

@@ -45,6 +45,13 @@ abstract class Transformer extends FractalTransformer
         return parent::collection($data, $transformer, $resourceKey);
     }
 
+    public static function empty(): callable
+    {
+        return static function (): array {
+            return [];
+        };
+    }
+
     #[\Override]
     protected function callIncludeMethod(Scope $scope, string $includeName, $data)
     {
@@ -54,17 +61,10 @@ abstract class Transformer extends FractalTransformer
             if (config('apiato.requests.force-valid-includes', true)) {
                 throw new UnsupportedFractalIncludeException($exception->getMessage());
             }
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
             throw new CoreInternalErrorException($exception->getMessage());
         }
 
         return null;
-    }
-
-    public static function empty(): callable
-    {
-        return static function (): array {
-            return [];
-        };
     }
 }

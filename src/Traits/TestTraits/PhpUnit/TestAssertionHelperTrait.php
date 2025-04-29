@@ -134,7 +134,7 @@ trait TestAssertionHelperTrait
      * @example $this->
      * assertCriteriaPushedToRepository(UserRepository::class, SearchUsersCriteria::class, ['parameterName' => 'value']);
      */
-    protected function assertCriteriaPushedToRepository(string $repositoryClassName, string $criteriaClassName, array|null $criteriaArgs = null): MockInterface
+    protected function assertCriteriaPushedToRepository(string $repositoryClassName, string $criteriaClassName, null|array $criteriaArgs = null): MockInterface
     {
         $repositoryMock = $this->mock($repositoryClassName);
 

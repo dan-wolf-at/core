@@ -52,7 +52,7 @@ class EventListenerGenerator extends GeneratorCommand implements ComponentsGener
      */
     protected string $stubName = 'listeners/listener.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $event = $this->checkParameterOrAsk('event', 'Enter the name of the Event to generate this Listener for');
 

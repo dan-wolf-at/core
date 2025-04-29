@@ -51,7 +51,7 @@ class PolicyGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'policy.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         return [
             'path-parameters' => [

@@ -51,7 +51,7 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'seeder.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         return [
             'path-parameters' => [

@@ -57,7 +57,7 @@ class ContainerGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'composer.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $ui = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for this container', ['API', 'WEB', 'BOTH'], 0));
         $generateEvents = $this->checkParameterOrConfirm('events', 'Do you want to generate the corresponding CRUD Events for this Container?', false);
@@ -121,7 +121,7 @@ class ContainerGenerator extends GeneratorCommand implements ComponentsGenerator
         $sectionName = $this->sectionName;
         $_sectionName = Str::lower($this->sectionName);
 
-        if ('api' === $ui || 'both' === $ui) {
+        if ($ui === 'api' || $ui === 'both') {
             $this->call('apiato:generate:container:api', [
                 '--section' => $sectionName,
                 '--container' => $containerName,
@@ -134,7 +134,7 @@ class ContainerGenerator extends GeneratorCommand implements ComponentsGenerator
             ]);
         }
 
-        if ('web' === $ui || 'both' === $ui) {
+        if ($ui === 'web' || $ui === 'both') {
             $this->call('apiato:generate:container:web', [
                 '--section' => $sectionName,
                 '--container' => $containerName,

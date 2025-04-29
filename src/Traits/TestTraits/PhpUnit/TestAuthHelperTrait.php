@@ -12,12 +12,12 @@ trait TestAuthHelperTrait
     /**
      * Logged in user object.
      */
-    protected UserModel|null $testingUser = null;
+    protected null|UserModel $testingUser = null;
 
     /**
      * User class used by factory to create testing user.
      */
-    protected string|null $userClass = null;
+    protected null|string $userClass = null;
 
     /**
      * Roles and permissions, to be attached on the user.
@@ -30,12 +30,12 @@ trait TestAuthHelperTrait
     /**
      * state name on User factory.
      */
-    private string|null $userAdminState = null;
+    private null|string $userAdminState = null;
 
     /**
      * create testing user as Admin.
      */
-    private bool|null $createUserAsAdmin = null;
+    private null|bool $createUserAsAdmin = null;
 
     /**
      * Same as `getTestingUser()` but always overrides the User Access
@@ -60,7 +60,7 @@ trait TestAuthHelperTrait
      * @param array|null $access roles and permissions you'd like to provide this user with
      * @param bool $createUserAsAdmin should create testing user as admin
      */
-    public function getTestingUser(array|null $userDetails = null, array|null $access = null, bool $createUserAsAdmin = false): UserModel
+    public function getTestingUser(null|array $userDetails = null, null|array $access = null, bool $createUserAsAdmin = false): UserModel
     {
         $this->createUserAsAdmin = $createUserAsAdmin;
         $this->userClass = $this->userclass ?? config('apiato.tests.user-class');
@@ -83,7 +83,7 @@ trait TestAuthHelperTrait
         return $this->testingUser ?: $this->createTestingUser($userDetails, $access);
     }
 
-    private function createTestingUser(array|null $userDetails = null, array|null $access = null): UserModel
+    private function createTestingUser(null|array $userDetails = null, null|array $access = null): UserModel
     {
         // create new user
         $user = $this->factoryCreateUser($userDetails);
@@ -98,7 +98,7 @@ trait TestAuthHelperTrait
         return $this->testingUser = $user;
     }
 
-    private function factoryCreateUser(array|null $userDetails = null): UserModel
+    private function factoryCreateUser(null|array $userDetails = null): UserModel
     {
         $user = str_replace('::class', '', $this->userClass);
         if ($this->createUserAsAdmin) {
@@ -110,7 +110,7 @@ trait TestAuthHelperTrait
         return $user::factory()->create($this->prepareUserDetails($userDetails));
     }
 
-    private function prepareUserDetails(array|null $userDetails = null): array
+    private function prepareUserDetails(null|array $userDetails = null): array
     {
         $defaultUserDetails = [
             'name' => fake()->name,
@@ -122,7 +122,7 @@ trait TestAuthHelperTrait
         return $this->prepareUserPassword($userDetails !== null && $userDetails !== [] ? $userDetails : $defaultUserDetails);
     }
 
-    private function prepareUserPassword(array|null $userDetails): array|null
+    private function prepareUserPassword(null|array $userDetails): null|array
     {
         // get password from the user details or generate one
         $password = $userDetails['password'] ?? fake()->password;
@@ -133,7 +133,7 @@ trait TestAuthHelperTrait
         return $userDetails;
     }
 
-    private function setupTestingUserAccess($user, array|null $access = null)
+    private function setupTestingUserAccess($user, null|array $access = null)
     {
         $access = $access !== null && $access !== [] ? $access : $this->getAccess();
 
@@ -142,12 +142,12 @@ trait TestAuthHelperTrait
         return $this->setupTestingUserRoles($user, $access);
     }
 
-    private function getAccess(): array|null
+    private function getAccess(): null|array
     {
         return $this->access ?? null;
     }
 
-    private function setupTestingUserPermissions($user, array|null $access)
+    private function setupTestingUserPermissions($user, null|array $access)
     {
         if (!empty($access['permissions'])) {
             $user->givePermissionTo($access['permissions']);
@@ -157,7 +157,7 @@ trait TestAuthHelperTrait
         return $user;
     }
 
-    private function setupTestingUserRoles($user, array|null $access)
+    private function setupTestingUserRoles($user, null|array $access)
     {
         if (!empty($access['roles']) && !$user->hasRole($access['roles'])) {
             $user->assignRole($access['roles']);

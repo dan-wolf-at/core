@@ -53,22 +53,22 @@ class TestCaseGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'tests/testcase/generic.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $type = Str::lower($this->checkParameterOrChoice('type', 'Select the TestCase type', ['Container', 'Unit', 'Functional', 'E2E', 'API', 'CLI', 'WEB'], 0));
 
         $this->stubName = 'tests/testcase/' . $type . '.stub';
-        if ('e2e' === $type) {
+        if ($type === 'e2e') {
             $this->fileName = Str::upper($type) . $this->fileName;
         } else {
             $this->fileName = Str::ucfirst($type) . $this->fileName;
         }
 
-        if ('api' === $type || 'cli' === $type) {
+        if ($type === 'api' || $type === 'cli') {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Functional/*';
         }
 
-        if ('web' === $type) {
+        if ($type === 'web') {
             $this->pathStructure = '{section-name}/{container-name}/Tests/E2E/*';
         }
 

@@ -19,6 +19,7 @@ trait HasResourceKeyTrait
         }
 
         $reflectionClass = new \ReflectionClass($this);
+
         return $reflectionClass->getShortName();
     }
 }

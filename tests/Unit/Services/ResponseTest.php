@@ -237,7 +237,7 @@ final class ResponseTest extends UnitTestCase
 
         $assertableJson = AssertableJson::fromArray($response->toArray());
 
-        $assertableJson->has('meta.include', fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
+        $assertableJson->has('meta.include', static fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
     }
 
     #[DataProvider('fieldsetDataProvider')]
@@ -251,7 +251,7 @@ final class ResponseTest extends UnitTestCase
 
         foreach ($expected as $expectation) {
             $assertableJson->has($expectation);
-            $assertableJson->has('meta.include', fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
+            $assertableJson->has('meta.include', static fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
         }
 
         foreach ($missing as $expectation) {
@@ -297,7 +297,7 @@ final class ResponseTest extends UnitTestCase
 
         $assertableJson = AssertableJson::fromArray($response->toArray());
 
-        $assertableJson->has('meta.include', fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
+        $assertableJson->has('meta.include', static fn (AssertableJson $json): AssertableJson => $json->whereAll(['parent', 'children', 'books']));
     }
 
     #[DataProvider('validResourceNameProvider')]
@@ -324,21 +324,6 @@ final class ResponseTest extends UnitTestCase
         $assertableJson = AssertableJson::fromArray($response->toArray());
 
         $assertableJson->has('data.object');
-    }
-
-    #[\Override]
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        config()->set('fractal.auto_fieldsets.enabled', true);
-        config()->set('fractal.auto_fieldsets.request_key', self::FIELDSET_KEY);
-
-        $this->user = UserFactory::new()
-            ->for(UserFactory::new()->has(BookFactory::new()), 'parent')
-            ->has(UserFactory::new()->has(BookFactory::new())->count(2), 'children')
-            ->has(BookFactory::new()->count(2))
-            ->createOne();
     }
 
     public function testCanGenerate200OKResponse(): void
@@ -408,5 +393,20 @@ final class ResponseTest extends UnitTestCase
             'test' => ['2', 'value'],
         ]);
         $this->assertEquals($paramBag, $actualParams);
+    }
+
+    #[\Override]
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config()->set('fractal.auto_fieldsets.enabled', true);
+        config()->set('fractal.auto_fieldsets.request_key', self::FIELDSET_KEY);
+
+        $this->user = UserFactory::new()
+            ->for(UserFactory::new()->has(BookFactory::new()), 'parent')
+            ->has(UserFactory::new()->has(BookFactory::new())->count(2), 'children')
+            ->has(BookFactory::new()->count(2))
+            ->createOne();
     }
 }

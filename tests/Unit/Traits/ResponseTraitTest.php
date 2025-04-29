@@ -103,7 +103,7 @@ final class ResponseTraitTest extends UnitTestCase
     }
 
     #[DataProvider('resourceKeyProvider')]
-    public function testCanOverrideResourceKey(bool|string|array|null $resourceKey, string $expected): void
+    public function testCanOverrideResourceKey(null|bool|string|array $resourceKey, string $expected): void
     {
         $result = $this->trait
             ->withMeta($this->metadata)

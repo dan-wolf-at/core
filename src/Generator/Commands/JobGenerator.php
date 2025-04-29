@@ -51,7 +51,7 @@ class JobGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'job.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         return [
             'path-parameters' => [

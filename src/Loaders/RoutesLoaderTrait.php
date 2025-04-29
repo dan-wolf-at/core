@@ -32,6 +32,17 @@ trait RoutesLoaderTrait
         }
     }
 
+    public function getApiRouteGroup(SplFileInfo|string $endpointFileOrPrefixString): array
+    {
+        return [
+            'middleware' => $this->getMiddlewares(),
+            'domain' => $this->getApiUrl(),
+            // If $endpointFileOrPrefixString is a string, use that string as prefix
+            // else, if it is a file then get the version name from the file name, and use it as prefix
+            'prefix' => is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString : $this->getApiVersionPrefix($endpointFileOrPrefixString),
+        ];
+    }
+
     private function shouldRegisterRoutes(): bool
     {
         return !$this->app->routesAreCached();
@@ -44,11 +55,13 @@ trait RoutesLoaderTrait
     {
         $apiRoutesPath = $this->getRoutePathsForUI($containerPath, 'API');
 
-        if (File::isDirectory($apiRoutesPath)) {
-            $files = $this->getFilesSortedByName($apiRoutesPath);
-            foreach ($files as $file) {
-                $this->loadApiRoute($file);
-            }
+        if (!File::isDirectory($apiRoutesPath)) {
+            return;
+        }
+
+        $files = $this->getFilesSortedByName($apiRoutesPath);
+        foreach ($files as $file) {
+            $this->loadApiRoute($file);
         }
     }
 
@@ -69,7 +82,7 @@ trait RoutesLoaderTrait
     {
         $files = File::allFiles($apiRoutesPath);
 
-        return Arr::sort($files, function ($file) {
+        return Arr::sort($files, static function ($file) {
             return $file->getFilename();
         });
     }
@@ -78,20 +91,9 @@ trait RoutesLoaderTrait
     {
         $routeGroupArray = $this->getApiRouteGroup($file);
 
-        Route::group($routeGroupArray, function ($router) use ($file): void {
+        Route::group($routeGroupArray, static function ($router) use ($file): void {
             require $file->getPathname();
         });
-    }
-
-    public function getApiRouteGroup(SplFileInfo|string $endpointFileOrPrefixString): array
-    {
-        return [
-            'middleware' => $this->getMiddlewares(),
-            'domain' => $this->getApiUrl(),
-            // If $endpointFileOrPrefixString is a string, use that string as prefix
-            // else, if it is a file then get the version name from the file name, and use it as prefix
-            'prefix' => is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString : $this->getApiVersionPrefix($endpointFileOrPrefixString),
-        ];
     }
 
     private function getMiddlewares(): array
@@ -102,12 +104,12 @@ trait RoutesLoaderTrait
         ]);
     }
 
-    private function getRateLimitMiddleware(): string|null
+    private function getRateLimitMiddleware(): null|string
     {
         $rateLimitMiddleware = null;
 
         if (config('apiato.api.throttle.enabled')) {
-            RateLimiter::for('api', function (Request $request) {
+            RateLimiter::for('api', static function (Request $request) {
                 return Limit::perMinutes(config('apiato.api.throttle.expires'), config('apiato.api.throttle.attempts'))->by($request->user()?->id ?: $request->ip());
             });
 
@@ -164,11 +166,13 @@ trait RoutesLoaderTrait
     {
         $webRoutesPath = $this->getRoutePathsForUI($containerPath, 'WEB');
 
-        if (File::isDirectory($webRoutesPath)) {
-            $files = $this->getFilesSortedByName($webRoutesPath);
-            foreach ($files as $file) {
-                $this->loadWebRoute($file);
-            }
+        if (!File::isDirectory($webRoutesPath)) {
+            return;
+        }
+
+        $files = $this->getFilesSortedByName($webRoutesPath);
+        foreach ($files as $file) {
+            $this->loadWebRoute($file);
         }
     }
 
@@ -176,7 +180,7 @@ trait RoutesLoaderTrait
     {
         Route::group([
             'middleware' => ['web'],
-        ], function ($router) use ($file): void {
+        ], static function ($router) use ($file): void {
             require $file->getPathname();
         });
     }

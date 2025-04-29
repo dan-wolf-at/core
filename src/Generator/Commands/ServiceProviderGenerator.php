@@ -11,6 +11,10 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGenerator
 {
+    private const string TAB2 = '        ';
+
+    private const string TAB3 = '            ';
+
     /**
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
@@ -55,11 +59,7 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
      */
     protected string $stubName = 'providers/generic.stub';
 
-    private const string TAB2 = '        ';
-
-    private const string TAB3 = '            ';
-
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $stub = $this->option('stub');
         $eventServiceProvider = $this->option('event-service-provider');

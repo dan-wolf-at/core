@@ -34,6 +34,17 @@ trait HasRequestCriteriaTrait
     }
 
     /**
+     * @throws CoreInternalErrorException
+     */
+    public function removeRequestCriteria($repository = null): static
+    {
+        $validatedRepository = $this->validateRepository($repository);
+        $validatedRepository->popCriteria(RequestCriteria::class);
+
+        return $this;
+    }
+
+    /**
      * Validates, if the given Repository exists or uses $this->repository on the Task/Action to apply functions.
      *
      * @throws CoreInternalErrorException
@@ -102,7 +113,7 @@ trait HasRequestCriteriaTrait
         request()->query->replace($query);
     }
 
-    private function decodeValue(string $searchQuery): string|null
+    private function decodeValue(string $searchQuery): null|string
     {
         $searchValue = $this->parserSearchValue($searchQuery);
 
@@ -122,7 +133,7 @@ trait HasRequestCriteriaTrait
             $values = explode(';', (string) $search);
             foreach ($values as $value) {
                 $s = explode(':', $value);
-                if (1 === count($s)) {
+                if (count($s) === 1) {
                     return $s[0];
                 }
             }
@@ -161,7 +172,7 @@ trait HasRequestCriteriaTrait
                 try {
                     [$field, $value] = explode(':', $row);
                     $searchData[$field] = $value;
-                } catch (\Exception) {
+                } catch (\Throwable) {
                     // Surround offset error
                 }
             }
@@ -186,16 +197,5 @@ trait HasRequestCriteriaTrait
         }
 
         return $decodedSearchQuery;
-    }
-
-    /**
-     * @throws CoreInternalErrorException
-     */
-    public function removeRequestCriteria($repository = null): static
-    {
-        $validatedRepository = $this->validateRepository($repository);
-        $validatedRepository->popCriteria(RequestCriteria::class);
-
-        return $this;
     }
 }

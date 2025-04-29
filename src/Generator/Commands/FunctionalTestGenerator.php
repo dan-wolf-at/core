@@ -56,7 +56,7 @@ class FunctionalTestGenerator extends GeneratorCommand implements ComponentsGene
      */
     protected string $stubName = 'tests/functional/generic.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $ui = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the Test', ['API', 'CLI'], 0));
 
@@ -64,11 +64,11 @@ class FunctionalTestGenerator extends GeneratorCommand implements ComponentsGene
         $stub = $this->option('stub');
         $url = $this->option('url');
 
-        if ('api' === $ui) {
+        if ($ui === 'api') {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Functional/API/*';
         }
 
-        if ('cli' === $ui) {
+        if ($ui === 'cli') {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Functional/CLI/*';
         }
 

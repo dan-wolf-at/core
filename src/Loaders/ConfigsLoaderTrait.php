@@ -14,6 +14,12 @@ trait ConfigsLoaderTrait
         $this->loadConfigs($shipConfigsDirectory);
     }
 
+    public function loadConfigsFromContainers(string $containerPath): void
+    {
+        $containerConfigsDirectory = $containerPath . '/Configs';
+        $this->loadConfigs($containerConfigsDirectory);
+    }
+
     private function loadConfigs(string $configFolder): void
     {
         if (File::isDirectory($configFolder)) {
@@ -26,11 +32,5 @@ trait ConfigsLoaderTrait
                 $this->mergeConfigFrom($path, $name);
             }
         }
-    }
-
-    public function loadConfigsFromContainers(string $containerPath): void
-    {
-        $containerConfigsDirectory = $containerPath . '/Configs';
-        $this->loadConfigs($containerConfigsDirectory);
     }
 }

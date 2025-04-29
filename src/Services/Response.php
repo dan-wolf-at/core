@@ -71,48 +71,6 @@ class Response extends Fractal
         return $this->manager->createData($this->getResource());
     }
 
-    private function defaultResourceName(): string
-    {
-        if (is_string($this->getResourceName())) {
-            return $this->getResourceName();
-        }
-
-        if ($this->data instanceof HasResourceKey) {
-            return $this->data->getResourceKey();
-        }
-
-        if (!empty($this->data) && 'collection' === $this->determineDataType($this->data)) {
-            // TODO: there was a problem $this->data->first() but I cant remember. It had to do with the data being an array
-            // also check AbstractTransformer where we also do this check and use the first item. we also have the same problem there
-            $firstItem = $this->data->first();
-            if ($firstItem instanceof HasResourceKey) {
-                return $firstItem->getResourceKey();
-            }
-        }
-
-        return '';
-    }
-
-    private function setAvailableIncludesMeta(): void
-    {
-        $this->addMeta([
-            'include' => $this->getTransformerAvailableIncludes(),
-        ]);
-    }
-
-    private function getTransformerAvailableIncludes(): array
-    {
-        if (is_null($this->transformer) || is_callable($this->transformer)) {
-            return [];
-        }
-
-        if (is_string($this->transformer)) {
-            return (new $this->transformer())->getAvailableIncludes();
-        }
-
-        return $this->transformer->getAvailableIncludes();
-    }
-
     /**
      * Returns a 202 Accepted response.
      */
@@ -126,7 +84,7 @@ class Response extends Fractal
     }
 
     #[\Override]
-    public function getTransformer(): string|callable|TransformerAbstract|null
+    public function getTransformer(): null|string|callable|TransformerAbstract
     {
         return $this->transformer;
     }
@@ -163,5 +121,47 @@ class Response extends Fractal
         }
 
         return $this->respond(200);
+    }
+
+    private function defaultResourceName(): string
+    {
+        if (is_string($this->getResourceName())) {
+            return $this->getResourceName();
+        }
+
+        if ($this->data instanceof HasResourceKey) {
+            return $this->data->getResourceKey();
+        }
+
+        if (!empty($this->data) && $this->determineDataType($this->data) === 'collection') {
+            // TODO: there was a problem $this->data->first() but I cant remember. It had to do with the data being an array
+            // also check AbstractTransformer where we also do this check and use the first item. we also have the same problem there
+            $firstItem = $this->data->first();
+            if ($firstItem instanceof HasResourceKey) {
+                return $firstItem->getResourceKey();
+            }
+        }
+
+        return '';
+    }
+
+    private function setAvailableIncludesMeta(): void
+    {
+        $this->addMeta([
+            'include' => $this->getTransformerAvailableIncludes(),
+        ]);
+    }
+
+    private function getTransformerAvailableIncludes(): array
+    {
+        if (is_null($this->transformer) || is_callable($this->transformer)) {
+            return [];
+        }
+
+        if (is_string($this->transformer)) {
+            return (new $this->transformer())->getAvailableIncludes();
+        }
+
+        return $this->transformer->getAvailableIncludes();
     }
 }

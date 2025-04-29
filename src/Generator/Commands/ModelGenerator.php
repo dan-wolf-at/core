@@ -53,7 +53,7 @@ class ModelGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'model.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $repository = $this->checkParameterOrConfirm('repository', 'Do you want to generate the corresponding Repository for this Model?', true);
         if ($repository) {
@@ -66,7 +66,7 @@ class ModelGenerator extends GeneratorCommand implements ComponentsGenerator
                 '--model' => $this->fileName,
             ]);
 
-            if (0 != $status) {
+            if ($status !== 0) {
                 $this->printErrorMessage('Could not generate the corresponding Repository!');
             }
         }

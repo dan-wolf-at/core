@@ -15,6 +15,18 @@ trait CommandsLoaderTrait
         $this->loadTheConsoles($containerCommandsDirectory);
     }
 
+    public function loadCommandsFromShip(): void
+    {
+        $shipCommandsDirectory = base_path('app/Ship/Commands');
+        $this->loadTheConsoles($shipCommandsDirectory);
+    }
+
+    public function loadCommandsFromCore(): void
+    {
+        $coreCommandsDirectory = __DIR__ . '/../Commands';
+        $this->loadTheConsoles($coreCommandsDirectory);
+    }
+
     private function loadTheConsoles($directory): void
     {
         if (File::isDirectory($directory)) {
@@ -34,18 +46,6 @@ trait CommandsLoaderTrait
 
     private function isRouteFile($consoleFile): bool
     {
-        return 'closures.php' === $consoleFile->getFilename();
-    }
-
-    public function loadCommandsFromShip(): void
-    {
-        $shipCommandsDirectory = base_path('app/Ship/Commands');
-        $this->loadTheConsoles($shipCommandsDirectory);
-    }
-
-    public function loadCommandsFromCore(): void
-    {
-        $coreCommandsDirectory = __DIR__ . '/../Commands';
-        $this->loadTheConsoles($coreCommandsDirectory);
+        return $consoleFile->getFilename() === 'closures.php';
     }
 }

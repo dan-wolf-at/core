@@ -15,17 +15,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     use WithWorkbench;
     use RefreshDatabase;
 
-    #[\Override]
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        foreach ((app(ApiatoServiceProvider::class, ['app' => $this->app]))->serviceProviders as $provider) {
-            App::register($provider);
-        }
-    }
-
-    public function decode(string $hashedId): int|null
+    public function decode(string $hashedId): null|int
     {
         $result = Hashids::decode($hashedId);
 
@@ -39,5 +29,15 @@ class TestCase extends \Orchestra\Testbench\TestCase
     public function encode(int $id): string
     {
         return Hashids::encode($id);
+    }
+
+    #[\Override]
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        foreach ((app(ApiatoServiceProvider::class, ['app' => $this->app]))->serviceProviders as $provider) {
+            App::register($provider);
+        }
     }
 }

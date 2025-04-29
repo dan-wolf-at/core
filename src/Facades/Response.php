@@ -10,7 +10,7 @@ use League\Fractal\Serializer\SerializerAbstract;
 use League\Fractal\TransformerAbstract;
 
 /**
- * @method static \Apiato\Core\Services\Response create(mixed $data = null, callable|TransformerAbstract|null|string $transformer = null, SerializerAbstract|null|string $serializer = null)
+ * @method static \Apiato\Core\Services\Response create(mixed $data = null, callable|TransformerAbstract|string|null $transformer = null, SerializerAbstract|string|null $serializer = null)
  * @method static JsonResponse ok()
  * @method static JsonResponse created()
  * @method static JsonResponse noContent()

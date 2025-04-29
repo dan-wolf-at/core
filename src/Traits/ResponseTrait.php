@@ -55,7 +55,7 @@ trait ResponseTrait
                 $obj = $data->getCollection()->first();
             } elseif ($data instanceof Collection) {
                 $obj = $data->first();
-            } elseif (is_array($data) && [] !== $data) {
+            } elseif (is_array($data) && $data !== []) {
                 $obj = $data[0];
             } else {
                 $obj = $data;
@@ -84,6 +84,47 @@ trait ResponseTrait
         }
 
         return $fractal->toArray();
+    }
+
+    public function withMeta($data): self
+    {
+        $this->metaData = $data;
+
+        return $this;
+    }
+
+    public function json($data, $status = 200, array $headers = [], $options = 0): JsonResponse
+    {
+        return new JsonResponse($data, $status, $headers, $options);
+    }
+
+    public function created($data = null, $status = 201, array $headers = [], $options = 0): JsonResponse
+    {
+        return new JsonResponse($data, $status, $headers, $options);
+    }
+
+    public function deleted(null|Model $deletedModel = null): JsonResponse
+    {
+        if ($deletedModel === null) {
+            return $this->accepted();
+        }
+
+        $id = $deletedModel->getHashedKey();
+        $className = (new \ReflectionClass($deletedModel))->getShortName();
+
+        return $this->accepted([
+            'message' => sprintf('%s (%s) Deleted Successfully.', $className, $id),
+        ]);
+    }
+
+    public function accepted($data = null, $status = 202, array $headers = [], $options = 0): JsonResponse
+    {
+        return new JsonResponse($data, $status, $headers, $options);
+    }
+
+    public function noContent($status = 204): JsonResponse
+    {
+        return new JsonResponse(null, $status);
     }
 
     protected function parseRequestedIncludes(): array
@@ -115,46 +156,5 @@ trait ResponseTrait
         }
 
         return $responseArray;
-    }
-
-    public function withMeta($data): self
-    {
-        $this->metaData = $data;
-
-        return $this;
-    }
-
-    public function json($data, $status = 200, array $headers = [], $options = 0): JsonResponse
-    {
-        return new JsonResponse($data, $status, $headers, $options);
-    }
-
-    public function created($data = null, $status = 201, array $headers = [], $options = 0): JsonResponse
-    {
-        return new JsonResponse($data, $status, $headers, $options);
-    }
-
-    public function deleted(Model|null $deletedModel = null): JsonResponse
-    {
-        if ($deletedModel === null) {
-            return $this->accepted();
-        }
-
-        $id = $deletedModel->getHashedKey();
-        $className = (new \ReflectionClass($deletedModel))->getShortName();
-
-        return $this->accepted([
-            'message' => sprintf('%s (%s) Deleted Successfully.', $className, $id),
-        ]);
-    }
-
-    public function accepted($data = null, $status = 202, array $headers = [], $options = 0): JsonResponse
-    {
-        return new JsonResponse($data, $status, $headers, $options);
-    }
-
-    public function noContent($status = 204): JsonResponse
-    {
-        return new JsonResponse(null, $status);
     }
 }

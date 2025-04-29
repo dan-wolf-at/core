@@ -23,39 +23,35 @@ abstract class GeneratorCommand extends Command
     use FileSystemTrait;
     use FormatterTrait;
 
-    protected array $inputs;
-
-    protected string $fileType;
-
-    protected string $stubName;
-
     /**
      * Root directory of all sections.
      *
-     * @var string
      */
     private const ROOT = 'app/Containers';
 
     /**
      * Relative path for the stubs (relative to this directory / file).
      *
-     * @var string
      */
     private const STUB_PATH = 'Stubs/*';
 
     /**
      * Relative path for the custom stubs (relative to the app/Ship directory!).
      *
-     * @var string
      */
     private const CUSTOM_STUB_PATH = 'Generators/CustomStubs/*';
 
     /**
      * Default section name.
      *
-     * @var string
      */
     private const DEFAULT_SECTION_NAME = 'AppSection';
+
+    protected array $inputs;
+
+    protected string $fileType;
+
+    protected string $stubName;
 
     protected string $filePath;
 
@@ -109,7 +105,7 @@ abstract class GeneratorCommand extends Command
         // Now fix the section, container and file name
         $this->sectionName = $this->removeSpecialChars($this->sectionName);
         $this->containerName = $this->removeSpecialChars($this->containerName);
-        if ('Configuration' !== $this->fileType) {
+        if ($this->fileType !== 'Configuration') {
             $this->fileName = $this->removeSpecialChars($this->fileName);
         }
 
@@ -119,7 +115,7 @@ abstract class GeneratorCommand extends Command
         // Get user inputs
         $this->userData = $this->getUserInputs();
 
-        if (null === $this->userData) {
+        if ($this->userData === null) {
             // The user skipped this step
             return null;
         }
@@ -145,23 +141,13 @@ abstract class GeneratorCommand extends Command
     }
 
     /**
-     * @throws GeneratorErrorException
-     */
-    private function validateGenerator($generator): void
-    {
-        if (!$generator instanceof ComponentsGenerator) {
-            throw new GeneratorErrorException('Your component maker command should implement ComponentsGenerator interface.');
-        }
-    }
-
-    /**
      * Checks if the param is set (via CLI), otherwise asks the user for a value.
      */
-    protected function checkParameterOrAsk($param, $question, string|null $default = null): mixed
+    protected function checkParameterOrAsk($param, $question, null|string $default = null): mixed
     {
         // Check if we already have a param set
         $value = $this->option($param);
-        if (null === $value) {
+        if ($value === null) {
             // There was no value provided via CLI, so ask the user…
             return $this->ask($question, $default);
         }
@@ -184,27 +170,6 @@ abstract class GeneratorCommand extends Command
     {
         // remove everything that is NOT a character or digit
         return preg_replace('/[^A-Za-z0-9]/', '', (string) $str);
-    }
-
-    /**
-     * Checks, if the data from the generator contains path, stub and file-parameters.
-     * Adds empty arrays, if they are missing.
-     */
-    private function sanitizeUserData(array $data): mixed
-    {
-        if (!array_key_exists('path-parameters', $data)) {
-            $data['path-parameters'] = [];
-        }
-
-        if (!array_key_exists('stub-parameters', $data)) {
-            $data['stub-parameters'] = [];
-        }
-
-        if (!array_key_exists('file-parameters', $data)) {
-            $data['file-parameters'] = [];
-        }
-
-        return $data;
     }
 
     protected function getFilePath($path): string
@@ -256,7 +221,7 @@ abstract class GeneratorCommand extends Command
         return array_merge($this->defaultInputs, $this->inputs);
     }
 
-    protected function getInput($arg, bool $trim = true): array|string|null
+    protected function getInput($arg, bool $trim = true): null|array|string
     {
         return $trim ? $this->trimString($this->argument($arg)) : $this->argument($arg);
     }
@@ -264,11 +229,11 @@ abstract class GeneratorCommand extends Command
     /**
      * Checks if the param is set (via CLI), otherwise proposes choices to the user.
      */
-    protected function checkParameterOrChoice($param, $question, array $choices, mixed $default = null): bool|array|string|null
+    protected function checkParameterOrChoice($param, $question, array $choices, mixed $default = null): null|bool|array|string
     {
         // Check if we already have a param set
         $value = $this->option($param);
-        if (null === $value) {
+        if ($value === null) {
             // There was no value provided via CLI, so ask the user…
             return $this->choice($question, $choices, $default);
         }
@@ -276,15 +241,46 @@ abstract class GeneratorCommand extends Command
         return $value;
     }
 
-    protected function checkParameterOrConfirm($param, $question, bool $default = false): string|array|bool|null
+    protected function checkParameterOrConfirm($param, $question, bool $default = false): null|string|array|bool
     {
         // Check if we already have a param set
         $value = $this->option($param);
-        if (null === $value) {
+        if ($value === null) {
             // There was no value provided via CLI, so ask the user...
             return $this->confirm($question, $default);
         }
 
         return $value;
+    }
+
+    /**
+     * @throws GeneratorErrorException
+     */
+    private function validateGenerator($generator): void
+    {
+        if (!$generator instanceof ComponentsGenerator) {
+            throw new GeneratorErrorException('Your component maker command should implement ComponentsGenerator interface.');
+        }
+    }
+
+    /**
+     * Checks, if the data from the generator contains path, stub and file-parameters.
+     * Adds empty arrays, if they are missing.
+     */
+    private function sanitizeUserData(array $data): mixed
+    {
+        if (!array_key_exists('path-parameters', $data)) {
+            $data['path-parameters'] = [];
+        }
+
+        if (!array_key_exists('stub-parameters', $data)) {
+            $data['stub-parameters'] = [];
+        }
+
+        if (!array_key_exists('file-parameters', $data)) {
+            $data['file-parameters'] = [];
+        }
+
+        return $data;
     }
 }

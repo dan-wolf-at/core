@@ -10,7 +10,7 @@ trait FormatterTrait
 {
     public function prependOperationToName(string $operation, string $class): string
     {
-        $className = ('list' === $operation) ? Str::pluralStudly($class) : $class;
+        $className = ($operation === 'list') ? Str::pluralStudly($class) : $class;
 
         return $operation . $this->capitalize($className);
     }

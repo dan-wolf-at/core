@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Apiato\Core\Tests\Unit\Core\Macros\Config;
 
-use Apiato\Core\Services\Response;
 use Apiato\Core\Macros\Config\UnsetKey;
+use Apiato\Core\Services\Response;
 use Apiato\Core\Tests\Unit\UnitTestCase;
 use Illuminate\Support\Facades\Config;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -13,16 +13,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(Response::class)]
 final class ConfigUnsetKeyMacroTest extends UnitTestCase
 {
-    #[\Override]
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        if (Config::hasMacro('unset') === false) {
-            Config::macro('unset', app(UnsetKey::class)());
-        }
-    }
-
     public function testItRemovesASimpleKey(): void
     {
         config()->set('foo', 'bar');
@@ -65,5 +55,15 @@ final class ConfigUnsetKeyMacroTest extends UnitTestCase
 
         $this->assertNull(config('ghost.key'));
         $this->assertFalse(config()->has('ghost.key'));
+    }
+
+    #[\Override]
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (Config::hasMacro('unset') === false) {
+            Config::macro('unset', app(UnsetKey::class)());
+        }
     }
 }

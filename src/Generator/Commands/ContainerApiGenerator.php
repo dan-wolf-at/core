@@ -62,7 +62,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
      */
     protected string $stubName = 'composer.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $ui = 'api';
 
@@ -339,7 +339,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
                 ]);
             }
 
-            if ('sac' === $controllertype) {
+            if ($controllertype === 'sac') {
                 $this->call('apiato:generate:route', [
                     '--section' => $sectionName,
                     '--container' => $containerName,
@@ -377,7 +377,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
             }
         }
 
-        if ('mac' === $controllertype) {
+        if ($controllertype === 'mac') {
             $this->printInfoMessage('Generating Controller to wire everything together');
             $this->call('apiato:generate:controller', [
                 '--section' => $sectionName,

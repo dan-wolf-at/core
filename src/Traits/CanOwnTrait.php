@@ -22,7 +22,7 @@ trait CanOwnTrait
      *
      * @throws CoreInternalErrorException
      */
-    public function isOwnedBy(Model $owner, string|null $relation = null): bool
+    public function isOwnedBy(Model $owner, null|string $relation = null): bool
     {
         return $this->owns($owner, $relation);
     }
@@ -39,20 +39,20 @@ trait CanOwnTrait
      *
      * @throws CoreInternalErrorException
      */
-    public function owns(Model $ownable, string|null $relation = null): bool
+    public function owns(Model $ownable, null|string $relation = null): bool
     {
         if ($relation !== null && $relation !== '' && $relation !== '0') {
-            return null !== $this->$relation()->find($ownable);
+            return $this->$relation()->find($ownable) !== null;
         }
 
         $relation = $this->guessSingularRelationshipName($ownable);
         if (method_exists($this, $relation)) {
-            return null !== $this->$relation()->find($ownable);
+            return $this->$relation()->find($ownable) !== null;
         }
 
         $relation = $this->guessPluralRelationshipName($ownable);
         if (method_exists($this, $relation)) {
-            return null !== $this->$relation()->find($ownable);
+            return $this->$relation()->find($ownable) !== null;
         }
 
         throw new CoreInternalErrorException('No relationship found. Please pass the relationship name as the second parameter.');
