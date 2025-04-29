@@ -53,6 +53,7 @@ abstract class MiddlewareServiceProvider extends MainServiceProvider
      *
      * @throws BindingResolutionException
      */
+    #[\Override]
     public function boot(): void
     {
         $this->loadMiddlewares();
@@ -64,5 +65,6 @@ abstract class MiddlewareServiceProvider extends MainServiceProvider
     #[\Override]
     public function register(): void
     {
+        // parent::register();
     }
 }

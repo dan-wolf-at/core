@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 
 final class CollectionMacroServiceProvider extends AbstractMainServiceProvider
 {
+    #[\Override]
     public function boot(): void
     {
         parent::boot();

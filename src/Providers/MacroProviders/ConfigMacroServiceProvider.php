@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Config;
 
 final class ConfigMacroServiceProvider extends AbstractMainServiceProvider
 {
+    #[\Override]
     public function boot(): void
     {
         parent::boot();
