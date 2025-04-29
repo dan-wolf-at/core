@@ -56,7 +56,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
      */
     protected string $stubName = 'composer.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $ui = 'web';
 
@@ -210,7 +210,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
                 '--stub' => $route['stub'],
             ]);
 
-            if (null != $route['action']) {
+            if ($route['action'] !== null) {
                 $this->call('apiato:generate:action', [
                     '--section' => $sectionName,
                     '--container' => $containerName,
@@ -221,7 +221,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
                 ]);
             }
 
-            if (null != $route['task']) {
+            if ($route['task'] !== null) {
                 $this->call('apiato:generate:task', [
                     '--section' => $sectionName,
                     '--container' => $containerName,
@@ -231,7 +231,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
                 ]);
             }
 
-            if ('sac' === $controllertype) {
+            if ($controllertype === 'sac') {
                 $this->call('apiato:generate:route', [
                     '--section' => $sectionName,
                     '--container' => $containerName,
@@ -269,7 +269,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
             }
         }
 
-        if ('mac' === $controllertype) {
+        if ($controllertype === 'mac') {
             $this->printInfoMessage('Generating Controller to wire everything together');
             $this->call('apiato:generate:controller', [
                 '--section' => $sectionName,

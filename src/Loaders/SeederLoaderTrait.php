@@ -81,7 +81,7 @@ trait SeederLoaderTrait
         }
 
         // sort the classes that needed to be ordered
-        $orderedSeederClasses = $orderedSeederClasses->sortBy(function ($seederFullClassName): string {
+        $orderedSeederClasses = $orderedSeederClasses->sortBy(static function ($seederFullClassName): string {
             // get the order number form the end of each class name
             return substr((string) $seederFullClassName, strpos((string) $seederFullClassName, '_') + 1);
         });

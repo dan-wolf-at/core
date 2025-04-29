@@ -14,24 +14,14 @@ abstract class Exception extends BaseException
     protected array $errors = [];
 
     public function __construct(
-        string|null $message = null,
-        int|null $code = null,
-        \Throwable|null $previous = null,
+        null|string $message = null,
+        null|int $code = null,
+        null|\Throwable $previous = null,
     ) {
         // Detect and set the running environment
         $this->environment = config('app.env');
 
         parent::__construct($this->prepareMessage($message), $this->prepareStatusCode($code), $previous);
-    }
-
-    private function prepareMessage(string|null $message = null): string
-    {
-        return is_null($message) ? $this->message : $message;
-    }
-
-    private function prepareStatusCode(int|null $code = null): int
-    {
-        return is_null($code) ? $this->code : $code;
     }
 
     /**
@@ -44,7 +34,7 @@ abstract class Exception extends BaseException
             $error = $error->getMessage();
         }
 
-        if ('testing' !== $this->environment || true === $force) {
+        if ($this->environment !== 'testing' || $force === true) {
             Log::error('[DEBUG] ' . $error);
         }
 
@@ -79,5 +69,15 @@ abstract class Exception extends BaseException
         }
 
         return $translatedErrors;
+    }
+
+    private function prepareMessage(null|string $message = null): string
+    {
+        return is_null($message) ? $this->message : $message;
+    }
+
+    private function prepareStatusCode(null|int $code = null): int
+    {
+        return is_null($code) ? $this->code : $code;
     }
 }

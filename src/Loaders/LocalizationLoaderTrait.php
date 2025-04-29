@@ -19,6 +19,12 @@ trait LocalizationLoaderTrait
         $this->loadLocals($containerLocaleDirectory, $containerName, $sectionName);
     }
 
+    public function loadLocalsFromShip(): void
+    {
+        $shipLocaleDirectory = base_path('app/Ship/Languages');
+        $this->loadLocals($shipLocaleDirectory, 'ship');
+    }
+
     private function loadLocals($directory, $containerName, $sectionName = null): void
     {
         if (File::isDirectory($directory)) {
@@ -27,14 +33,8 @@ trait LocalizationLoaderTrait
         }
     }
 
-    private function buildLocaleNamespace(string|null $sectionName, string $containerName): string
+    private function buildLocaleNamespace(null|string $sectionName, string $containerName): string
     {
         return $sectionName !== null && $sectionName !== '' && $sectionName !== '0' ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
-    }
-
-    public function loadLocalsFromShip(): void
-    {
-        $shipLocaleDirectory = base_path('app/Ship/Languages');
-        $this->loadLocals($shipLocaleDirectory, 'ship');
     }
 }

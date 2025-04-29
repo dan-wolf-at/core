@@ -41,28 +41,30 @@ class ListActionsCommand extends ConsoleCommand
 
                 $directory = base_path('app/Containers/' . $sectionName . '/' . $containerName . '/Actions');
 
-                if (File::isDirectory($directory)) {
-                    $files = File::allFiles($directory);
+                if (!File::isDirectory($directory)) {
+                    continue;
+                }
 
-                    foreach ($files as $file) {
-                        // Get the file name as is
-                        $fileName = $file->getFilename();
-                        $originalFileName = $fileName;
-                        // Remove the Action.php postfix from each file name
-                        // Further, remove the `.php', if the file does not end on 'Action.php'
-                        $fileName = str_replace(['Action.php', '.php'], '', $fileName);
+                $files = File::allFiles($directory);
 
-                        // UnCamelize the word and replace it with spaces
-                        $fileName = uncamelize($fileName);
+                foreach ($files as $file) {
+                    // Get the file name as is
+                    $fileName = $file->getFilename();
+                    $originalFileName = $fileName;
+                    // Remove the Action.php postfix from each file name
+                    // Further, remove the `.php', if the file does not end on 'Action.php'
+                    $fileName = str_replace(['Action.php', '.php'], '', $fileName);
 
-                        // Check if flag exists
-                        $includeFileName = '';
-                        if ($this->option('withfilename')) {
-                            $includeFileName = sprintf('<fg=red>(%s)</fg=red>', $originalFileName);
-                        }
+                    // UnCamelize the word and replace it with spaces
+                    $fileName = uncamelize($fileName);
 
-                        $this->console->writeln(sprintf('<fg=green>  - %s</fg=green>  %s', $fileName, $includeFileName));
+                    // Check if flag exists
+                    $includeFileName = '';
+                    if ($this->option('withfilename')) {
+                        $includeFileName = sprintf('<fg=red>(%s)</fg=red>', $originalFileName);
                     }
+
+                    $this->console->writeln(sprintf('<fg=green>  - %s</fg=green>  %s', $fileName, $includeFileName));
                 }
             }
         }

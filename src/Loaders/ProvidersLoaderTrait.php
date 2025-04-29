@@ -23,27 +23,6 @@ trait ProvidersLoaderTrait
         $this->loadProviders($containerProvidersDirectory);
     }
 
-    private function loadProviders($directory): void
-    {
-        $mainServiceProviderNameStartWith = 'Main';
-
-        if (File::isDirectory($directory)) {
-            $files = File::allFiles($directory);
-
-            foreach ($files as $file) {
-                if (File::isFile($file) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
-                    $serviceProviderClass = Apiato::getClassFullNameFromFile($file->getPathname());
-                    $this->loadProvider($serviceProviderClass);
-                }
-            }
-        }
-    }
-
-    private function loadProvider($providerFullName): void
-    {
-        App::register($providerFullName);
-    }
-
     /**
      * Load the all the registered Service Providers on the Main Service Provider.
      */
@@ -59,5 +38,28 @@ trait ProvidersLoaderTrait
     public function loadOnlyShipProviderFromShip(): void
     {
         $this->loadProvider('App\Ship\Providers\ShipProvider');
+    }
+
+    private function loadProviders($directory): void
+    {
+        $mainServiceProviderNameStartWith = 'Main';
+
+        if (!File::isDirectory($directory)) {
+            return;
+        }
+
+        $files = File::allFiles($directory);
+
+        foreach ($files as $file) {
+            if (File::isFile($file) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
+                $serviceProviderClass = Apiato::getClassFullNameFromFile($file->getPathname());
+                $this->loadProvider($serviceProviderClass);
+            }
+        }
+    }
+
+    private function loadProvider($providerFullName): void
+    {
+        App::register($providerFullName);
     }
 }

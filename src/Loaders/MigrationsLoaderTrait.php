@@ -14,16 +14,16 @@ trait MigrationsLoaderTrait
         $this->loadMigrations($containerMigrationDirectory);
     }
 
+    public function loadMigrationsFromShip(): void
+    {
+        $shipMigrationDirectory = base_path('app/Ship/Migrations');
+        $this->loadMigrations($shipMigrationDirectory);
+    }
+
     private function loadMigrations($directory): void
     {
         if (File::isDirectory($directory)) {
             $this->loadMigrationsFrom($directory);
         }
-    }
-
-    public function loadMigrationsFromShip(): void
-    {
-        $shipMigrationDirectory = base_path('app/Ship/Migrations');
-        $this->loadMigrations($shipMigrationDirectory);
     }
 }

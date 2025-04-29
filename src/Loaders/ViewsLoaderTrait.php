@@ -22,6 +22,14 @@ trait ViewsLoaderTrait
         $this->loadViews($containerMailTemplatesDirectory, $containerName, $sectionName);
     }
 
+    public function loadViewsFromShip(): void
+    {
+        $shipMailTemplatesDirectory = base_path('app/Ship/Mails/Templates/');
+        $this->loadViews($shipMailTemplatesDirectory, 'ship');
+        $shipViewDirectory = base_path('app/Ship/Views/');
+        $this->loadViews($shipViewDirectory, 'ship');
+    }
+
     private function loadViews($directory, $containerName, $sectionName = null): void
     {
         if (File::isDirectory($directory)) {
@@ -29,16 +37,8 @@ trait ViewsLoaderTrait
         }
     }
 
-    private function buildViewNamespace(string|null $sectionName, string $containerName): string
+    private function buildViewNamespace(null|string $sectionName, string $containerName): string
     {
         return $sectionName !== null && $sectionName !== '' && $sectionName !== '0' ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
-    }
-
-    public function loadViewsFromShip(): void
-    {
-        $shipMailTemplatesDirectory = base_path('app/Ship/Mails/Templates/');
-        $this->loadViews($shipMailTemplatesDirectory, 'ship');
-        $shipViewDirectory = base_path('app/Ship/Views/');
-        $this->loadViews($shipViewDirectory, 'ship');
     }
 }

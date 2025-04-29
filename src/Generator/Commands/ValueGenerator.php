@@ -52,7 +52,7 @@ class ValueGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'value.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         return [
             'path-parameters' => [

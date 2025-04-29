@@ -58,7 +58,7 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'tests/unit/generic.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $folderName = $this->checkParameterOrAsk('foldername', 'Enter the folder name to create the test in');
         if ($folderName) {

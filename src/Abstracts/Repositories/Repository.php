@@ -26,7 +26,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
      */
     protected int $maxPaginationLimit = 0;
 
-    protected bool|null $allowDisablePagination = null;
+    protected null|bool $allowDisablePagination = null;
 
     #[\Override]
     public function boot(): void
@@ -124,7 +124,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
 
     public function wantsToSkipPagination(mixed $limit): bool
     {
-        return '0' == $limit;
+        return $limit === '0';
     }
 
     public function canSkipPagination(): mixed

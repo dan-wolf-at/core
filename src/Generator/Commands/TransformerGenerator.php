@@ -55,7 +55,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
      */
     protected string $stubName = 'transformer.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $model = $this->checkParameterOrAsk('model', 'Enter the name of the Model to generate this Transformer for');
         $full = $this->checkParameterOrConfirm('full', 'Generate a Transformer with all fields', false);
@@ -123,6 +123,6 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         $keys = array_keys($fields);
         $lastKey = end($keys);
 
-        return $currentKey == $lastKey ? '' : PHP_EOL;
+        return $currentKey === $lastKey ? '' : PHP_EOL;
     }
 }

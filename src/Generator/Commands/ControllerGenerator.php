@@ -57,7 +57,7 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
      */
     protected string $stubName = 'controllers/generic.stub';
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         $model = $this->checkParameterOrAsk('model', 'Enter the name of the Model that this controller uses', $this->containerName);
         $models = Pluralizer::plural($model);

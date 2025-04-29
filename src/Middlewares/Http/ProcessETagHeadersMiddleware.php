@@ -29,7 +29,7 @@ class ProcessETagHeadersMiddleware extends Middleware
         if ($request->hasHeader('if-none-match')) {
             // check, if the request method is GET or HEAD
             $method = $request->method();
-            if ('GET' !== $method && 'HEAD' !== $method) {
+            if ($method !== 'GET' && $method !== 'HEAD') {
                 throw new PreconditionFailedHttpException('HTTP Header IF-None-Match is only allowed for GET and HEAD Requests.');
             }
         }

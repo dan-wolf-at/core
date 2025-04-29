@@ -15,7 +15,7 @@ abstract class Action
 
     public function transactionalRun(...$arguments)
     {
-        return DB::transaction(function () use ($arguments) {
+        return DB::transaction(static function () use ($arguments) {
             return static::run(...$arguments);
         });
     }

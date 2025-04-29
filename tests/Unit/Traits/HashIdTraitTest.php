@@ -226,21 +226,6 @@ final class HashIdTraitTest extends UnitTestCase
         $this->assertEquals($expected, $result);
     }
 
-    private function recursiveEncode(array $data): array
-    {
-        return array_map(function ($value) {
-            if (is_array($value)) {
-                return $this->recursiveEncode($value);
-            }
-
-            if (is_int($value)) {
-                return $this->trait->encode($value);
-            }
-
-            return $value;
-        }, $data);
-    }
-
     public function testCanDecodeNestedAssocArray(): void
     {
         $requestData = ['nested' => ['ids' => [['first' => 1, 'second' => $this->encode(2)]]]];
@@ -265,5 +250,20 @@ final class HashIdTraitTest extends UnitTestCase
         $this->trait->decode = $decode;
 
         $this->trait->publicDecodeHashedIdsBeforeValidation($requestData);
+    }
+
+    private function recursiveEncode(array $data): array
+    {
+        return array_map(function ($value) {
+            if (is_array($value)) {
+                return $this->recursiveEncode($value);
+            }
+
+            if (is_int($value)) {
+                return $this->trait->encode($value);
+            }
+
+            return $value;
+        }, $data);
     }
 }

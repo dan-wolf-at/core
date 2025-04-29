@@ -70,11 +70,11 @@ final class RepositoryTest extends UnitTestCase
         UserFactory::new()
             ->has(
                 UserFactory::new()
-                ->has(BookFactory::new()->count(3)),
+                    ->has(BookFactory::new()->count(3)),
                 'children',
             )->has(BookFactory::new()->count(3))
             ->createOne();
-        $repository = new class(app()) extends UserRepository {
+        $repository = new class (app()) extends UserRepository {
             public function shouldEagerLoadIncludes(): bool
             {
                 return true;
@@ -105,11 +105,11 @@ final class RepositoryTest extends UnitTestCase
         UserFactory::new()
             ->has(
                 UserFactory::new()
-                ->has(BookFactory::new()->count(3)),
+                    ->has(BookFactory::new()->count(3)),
                 'children',
             )->has(BookFactory::new()->count(3))
             ->createOne();
-        $repository = new class(app()) extends UserRepository {
+        $repository = new class (app()) extends UserRepository {
             public function shouldEagerLoadIncludes(): bool
             {
                 return true;
@@ -171,6 +171,7 @@ final class RepositoryTest extends UnitTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         config()->set('fractal.auto_includes.request_key', 'include');
     }
 }

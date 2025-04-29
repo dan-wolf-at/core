@@ -24,7 +24,7 @@ trait HashIdTrait
      *
      * @param string|null $field The field of the model to be hashed
      */
-    public function getHashedKey(string|null $field = null): string|int|null
+    public function getHashedKey(null|string $field = null): null|string|int
     {
         // If no key is set, use the default key name (i.e., id)
         if ($field === null) {
@@ -36,7 +36,6 @@ trait HashIdTrait
 
         // Hash the ID only if hash-id enabled in the config
         if (config('apiato.hash-id')) {
-
             if ($value === null) {
                 return null;
             }
@@ -80,7 +79,7 @@ trait HashIdTrait
      *
      * if the id is not decodable, null will be returned
      */
-    public function decode(string|null $id): int|null
+    public function decode(null|string $id): null|int
     {
         // Check if passed as null, (could be an optional decodable variable).
         if ($id === null || strtolower($id) === 'null') {
@@ -96,12 +95,9 @@ trait HashIdTrait
         return (int)$decoded[0];
     }
 
-    /**
-     * @param string $id
-     */
-    private function decoder($id): array
+    public function skipHashIdDecode(null|array|string|int $field): bool
     {
-        return Hashids::decode($id);
+        return $field === null || $field === '' || $field === [] || $field === 0 || $field === '0';
     }
 
     /**
@@ -125,6 +121,14 @@ trait HashIdTrait
     }
 
     /**
+     * @param string $id
+     */
+    private function decoder($id): array
+    {
+        return Hashids::decode($id);
+    }
+
+    /**
      * Search the IDs to be decoded in the request data.
      *
      * @throws IncorrectIdException
@@ -134,6 +138,7 @@ trait HashIdTrait
     {
         // Split the key based on the "."
         $fields = explode('.', $key);
+
         // Loop through all elements of the key.
         return (array)($this->processField($requestData, $fields, $key));
     }
@@ -146,7 +151,7 @@ trait HashIdTrait
      * @throws IncorrectIdException
      * @throws \Throwable
      */
-    private function processField(array|string|int|null $data, ?array $keysTodo = null, ?string $currentFieldName = null): mixed
+    private function processField(null|array|string|int $data, ?array $keysTodo = null, ?string $currentFieldName = null): mixed
     {
         // Check if there are no more fields to be processed.
         if ($keysTodo === null || $keysTodo === []) {
@@ -197,10 +202,5 @@ trait HashIdTrait
         $data[$field] = $this->processField($value, $keysTodo, $field);
 
         return $data;
-    }
-
-    public function skipHashIdDecode(array|string|int|null $field): bool
-    {
-        return $field === null || $field === '' || $field === [] || $field === 0 || $field === '0';
     }
 }
