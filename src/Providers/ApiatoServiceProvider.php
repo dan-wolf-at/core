@@ -43,6 +43,7 @@ class ApiatoServiceProvider extends AbstractMainServiceProvider
         );
     }
 
+    #[\Override]
     public function boot(): void
     {
         parent::boot();

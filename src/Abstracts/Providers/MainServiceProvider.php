@@ -28,5 +28,6 @@ abstract class MainServiceProvider extends LaravelAppServiceProvider
      */
     public function boot(): void
     {
+        //
     }
 }

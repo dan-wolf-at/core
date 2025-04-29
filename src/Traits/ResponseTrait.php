@@ -26,13 +26,13 @@ trait ResponseTrait
         array $includes = [],
         array $meta = [],
         $resourceKey = null,
-    ) {
-        // first, we need to create the transformer
+    ): array {
+        // First, we need to create the transformer
         if ($transformerName instanceof Transformer) {
-            // check, if we have provided a respective TRANSFORMER class
+            // Check, if we have provided a respective TRANSFORMER class
             $transformer = $transformerName;
         } else {
-            // of if we just passed the classname
+            // Or if we just passed the classname.
             $transformer = new $transformerName();
         }
 
@@ -47,11 +47,9 @@ trait ResponseTrait
             'custom'  => $meta,
         ]);
 
-        // no resource key was set
+        // No resource key was set
         if (!$resourceKey) {
-            // get the resource key from the model
-            $obj = null;
-
+            // Get the resource key from the model
             if ($data instanceof AbstractPaginator) {
                 $obj = $data->getCollection()->first();
             } elseif ($data instanceof Collection) {
@@ -62,7 +60,7 @@ trait ResponseTrait
                 $obj = $data;
             }
 
-            // if we have an object, try to get its resourceKey
+            // If we have an object, try to get its resourceKey
             if ($obj) {
                 $resourceKey = $obj->getResourceKey();
             }
@@ -70,17 +68,19 @@ trait ResponseTrait
 
         $fractal = Fractal::create($data, $transformer)->withResourceName($resourceKey)->addMeta($this->metaData);
 
-        // read includes passed via query params in url
+        // Read includes passed via query params in url
         $requestIncludes = $this->parseRequestedIncludes();
 
-        // merge the requested includes with the one added by the transform() method itself
+        // Merge the requested includes with the one added by the transform() method itself
         $requestIncludes = array_unique(array_merge($includes, $requestIncludes));
 
-        // and let fractal include everything
+        // And let fractal include everything
         $fractal->parseIncludes($requestIncludes);
 
-        // apply request filters if available in the request
-        if ($requestFilters = request()?->input(config('apiato.requests.params.filter', 'filter'))) {
+        // Apply request filters if available in the request
+        $requestFilters = request()?->input(config('apiato.requests.params.filter', 'filter'));
+
+        if ($requestFilters) {
             return $this->filterResponse($fractal->toArray(), explode(';', (string) $requestFilters));
         }
 
@@ -128,25 +128,30 @@ trait ResponseTrait
         return new JsonResponse(null, $status);
     }
 
+    /**
+     * @return string[]
+     *
+     * @phpstan-return non-empty-list<string>
+     */
     protected function parseRequestedIncludes(): array
     {
-        return explode(',', request()?->input('include') ?? '');
+        return explode(',', (string)request()?->input('include', ''));
     }
 
     private function filterResponse(array $responseArray, array $filters): array
     {
         foreach ($responseArray as $k => $v) {
             if (\in_array($k, $filters, true)) {
-                // we have found our element - so continue with the next one
+                // We have found our element - so continue with the next one
                 continue;
             }
 
             if (\is_array($v)) {
-                // it is an array - so go one step deeper
+                // It is an array - so go one step deeper
                 $v = $this->filterResponse($v, $filters);
 
                 if (empty($v)) {
-                    // it is an empty array - delete the key as well
+                    // It is an empty array - delete the key as well
                     unset($responseArray[$k]);
                 } else {
                     $responseArray[$k] = $v;
