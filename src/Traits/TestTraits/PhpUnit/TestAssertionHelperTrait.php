@@ -43,7 +43,7 @@ trait TestAssertionHelperTrait
     protected function assertModelCastsIsEmpty(Model $model, array ...$extraDefaultField): void
     {
         $defaultCasts = [
-            'id' => 'int',
+            'id'         => 'int',
             'deleted_at' => 'datetime',
         ];
 
@@ -66,23 +66,23 @@ trait TestAssertionHelperTrait
             return $ids->contains('id', $this->decode($hashedId));
         }
 
-        return in_array($this->decode($hashedId), $ids, true);
+        return \in_array($this->decode($hashedId), $ids, true);
     }
 
     /**
      * Assert if the given database table has the expected columns with the expected types.
      *
-     * @param string $table the table name
+     * @param string                $table           the table name
      * @param array<string, string> $expectedColumns The key is the column name and the value is the column type.
      *
      * Example: $this->assertDatabaseTable('users', ['id' => 'bigint']);
      */
     protected function assertDatabaseTable(string $table, array $expectedColumns): void
     {
-        $this->assertSameSize($expectedColumns, Schema::getColumnListing($table), sprintf("Column count mismatch for '%s' table.", $table));
+        $this->assertSameSize($expectedColumns, Schema::getColumnListing($table), \sprintf("Column count mismatch for '%s' table.", $table));
         foreach ($expectedColumns as $column => $type) {
-            $this->assertTrue(Schema::hasColumn($table, $column), sprintf("Column '%s' not found in '%s' table.", $column, $table));
-            $this->assertEquals($type, Schema::getColumnType($table, $column), sprintf("Column '%s' in '%s' table does not match expected %s type.", $column, $table, $type));
+            $this->assertTrue(Schema::hasColumn($table, $column), \sprintf("Column '%s' not found in '%s' table.", $column, $table));
+            $this->assertEquals($type, Schema::getColumnType($table, $column), \sprintf("Column '%s' in '%s' table does not match expected %s type.", $column, $table, $type));
         }
     }
 
@@ -103,7 +103,7 @@ trait TestAssertionHelperTrait
     /**
      * Create a spy for an Action, SubAction or a Task that uses a repository.
      *
-     * @param string $className the Action, SubAction or a Task class name
+     * @param string $className           the Action, SubAction or a Task class name
      * @param string $repositoryClassName the repository class name
      */
     protected function createSpyWithRepository(string $className, string $repositoryClassName, bool $allowRun = true): MockInterface
@@ -125,9 +125,9 @@ trait TestAssertionHelperTrait
     /**
      * Mock a repository and assert that the given criteria is pushed to it.
      *
-     * @param string $repositoryClassName the repository class name
-     * @param string $criteriaClassName the criteria class name
-     * @param array<string, mixed>|null $criteriaArgs the criteria constructor arguments
+     * @param string                    $repositoryClassName the repository class name
+     * @param string                    $criteriaClassName   the criteria class name
+     * @param array<string, mixed>|null $criteriaArgs        the criteria constructor arguments
      *
      * @return MockInterface repository mock
      *
@@ -138,7 +138,7 @@ trait TestAssertionHelperTrait
     {
         $repositoryMock = $this->mock($repositoryClassName);
 
-        if (is_null($criteriaArgs)) {
+        if (\is_null($criteriaArgs)) {
             $repositoryMock->expects('pushCriteria')->once();
         } else {
             $repositoryMock->expects('pushCriteriaWith')->once()->with($criteriaClassName, $criteriaArgs);

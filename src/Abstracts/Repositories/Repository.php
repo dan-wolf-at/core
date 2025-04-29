@@ -13,11 +13,11 @@ use Prettus\Repository\Traits\CacheableRepository;
 
 abstract class Repository extends BaseRepository implements CacheableInterface
 {
-    use HasRequestCriteriaTrait;
-    use CanEagerLoadTrait;
     use CacheableRepository {
         CacheableRepository::paginate as cacheablePaginate;
     }
+    use CanEagerLoadTrait;
+    use HasRequestCriteriaTrait;
 
     // TODO: BC: set return type to void
     /**
@@ -96,7 +96,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
      * The client can request all data (skipping pagination) by applying ?limit=0 to the request, if
      * skipping pagination is allowed.
      *
-     * @param array $columns
+     * @param array  $columns
      * @param string $method
      */
     #[\Override]
@@ -130,7 +130,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
     public function canSkipPagination(): mixed
     {
         // check local (per repository) rule
-        if (!is_null($this->allowDisablePagination)) {
+        if (!\is_null($this->allowDisablePagination)) {
             return $this->allowDisablePagination;
         }
 
@@ -146,6 +146,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
     public function addRequestCriteria(array $fieldsToDecode = ['id']): static
     {
         $this->pushCriteria(app(RequestCriteria::class));
+
         if ($this->shouldDecodeSearch()) {
             $this->decodeSearchQueryString($fieldsToDecode);
         }

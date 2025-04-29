@@ -31,7 +31,7 @@ final class ResponseTraitTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->trait = new class {
+        $this->trait = new class () {
             use ResponseTrait;
         };
 

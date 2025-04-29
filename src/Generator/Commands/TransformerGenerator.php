@@ -64,18 +64,18 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
+                '_section-name'   => Str::lower($this->sectionName),
+                'section-name'    => $this->sectionName,
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $model,
-                '_model' => Str::lower($model),
-                'attributes' => $attributes,
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'model'           => $model,
+                '_model'          => Str::lower($model),
+                'attributes'      => $attributes,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
@@ -97,7 +97,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
             $columns = Schema::getColumnListing($obj->getTable());
 
             foreach ($columns as $column) {
-                if (in_array($column, $obj->getHidden(), false)) {
+                if (\in_array($column, $obj->getHidden(), false)) {
                     // Skip all hidden fields of respective model
                     continue;
                 }
@@ -112,7 +112,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
 
         $attributes = '';
         foreach ($fields as $key => $value) {
-            $attributes .= $indent . sprintf("'%s' => %s,", $key, $value) . $this->getEndOfLine($key, $fields);
+            $attributes .= $indent . \sprintf("'%s' => %s,", $key, $value) . $this->getEndOfLine($key, $fields);
         }
 
         return $attributes;

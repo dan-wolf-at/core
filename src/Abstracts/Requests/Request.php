@@ -28,7 +28,7 @@ abstract class Request extends LaravelRequest
      */
     protected array $access = [
         'permissions' => null,
-        'roles' => null,
+        'roles'       => null,
     ];
 
     /**
@@ -119,9 +119,11 @@ abstract class Request extends LaravelRequest
 
         if ($user) {
             $autoAccessRoles = config('apiato.requests.allow-roles-to-access-all-routes');
+
             // there are some roles defined that will automatically grant access
             if (!empty($autoAccessRoles)) {
                 $hasAutoAccessByRole = $user->hasAnyRole($autoAccessRoles);
+
                 if ($hasAutoAccessByRole) {
                     return true;
                 }
@@ -135,7 +137,7 @@ abstract class Request extends LaravelRequest
         );
 
         // allow access if user has access to any of the defined roles or permissions.
-        return $hasAccess === [] || in_array(true, $hasAccess, true);
+        return $hasAccess === [] || \in_array(true, $hasAccess, true);
     }
 
     /**
@@ -197,11 +199,11 @@ abstract class Request extends LaravelRequest
 
     protected function hasAnyPermissionAccess($user): array
     {
-        if (!array_key_exists('permissions', $this->access) || !$this->access['permissions']) {
+        if (!\array_key_exists('permissions', $this->access) || !$this->access['permissions']) {
             return [];
         }
 
-        $permissions = is_array($this->access['permissions']) ? $this->access['permissions'] :
+        $permissions = \is_array($this->access['permissions']) ? $this->access['permissions'] :
             explode('|', $this->access['permissions']);
 
         return array_map(static function ($permission) use ($user) {
@@ -211,11 +213,11 @@ abstract class Request extends LaravelRequest
 
     protected function hasAnyRoleAccess($user): array
     {
-        if (!array_key_exists('roles', $this->access) || !$this->access['roles']) {
+        if (!\array_key_exists('roles', $this->access) || !$this->access['roles']) {
             return [];
         }
 
-        $roles = is_array($this->access['roles']) ? $this->access['roles'] :
+        $roles = \is_array($this->access['roles']) ? $this->access['roles'] :
             explode('|', $this->access['roles']);
 
         return array_map(static function ($role) use ($user) {
@@ -251,7 +253,7 @@ abstract class Request extends LaravelRequest
         // iterate all functions in the array
         foreach ($functions as $function) {
             // in case the value doesn't contain a separator (single function per key)
-            if (in_array(strpos((string) $function, $orIndicator), [0, false], true)) {
+            if (\in_array(strpos((string) $function, $orIndicator), [0, false], true)) {
                 // simply call the single function and store the response.
                 $returns[] = $this->{$function}();
             } else {
@@ -267,13 +269,13 @@ abstract class Request extends LaravelRequest
                 // if in_array returned `true` means at least one function returned `true` thus return `true` to allow access.
                 // if in_array returned `false` means no function returned `true` thus return `false` to prevent access.
                 // return single boolean for all the functions found inside the same key.
-                $returns[] = in_array(true, $orReturns, true);
+                $returns[] = \in_array(true, $orReturns, true);
             }
         }
 
         // if in_array returned `true` means a function returned `false` thus return `false` to prevent access.
         // if in_array returned `false` means all functions returned `true` thus return `true` to allow access.
         // return the final boolean
-        return !in_array(false, $returns, true);
+        return !\in_array(false, $returns, true);
     }
 }

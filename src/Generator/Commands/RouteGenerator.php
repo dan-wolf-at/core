@@ -71,6 +71,7 @@ class RouteGenerator extends GeneratorCommand implements ComponentsGenerator
         $url = ltrim($url, '/');
 
         $invokable = false;
+
         if ($operation === '__invoke') {
             $invokable = true;
         }
@@ -82,37 +83,38 @@ class RouteGenerator extends GeneratorCommand implements ComponentsGenerator
         $routeName = Str::lower($ui . '_' . $this->containerName . '_' . Str::snake($operation));
 
         $this->stubName = 'routes/' . $ui . '.mac.stub';
+
         if ($invokable) {
             $this->stubName = 'routes/' . $ui . '.sac.stub';
         }
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
                 'user-interface' => Str::upper($ui),
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
-                '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'operation' => $operation,
-                'doc-api-name' => Str::studly($operation),
-                'user-interface' => Str::upper($ui),
-                'endpoint-url' => $url,
-                'endpoint-title' => Str::headline($operation),
+                '_section-name'    => Str::lower($this->sectionName),
+                'section-name'     => $this->sectionName,
+                '_container-name'  => Str::lower($this->containerName),
+                'container-name'   => $this->containerName,
+                'operation'        => $operation,
+                'doc-api-name'     => Str::studly($operation),
+                'user-interface'   => Str::upper($ui),
+                'endpoint-url'     => $url,
+                'endpoint-title'   => Str::headline($operation),
                 'doc-endpoint-url' => '/v' . $version . '/' . $docUrl,
                 'endpoint-version' => $version,
-                'http-verb' => Str::lower($verb),
-                'doc-http-verb' => Str::upper($verb),
-                'route-name' => $routeName,
-                'auth-middleware' => Str::lower($ui),
-                'controller-name' => $controllerName,
+                'http-verb'        => Str::lower($verb),
+                'doc-http-verb'    => Str::upper($verb),
+                'route-name'       => $routeName,
+                'auth-middleware'  => Str::lower($ui),
+                'controller-name'  => $controllerName,
             ],
             'file-parameters' => [
-                'endpoint-name' => $this->fileName,
-                'endpoint-version' => 'v' . $version,
+                'endpoint-name'      => $this->fileName,
+                'endpoint-version'   => 'v' . $version,
                 'documentation-type' => $doctype,
             ],
         ];

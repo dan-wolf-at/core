@@ -28,7 +28,7 @@ abstract class Exception extends BaseException
      * Help developers debug the error without showing these details to the end user.
      * Usage: `throw (new MyCustomException())->debug($e)`.
      */
-    public function debug($error, bool $force = false): Exception
+    public function debug($error, bool $force = false): self
     {
         if ($error instanceof BaseException) {
             $error = $error->getMessage();
@@ -41,7 +41,7 @@ abstract class Exception extends BaseException
         return $this;
     }
 
-    public function withErrors(array $errors, bool $override = true): Exception
+    public function withErrors(array $errors, bool $override = true): self
     {
         $this->errors = $override ? $errors : array_merge($this->errors, $errors);
 
@@ -54,10 +54,11 @@ abstract class Exception extends BaseException
 
         foreach ($this->errors as $key => $value) {
             $translatedValues = [];
+
             // here we translate and mutate each error so all error values will be arrays (for consistency)
             // e.g. error => value becomes error => [translated_value]
             // e.g. error => [value1, value2] becomes error => [translated_value1, translated_value2]
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 foreach ($value as $translationKey) {
                     $translatedValues[] = __($translationKey);
                 }
@@ -73,11 +74,11 @@ abstract class Exception extends BaseException
 
     private function prepareMessage(null|string $message = null): string
     {
-        return is_null($message) ? $this->message : $message;
+        return \is_null($message) ? $this->message : $message;
     }
 
     private function prepareStatusCode(null|int $code = null): int
     {
-        return is_null($code) ? $this->code : $code;
+        return \is_null($code) ? $this->code : $code;
     }
 }

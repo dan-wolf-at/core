@@ -61,6 +61,7 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
     public function getUserInputs(): null|array
     {
         $folderName = $this->checkParameterOrAsk('foldername', 'Enter the folder name to create the test in');
+
         if ($folderName) {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Unit/' . $folderName . '/*';
         }
@@ -73,6 +74,7 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
 
         if ($stub) {
             $stubBasePath = 'tests/unit';
+
             if ($stubFolderName) {
                 $stubBasePath = 'tests/unit/' . $stubFolderName;
             }
@@ -89,22 +91,22 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
+                '_section-name'   => Str::lower($this->sectionName),
+                'section-name'    => $this->sectionName,
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $model,
-                '_model' => Str::camel($model),
-                'models' => $models,
-                '_models' => Str::lower($models),
-                'event' => $event,
-                'table-name' => $tableName,
-                '_table-name_' => Str::studly($tableName),
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'model'           => $model,
+                '_model'          => Str::camel($model),
+                'models'          => $models,
+                '_models'         => Str::lower($models),
+                'event'           => $event,
+                'table-name'      => $tableName,
+                '_table-name_'    => Str::studly($tableName),
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,

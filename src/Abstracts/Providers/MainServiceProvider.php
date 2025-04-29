@@ -10,8 +10,8 @@ use Illuminate\Support\ServiceProvider as LaravelAppServiceProvider;
 
 abstract class MainServiceProvider extends LaravelAppServiceProvider
 {
-    use ProvidersLoaderTrait;
     use AliasesLoaderTrait;
+    use ProvidersLoaderTrait;
 
     /**
      * Register any application services.

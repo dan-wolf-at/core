@@ -75,7 +75,7 @@ trait HashIdTrait
     /**
      * If the decoded id is bigger than PHP_INT_MAX, the decoder will return a string
      * we will cut that off from propagating, because such big numerical identifiers
-     * are not practically used
+     * are not practically used.
      *
      * if the id is not decodable, null will be returned
      */
@@ -88,6 +88,7 @@ trait HashIdTrait
 
         // Do the decoding if the ID looks like a hashed one.
         $decoded = $this->decoder($id);
+
         if (empty($decoded)) {
             return null;
         }
@@ -162,14 +163,14 @@ trait HashIdTrait
 
             throw_if(
                 $data !== null && !\is_string($data),
-                (new CoreInternalErrorException('String expected, got ' . gettype($data), 422))
-                    ->withErrors([$currentFieldName => 'String expected, got ' . gettype($data)]),
+                (new CoreInternalErrorException('String expected, got ' . \gettype($data), 422))
+                    ->withErrors([$currentFieldName => 'String expected, got ' . \gettype($data)]),
             );
 
             $decodedField = $this->decode($data);
 
             if ($decodedField === null) {
-                throw new IncorrectIdException(sprintf('ID (%s) is incorrect, consider using the hashed ID.', $currentFieldName));
+                throw new IncorrectIdException(\sprintf('ID (%s) is incorrect, consider using the hashed ID.', $currentFieldName));
             }
 
             return $decodedField;
@@ -186,7 +187,7 @@ trait HashIdTrait
             // Process each field of the array (and go down one level!)
             $fields = $data;
             foreach ($fields as $key => $value) {
-                $data[$key] = $this->processField($value, $keysTodo, sprintf('%s[%s]', $currentFieldName, $key));
+                $data[$key] = $this->processField($value, $keysTodo, \sprintf('%s[%s]', $currentFieldName, $key));
             }
 
             return $data;

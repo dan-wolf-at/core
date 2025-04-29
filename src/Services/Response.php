@@ -42,15 +42,15 @@ class Response extends Fractal
         //  After the Fractalistic PR's are accepted
         // return parent::createData();
 
-        if (is_null($this->transformer)) {
+        if (\is_null($this->transformer)) {
             throw new NoTransformerSpecified();
         }
 
-        if (is_string($this->serializer)) {
+        if (\is_string($this->serializer)) {
             $this->serializer = new $this->serializer();
         }
 
-        if (!is_null($this->serializer)) {
+        if (!\is_null($this->serializer)) {
             $this->manager->setSerializer($this->serializer);
         }
 
@@ -76,7 +76,7 @@ class Response extends Fractal
      */
     public function accepted(): JsonResponse
     {
-        if (is_null($this->getTransformer())) {
+        if (\is_null($this->getTransformer())) {
             $this->transformWith(Transformer::empty());
         }
 
@@ -94,7 +94,7 @@ class Response extends Fractal
      */
     public function created(): JsonResponse
     {
-        if (is_null($this->getTransformer())) {
+        if (\is_null($this->getTransformer())) {
             $this->transformWith(Transformer::empty());
         }
 
@@ -116,7 +116,7 @@ class Response extends Fractal
      */
     public function ok(): JsonResponse
     {
-        if (is_null($this->getTransformer())) {
+        if (\is_null($this->getTransformer())) {
             $this->transformWith(Transformer::empty());
         }
 
@@ -125,7 +125,7 @@ class Response extends Fractal
 
     private function defaultResourceName(): string
     {
-        if (is_string($this->getResourceName())) {
+        if (\is_string($this->getResourceName())) {
             return $this->getResourceName();
         }
 
@@ -137,6 +137,7 @@ class Response extends Fractal
             // TODO: there was a problem $this->data->first() but I cant remember. It had to do with the data being an array
             // also check AbstractTransformer where we also do this check and use the first item. we also have the same problem there
             $firstItem = $this->data->first();
+
             if ($firstItem instanceof HasResourceKey) {
                 return $firstItem->getResourceKey();
             }
@@ -154,11 +155,11 @@ class Response extends Fractal
 
     private function getTransformerAvailableIncludes(): array
     {
-        if (is_null($this->transformer) || is_callable($this->transformer)) {
+        if (\is_null($this->transformer) || \is_callable($this->transformer)) {
             return [];
         }
 
-        if (is_string($this->transformer)) {
+        if (\is_string($this->transformer)) {
             return (new $this->transformer())->getAvailableIncludes();
         }
 

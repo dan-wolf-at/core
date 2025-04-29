@@ -232,8 +232,8 @@ trait TestRequestHelperTrait
         /** @var string $uri */
         return [
             'verb' => $verb,
-            'uri' => $uri,
-            'url' => $this->buildUrlForUri($uri),
+            'uri'  => $uri,
+            'url'  => $this->buildUrlForUri($uri),
         ];
     }
 
@@ -252,7 +252,7 @@ trait TestRequestHelperTrait
      */
     private function validateEndpointFormat(string $separator): void
     {
-        if (in_array(strpos($this->getEndpoint(), $separator), [0, false], true)) {
+        if (\in_array(strpos($this->getEndpoint(), $separator), [0, false], true)) {
             throw new WrongEndpointFormatException();
         }
     }

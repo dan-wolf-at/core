@@ -56,14 +56,15 @@ class ModelGenerator extends GeneratorCommand implements ComponentsGenerator
     public function getUserInputs(): null|array
     {
         $repository = $this->checkParameterOrConfirm('repository', 'Do you want to generate the corresponding Repository for this Model?', true);
+
         if ($repository) {
             // We need to generate a corresponding repository
             // so call the other command
             $status = $this->call('apiato:generate:repository', [
-                '--section' => $this->sectionName,
+                '--section'   => $this->sectionName,
                 '--container' => $this->containerName,
-                '--file' => $this->fileName . 'Repository',
-                '--model' => $this->fileName,
+                '--file'      => $this->fileName . 'Repository',
+                '--model'     => $this->fileName,
             ]);
 
             if ($status !== 0) {
@@ -73,16 +74,16 @@ class ModelGenerator extends GeneratorCommand implements ComponentsGenerator
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
+                '_section-name'   => Str::lower($this->sectionName),
+                'section-name'    => $this->sectionName,
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'resource-key' => $this->fileName,
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'resource-key'    => $this->fileName,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,

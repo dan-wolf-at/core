@@ -16,7 +16,7 @@ abstract class Transformer extends FractalTransformer
 {
     public function nullableItem($data, $transformer, ?string $resourceKey = null): Primitive|Item
     {
-        if (is_null($data)) {
+        if (\is_null($data)) {
             return $this->primitive(null);
         }
 

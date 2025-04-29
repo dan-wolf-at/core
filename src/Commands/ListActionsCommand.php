@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class ListActionsCommand extends ConsoleCommand
 {
     /**
-     * @var \Symfony\Component\Console\Output\ConsoleOutput
+     * @var ConsoleOutput
      */
     public $console;
 
@@ -37,7 +37,7 @@ class ListActionsCommand extends ConsoleCommand
     {
         foreach (Apiato::getSectionNames() as $sectionName) {
             foreach (Apiato::getSectionContainerNames($sectionName) as $containerName) {
-                $this->console->writeln(sprintf('<fg=yellow> [%s]</fg=yellow>', $containerName));
+                $this->console->writeln(\sprintf('<fg=yellow> [%s]</fg=yellow>', $containerName));
 
                 $directory = base_path('app/Containers/' . $sectionName . '/' . $containerName . '/Actions');
 
@@ -60,11 +60,12 @@ class ListActionsCommand extends ConsoleCommand
 
                     // Check if flag exists
                     $includeFileName = '';
+
                     if ($this->option('withfilename')) {
-                        $includeFileName = sprintf('<fg=red>(%s)</fg=red>', $originalFileName);
+                        $includeFileName = \sprintf('<fg=red>(%s)</fg=red>', $originalFileName);
                     }
 
-                    $this->console->writeln(sprintf('<fg=green>  - %s</fg=green>  %s', $fileName, $includeFileName));
+                    $this->console->writeln(\sprintf('<fg=green>  - %s</fg=green>  %s', $fileName, $includeFileName));
                 }
             }
         }

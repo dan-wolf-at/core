@@ -8,15 +8,16 @@ use Apiato\Core\Foundation\Facades\Apiato;
 
 trait AutoLoaderTrait
 {
+    use AliasesLoaderTrait;
+    use CommandsLoaderTrait;
+
     // Using each component loader trait
     use ConfigsLoaderTrait;
+    use HelpersLoaderTrait;
     use LocalizationLoaderTrait;
     use MigrationsLoaderTrait;
-    use ViewsLoaderTrait;
     use ProvidersLoaderTrait;
-    use CommandsLoaderTrait;
-    use AliasesLoaderTrait;
-    use HelpersLoaderTrait;
+    use ViewsLoaderTrait;
 
     /**
      * To be used from the `boot` function of the main service provider.

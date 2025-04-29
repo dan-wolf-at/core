@@ -26,6 +26,7 @@ trait HasRequestCriteriaTrait
     {
         $validatedRepository = $this->validateRepository($repository);
         $validatedRepository->pushCriteria(app(RequestCriteria::class));
+
         if ($this->shouldDecodeSearch()) {
             $this->decodeSearchQueryString($fieldsToDecode);
         }
@@ -54,7 +55,7 @@ trait HasRequestCriteriaTrait
         $validatedRepository = $repository;
 
         // check if we have a "custom" repository
-        if (is_null($repository)) {
+        if (\is_null($repository)) {
             if (!isset($this->repository)) {
                 throw new CoreInternalErrorException('No protected or public accessible repository available');
             }
@@ -63,7 +64,7 @@ trait HasRequestCriteriaTrait
         }
 
         // check, if the validated repository is null
-        if (is_null($validatedRepository)) {
+        if (\is_null($validatedRepository)) {
             throw new CoreInternalErrorException();
         }
 
@@ -87,7 +88,7 @@ trait HasRequestCriteriaTrait
 
     private function isSearching(array $query): bool
     {
-        return array_key_exists('search', $query) && $query['search'];
+        return \array_key_exists('search', $query) && $query['search'];
     }
 
     private function decodeSearchQueryString(array $fieldsToDecode): void
@@ -119,6 +120,7 @@ trait HasRequestCriteriaTrait
 
         if ($searchValue) {
             $decodedId = Hashids::decode($searchValue);
+
             if ($decodedId) {
                 return $decodedId[0];
             }
@@ -133,7 +135,8 @@ trait HasRequestCriteriaTrait
             $values = explode(';', (string) $search);
             foreach ($values as $value) {
                 $s = explode(':', $value);
-                if (count($s) === 1) {
+
+                if (\count($s) === 1) {
                     return $s[0];
                 }
             }
@@ -149,9 +152,9 @@ trait HasRequestCriteriaTrait
         $searchArray = $this->parserSearchData($searchQuery);
 
         foreach ($fieldsToDecode as $fieldToDecode) {
-            if (array_key_exists($fieldToDecode, $searchArray)) {
+            if (\array_key_exists($fieldToDecode, $searchArray)) {
                 if (empty(Hashids::decode($searchArray[$fieldToDecode]))) {
-                    throw new \InvalidArgumentException(sprintf('Only hash ids are allowed. %s:%s', $fieldToDecode, $searchArray[$fieldToDecode]));
+                    throw new \InvalidArgumentException(\sprintf('Only hash ids are allowed. %s:%s', $fieldToDecode, $searchArray[$fieldToDecode]));
                 }
 
                 $searchArray[$fieldToDecode] = Hashids::decode($searchArray[$fieldToDecode])[0];
@@ -189,7 +192,7 @@ trait HasRequestCriteriaTrait
         $length = \count($fields);
         foreach ($fields as $i => $iValue) {
             $field = $iValue;
-            $decodedSearchQuery .= sprintf('%s:%s', $field, $decodedSearchArray[$field]);
+            $decodedSearchQuery .= \sprintf('%s:%s', $field, $decodedSearchArray[$field]);
 
             if ($length !== 1 && $i < $length - 1) {
                 $decodedSearchQuery .= ';';

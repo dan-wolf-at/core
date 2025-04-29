@@ -60,14 +60,14 @@ class EventListenerGenerator extends GeneratorCommand implements ComponentsGener
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $event,
+                'class-name'     => $this->fileName,
+                'model'          => $event,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,

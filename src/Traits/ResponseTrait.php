@@ -44,18 +44,19 @@ trait ResponseTrait
         // add specific meta information to the response message
         $this->metaData = array_merge($this->metaData, [
             'include' => $transformer->getAvailableIncludes(),
-            'custom' => $meta,
+            'custom'  => $meta,
         ]);
 
         // no resource key was set
         if (!$resourceKey) {
             // get the resource key from the model
             $obj = null;
+
             if ($data instanceof AbstractPaginator) {
                 $obj = $data->getCollection()->first();
             } elseif ($data instanceof Collection) {
                 $obj = $data->first();
-            } elseif (is_array($data) && $data !== []) {
+            } elseif (\is_array($data) && $data !== []) {
                 $obj = $data[0];
             } else {
                 $obj = $data;
@@ -113,7 +114,7 @@ trait ResponseTrait
         $className = (new \ReflectionClass($deletedModel))->getShortName();
 
         return $this->accepted([
-            'message' => sprintf('%s (%s) Deleted Successfully.', $className, $id),
+            'message' => \sprintf('%s (%s) Deleted Successfully.', $className, $id),
         ]);
     }
 
@@ -135,21 +136,22 @@ trait ResponseTrait
     private function filterResponse(array $responseArray, array $filters): array
     {
         foreach ($responseArray as $k => $v) {
-            if (in_array($k, $filters, true)) {
+            if (\in_array($k, $filters, true)) {
                 // we have found our element - so continue with the next one
                 continue;
             }
 
-            if (is_array($v)) {
+            if (\is_array($v)) {
                 // it is an array - so go one step deeper
                 $v = $this->filterResponse($v, $filters);
+
                 if (empty($v)) {
                     // it is an empty array - delete the key as well
                     unset($responseArray[$k]);
                 } else {
                     $responseArray[$k] = $v;
                 }
-            } elseif (!in_array($k, $filters)) {
+            } elseif (!\in_array($k, $filters, true)) {
                 // check if the array is not in our filter-list
                 unset($responseArray[$k]);
             }

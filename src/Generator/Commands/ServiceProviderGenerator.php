@@ -63,6 +63,7 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
     {
         $stub = $this->option('stub');
         $eventServiceProvider = $this->option('event-service-provider');
+
         if (!$stub) {
             $stub = $this->checkParameterOrChoice(
                 'stub',
@@ -72,18 +73,19 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
             );
 
             $stub = match ($stub) {
-                'MainServiceProvider' => 'main-service-provider',
-                'EventServiceProvider' => 'generic-event-service-provider',
+                'MainServiceProvider'      => 'main-service-provider',
+                'EventServiceProvider'     => 'generic-event-service-provider',
                 'MiddlewareServiceProvide' => 'middleware-service-provider',
-                default => 'generic',
+                default                    => 'generic',
             };
         }
 
-        $this->stubName = sprintf('providers/%s.stub', $stub);
+        $this->stubName = \sprintf('providers/%s.stub', $stub);
         $eventListeners = $this->option('event-listeners');
         $eventListenersString = '[]';
         $listenersUseStatements = '';
         $eventsUseStatements = '';
+
         if ($eventListeners) {
             $listenersWithClass = array_map(static function ($listeners, string $listener) {
                 return [$listener . '::class' => array_map(static fn ($event): string => $event . '::class', $listeners)];
@@ -116,17 +118,17 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
 
         return [
             'path-parameters' => [
-                'section-name' => $this->sectionName,
+                'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
             ],
             'stub-parameters' => [
-                '_section-name' => Str::lower($this->sectionName),
-                'section-name' => $this->sectionName,
-                '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'event-listeners' => $eventListenersString,
-                'use-statements' => $useStatements,
+                '_section-name'          => Str::lower($this->sectionName),
+                'section-name'           => $this->sectionName,
+                '_container-name'        => Str::lower($this->containerName),
+                'container-name'         => $this->containerName,
+                'class-name'             => $this->fileName,
+                'event-listeners'        => $eventListenersString,
+                'use-statements'         => $useStatements,
                 'event-service-provider' => $eventServiceProvider,
             ],
             'file-parameters' => [
