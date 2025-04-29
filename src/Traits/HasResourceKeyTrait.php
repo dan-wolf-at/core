@@ -17,6 +17,7 @@ trait HasResourceKeyTrait
         if (isset($this->resourceKey)) {
             return $this->resourceKey;
         }
+
         $reflectionClass = new \ReflectionClass($this);
         return $reflectionClass->getShortName();
     }

@@ -149,7 +149,7 @@ trait HashIdTrait
     private function processField(array|string|int|null $data, ?array $keysTodo = null, ?string $currentFieldName = null): mixed
     {
         // Check if there are no more fields to be processed.
-        if (empty($keysTodo)) {
+        if ($keysTodo === null || $keysTodo === []) {
             // There are no more keys left - so basically we need to decode this entry.
             if ($this->skipHashIdDecode($data)) {
                 return $data;
