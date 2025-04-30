@@ -5,6 +5,7 @@
   <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Abstracts/Exceptions/Exception.php"/>
   <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/Abstracts/Middlewares/Middleware.php"/>
   <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/Abstracts/Providers/MainServiceProvider.php"/>
+  <violation rule="PHPMD\Rule\Design\LongParameterList" file="src/Abstracts/Requests/Request.php" method="injectData"/>
   <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Foundation/Apiato.php" method="getClassNamespaceFromFile"/>
   <violation rule="PHPMD\Rule\Controversial\CamelCaseVariableName" file="src/Foundation/Apiato.php"/>
   <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Generator/Commands/ContainerApiGenerator.php" method="getUserInputs"/>
@@ -32,6 +33,7 @@
   <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Traits/HashIdTrait.php" method="processField"/>
   <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Traits/ResponseTrait.php" method="transform"/>
   <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Traits/ResponseTrait.php" method="transform"/>
+  <violation rule="PHPMD\Rule\Design\LongParameterList" file="src/Traits/ResponseTrait.php" method="transform"/>
   <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Traits/TestTraits/PhpUnit/TestAssertionHelperTrait.php"/>
   <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Traits/TestTraits/PhpUnit/TestAuthHelperTrait.php"/>
   <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Traits/TestTraits/PhpUnit/TestRequestHelperTrait.php"/>

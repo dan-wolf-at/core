@@ -35,6 +35,7 @@ return RectorConfig::configure()
         // ensure file system caching is used instead of in-memory
         cacheClass: FileCacheStorage::class
     )
+    ->withRootFiles()
     // https://getrector.com/documentation/troubleshooting-parallel
     ->withParallel(360, 2, 40)
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
@@ -108,5 +109,4 @@ return RectorConfig::configure()
         MakeInheritedMethodVisibilitySameAsParentRector::class,
         RemoveParentCallWithoutParentRector::class,
     ])
-    ->withFileExtensions(['php'])
-    ;
+    ->withFileExtensions(['php']);

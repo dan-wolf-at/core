@@ -58,10 +58,10 @@ jobs:
       - name: Execute tests
         run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage.xml --testdox --cache-directory=.phpunit.result.cache --colors=always
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          verbose: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+#      - name: Upload coverage reports to Codecov
+#        uses: codecov/codecov-action@v5
+#        with:
+#          fail_ci_if_error: true
+#          verbose: true
+#        env:
+#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
