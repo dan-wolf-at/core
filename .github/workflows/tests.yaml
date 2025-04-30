@@ -43,13 +43,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-phpunit-
 
-      # If you encounter an error during Laravel package discovery, remember this:
-      # Composer doesn't have access to env variables at this stage,
-      # Therefore, it uses the default value for all env variables.
-      # To fix this, we need to copy the .env.ci file to .env before running composer install.
-      - name: Copy environment file for Composer
-        run: cp .env.ci .env
-
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
