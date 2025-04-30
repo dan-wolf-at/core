@@ -136,6 +136,9 @@
         <severity>0</severity>
         <exclude-pattern>*</exclude-pattern>
     </rule>
+
+    <rule ref="Squiz.Classes.ValidClassName"/>
+
     <!--
         Group: Exclusion
         Documentation: https://www.php-fig.org/psr/psr-1/

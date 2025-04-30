@@ -1,4 +1,4 @@
-name: "Linter - PHPMD"
+name: "Static analysis - PHPStan"
 
 on:
   push:
@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  phpmd:
-    name: PHP Mess Detector
+  phpstan:
+    name: PHPStan Static Analysis
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -35,19 +35,28 @@ jobs:
       - name: Copy environment file for Composer
         run: cp .env.ci .env
 
-      - name: Cache PHPMD results
-        uses: actions/cache@v4
-        with:
-          path: .phpmd.result-cache.php
-          key: ${{ runner.os }}-phpmd-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-phpmd-
-
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
           composer-options: --prefer-dist
 
-      - name: Run PHPMD
-        run: vendor/bin/phpmd . github phpmd.ruleset.xml --ignore-violations-on-exit --color --cache
+      - name: Prepare PHPStan cache directory
+        run: mkdir -p ./tmp/phpstan
 
+      - name: Restore PHPStan result cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ./tmp/phpstan
+          key: ${{ runner.os }}-phpstan-result-cache-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-phpstan-result-cache-
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --memory-limit=512M --ansi
+
+      - name: Save PHPStan result cache
+        uses: actions/cache/save@v4
+        if: ${{ !cancelled() }}
+        with:
+          path: ./tmp/phpstan
+          key: phpstan-result-cache-${{ github.sha }}

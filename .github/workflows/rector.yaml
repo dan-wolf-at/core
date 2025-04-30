@@ -1,4 +1,4 @@
-name: "Linter - PHPMD"
+name: "Refactor - Rector"
 
 on:
   push:
@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  phpmd:
-    name: PHP Mess Detector
+  rector:
+    name: Rector Code Analysis
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -35,19 +35,21 @@ jobs:
       - name: Copy environment file for Composer
         run: cp .env.ci .env
 
-      - name: Cache PHPMD results
+      - name: Prepare Rector cache directory
+        run: mkdir -p ./tmp/rector
+
+      - name: Cache Rector results
         uses: actions/cache@v4
         with:
-          path: .phpmd.result-cache.php
-          key: ${{ runner.os }}-phpmd-${{ github.sha }}
+          path: ./tmp/rector
+          key: ${{ runner.os }}-rector-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-phpmd-
+            ${{ runner.os }}-rector-
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
           composer-options: --prefer-dist
 
-      - name: Run PHPMD
-        run: vendor/bin/phpmd . github phpmd.ruleset.xml --ignore-violations-on-exit --color --cache
-
+      - name: Run Rector Dry Run
+        run: vendor/bin/rector process --dry-run --ansi

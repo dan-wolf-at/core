@@ -1,0 +1,2743 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Actions\\Action\:\:\$repository\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Call to an undefined static method Apiato\\Core\\Abstracts\\Actions\\Action\:\:run\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:addRequestCriteria\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:parserSearchData\(\) has parameter \$search with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:parserSearchValue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:parserSearchValue\(\) has parameter \$search with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:removeRequestCriteria\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:transactionalRun\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:transactionalRun\(\) has parameter \$arguments with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Actions\\Action\:\:validateRepository\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, int\<0, max\>\|false given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Only booleans are allowed in \|\|, int\<0, max\>\|false given on the left side\.$#'
+			identifier: booleanOr.leftNotBoolean
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Only booleans are allowed in \|\|, int\<0, max\>\|false given on the right side\.$#'
+			identifier: booleanOr.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Actions/Action.php
+
+		-
+			message: '#^Call to an undefined static method Spatie\\Fractal\\Facades\\Fractal\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:accepted\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:accepted\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:accepted\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:created\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:created\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:created\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:json\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:json\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:json\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:noContent\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:transform\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:transform\(\) has parameter \$resourceKey with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:transform\(\) has parameter \$transformerName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Controllers\\ApiController\:\:withMeta\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Controllers/ApiController.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Controllers\\Controller\:\:getAttribute\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Controllers/Controller.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Controllers\\Controller\:\:getKeyName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Controllers/Controller.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Abstracts/Controllers/Controller.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Controllers/Controller.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Controllers/Controller.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Apiato\\Core\\Abstracts\\Controllers\\Controller\:\:decode\(\) expects string\|null, array\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Controllers/Controller.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Exceptions\\Exception\:\:debug\(\) has parameter \$error with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Exceptions/Exception.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Models\\Model\:\:\$resourceKey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\|Illuminate\\Database\\Eloquent\\Relations\\Relation\:\:where\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 2
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Apiato\\Core\\Abstracts\\Models\\Model\:\:decode\(\) expects string\|null, array\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Parameter \#1 \$modelName of static method Illuminate\\Database\\Eloquent\\Factories\\Factory\<Illuminate\\Database\\Eloquent\\Model\>\:\:factoryForModel\(\) expects class\-string\<Illuminate\\Database\\Eloquent\\Model\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Parameter \#1 \$query \(Illuminate\\Database\\Eloquent\\Model\|Illuminate\\Database\\Eloquent\\Relations\\Relation\) of method Apiato\\Core\\Abstracts\\Models\\Model\:\:resolveRouteBindingQuery\(\) should be contravariant with parameter \$query \(Illuminate\\Contracts\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Model\) of method Illuminate\\Database\\Eloquent\\Model\:\:resolveRouteBindingQuery\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Variable method call on \$this\(Apiato\\Core\\Abstracts\\Models\\Model\)\.$#'
+			identifier: method.dynamicName
+			count: 3
+			path: src/Abstracts/Models/Model.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Models\\UserModel\:\:\$resourceKey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\|Illuminate\\Database\\Eloquent\\Relations\\Relation\:\:where\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 2
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Apiato\\Core\\Abstracts\\Models\\UserModel\:\:decode\(\) expects string\|null, array\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Parameter \#1 \$modelName of static method Illuminate\\Database\\Eloquent\\Factories\\Factory\<Illuminate\\Database\\Eloquent\\Model\>\:\:factoryForModel\(\) expects class\-string\<Illuminate\\Database\\Eloquent\\Model\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Parameter \#1 \$query \(Illuminate\\Database\\Eloquent\\Model\|Illuminate\\Database\\Eloquent\\Relations\\Relation\) of method Apiato\\Core\\Abstracts\\Models\\UserModel\:\:resolveRouteBindingQuery\(\) should be contravariant with parameter \$query \(Illuminate\\Contracts\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Model\) of method Illuminate\\Database\\Eloquent\\Model\:\:resolveRouteBindingQuery\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Variable method call on \$this\(Apiato\\Core\\Abstracts\\Models\\UserModel\)\.$#'
+			identifier: method.dynamicName
+			count: 3
+			path: src/Abstracts/Models/UserModel.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Notifications\\Notification\:\:via\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Notifications/Notification.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Providers\\MainServiceProvider\:\:\$aliases\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Providers/MainServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Providers\\MainServiceProvider\:\:\$serviceProviders\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Providers/MainServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Providers\\MainServiceProvider\:\:loadAlias\(\) has parameter \$aliasKey with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Providers/MainServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Providers\\MainServiceProvider\:\:loadAlias\(\) has parameter \$aliasValue with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Providers/MainServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Providers\\MainServiceProvider\:\:loadProvider\(\) has parameter \$providerFullName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Providers/MainServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Providers\\MainServiceProvider\:\:loadProviders\(\) has parameter \$directory with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Providers/MainServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$file of static method Illuminate\\Support\\Facades\\File\:\:isFile\(\) expects string, Symfony\\Component\\Finder\\SplFileInfo given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Providers/MainServiceProvider.php
+
+		-
+			message: '#^Cannot access offset ''router'' on Illuminate\\Contracts\\Foundation\\Application\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 5
+			path: src/Abstracts/Providers/MiddlewareServiceProvider.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Foundation\\Application\:\:routesAreCached\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Call to function array_filter\(\) requires parameter \#2 to be passed to avoid loose comparison semantics\.$#'
+			identifier: arrayFilter.strict
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Casting to string something that''s already string\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Providers\\RouteServiceProvider\:\:loadWebContainerRoutes\(\) has parameter \$containerPath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, mixed given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^PHPDoc tag @var above a method has no effect\.$#'
+			identifier: varTag.misplaced
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^PHPDoc tag @var does not specify variable name\.$#'
+			identifier: varTag.noVariable
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
+			count: 1
+			path: src/Abstracts/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:\$repository\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and array\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:parserSearchData\(\) has parameter \$search with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:parserSearchValue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:parserSearchValue\(\) has parameter \$search with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:removeRequestCriteria\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:setPaginationLimit\(\) has parameter \$limit with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:validateRepository\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, int\<0, max\>\|false given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 2
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Only booleans are allowed in \|\|, int\<0, max\>\|false given on the left side\.$#'
+			identifier: booleanOr.leftNotBoolean
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Only booleans are allowed in \|\|, int\<0, max\>\|false given on the right side\.$#'
+			identifier: booleanOr.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Only numeric types are allowed in \+, int\|false given on the left side\.$#'
+			identifier: plus.leftNonNumeric
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Variable method call on Illuminate\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: method.dynamicName
+			count: 1
+			path: src/Abstracts/Repositories/Repository.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Requests\\Request\:\:getAttribute\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Requests\\Request\:\:getKeyName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Call to function property_exists\(\) with \$this\(Apiato\\Core\\Abstracts\\Requests\\Request\) and ''decode'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 3
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Requests\\Request\:\:getInputByKey\(\) has parameter \$default with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Requests\\Request\:\:getInputByKey\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Requests\\Request\:\:hasAnyPermissionAccess\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Requests\\Request\:\:hasAnyRoleAccess\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\<string\>\|string\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 2
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 2
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Apiato\\Core\\Abstracts\\Requests\\Request\:\:decode\(\) expects string\|null, array\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Variable method call on \$this\(Apiato\\Core\\Abstracts\\Requests\\Request\)\.$#'
+			identifier: method.dynamicName
+			count: 2
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Variable property access on \$this\(Apiato\\Core\\Abstracts\\Requests\\Request\)\.$#'
+			identifier: property.dynamicName
+			count: 1
+			path: src/Abstracts/Requests/Request.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Tasks\\Task\:\:\$repository\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:addRequestCriteria\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:parserSearchData\(\) has parameter \$search with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:parserSearchValue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:parserSearchValue\(\) has parameter \$search with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:removeRequestCriteria\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:validateRepository\(\) has parameter \$repository with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, int\<0, max\>\|false given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Only booleans are allowed in \|\|, int\<0, max\>\|false given on the left side\.$#'
+			identifier: booleanOr.leftNotBoolean
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Only booleans are allowed in \|\|, int\<0, max\>\|false given on the right side\.$#'
+			identifier: booleanOr.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Tasks/Task.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:\$userclass\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Access to an undefined property Laravel\\Passport\\Client\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Access to an undefined property Laravel\\Passport\\PersonalAccessClient\:\:\$client_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Models\\UserModel\:\:createToken\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Models\\UserModel\:\:withAccessToken\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:getAttribute\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:getKeyName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\ExpectsHigherOrderMessage\:\:never\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\ExpectsHigherOrderMessage\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage\|Mockery\\MockInterface\:\:andReturn\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage\|Mockery\\MockInterface\:\:andReturnSelf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Cannot access offset ''host'' on array\{scheme\?\: string, host\?\: string, port\?\: int\<0, 65535\>, user\?\: string, pass\?\: string, path\?\: string, query\?\: string, fragment\?\: string\}\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Cannot access offset ''scheme'' on array\{scheme\?\: string, host\?\: string, port\?\: int\<0, 65535\>, user\?\: string, pass\?\: string, path\?\: string, query\?\: string, fragment\?\: string\}\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 4
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEmpty\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertSameSize\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\TestCase\:\:once\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Dynamic call to static method Symfony\\Component\\HttpFoundation\\Response\:\:getContent\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:buildUrlForUri\(\) has parameter \$uri with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:endpoint\(\) has parameter \$endpoint with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:findOrCreateTestingUser\(\) has parameter \$access with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:findOrCreateTestingUser\(\) has parameter \$userDetails with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:getGateMock\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:getResponseContentArray\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:getResponseContentObject\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:getTestingUserWithoutAccess\(\) has parameter \$userDetails with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:hashIdIfEnabled\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:headersContainAuthorization\(\) has parameter \$headers with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:injectId\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:overrideSubDomain\(\) has parameter \$url with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:setupTestingUserAccess\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:setupTestingUserAccess\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:setupTestingUserPermissions\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:setupTestingUserPermissions\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:setupTestingUserRoles\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:setupTestingUserRoles\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Mockery\\LegacyMockInterface\:\:shouldIgnoreMissing\(\) invoked with 2 parameters, 0\-1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker\:\:with\(\) invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, string given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, string\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 2
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, stdClass\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:decode\(\) expects string\|null, array\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Parameter \#2 \$arrays of function array_diff expects an array of values castable to string, array\<int\|string, array\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Property Apiato\\Core\\Abstracts\\Tests\\PhpUnit\\TestCase\:\:\$responseContent \(string\) does not accept string\|false\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
+			count: 2
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Variable method call on mixed\.$#'
+			identifier: method.dynamicName
+			count: 1
+			path: src/Abstracts/Tests/PhpUnit/TestCase.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Transformers\\Transformer\:\:callIncludeMethod\(\) should return League\\Fractal\\Resource\\ResourceInterface\|false but returns null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Abstracts/Transformers/Transformer.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Transformers\\Transformer\:\:nullableItem\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Transformers/Transformer.php
+
+		-
+			message: '#^Method Apiato\\Core\\Abstracts\\Transformers\\Transformer\:\:nullableItem\(\) has parameter \$transformer with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Abstracts/Transformers/Transformer.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Abstracts/Transformers/Transformer.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Abstracts/Transformers/Transformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Abstracts\\Values\\Value\:\:\$resourceKey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Abstracts/Values/Value.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Commands/ListActionsCommand.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, array\<string\>\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Commands/ListActionsCommand.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Commands/ListTasksCommand.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, array\<string\>\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Commands/ListTasksCommand.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, mixed given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Commands/SeedDeploymentDataCommand.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, mixed given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Commands/SeedTestingDataCommand.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\AuthenticationException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/AuthenticationException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\AuthenticationException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/AuthenticationException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\CoreInternalErrorException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/CoreInternalErrorException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\CoreInternalErrorException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/CoreInternalErrorException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\GeneratorErrorException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/GeneratorErrorException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\GeneratorErrorException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/GeneratorErrorException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\IncorrectIdException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/IncorrectIdException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\IncorrectIdException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/IncorrectIdException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\InvalidTransformerException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/InvalidTransformerException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\InvalidTransformerException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/InvalidTransformerException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\MissingJSONHeaderException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/MissingJSONHeaderException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\MissingJSONHeaderException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/MissingJSONHeaderException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\MissingTestEndpointException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/MissingTestEndpointException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\MissingTestEndpointException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/MissingTestEndpointException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\UndefinedMethodException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/UndefinedMethodException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\UndefinedMethodException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/UndefinedMethodException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\UnsupportedFractalIncludeException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/UnsupportedFractalIncludeException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\UnsupportedFractalIncludeException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/UnsupportedFractalIncludeException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\WrongConfigurationsException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/WrongConfigurationsException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\WrongConfigurationsException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/WrongConfigurationsException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\WrongEndpointFormatException\:\:\$code has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/WrongEndpointFormatException.php
+
+		-
+			message: '#^Property Apiato\\Core\\Exceptions\\WrongEndpointFormatException\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Exceptions/WrongEndpointFormatException.php
+
+		-
+			message: '#^Parameter \#1 \$array of function end expects array\|object, list\<string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Foundation/Apiato.php
+
+		-
+			message: '#^Parameter \#1 \$code of function token_get_all expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Foundation/Apiato.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ActionGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ActionGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ActionGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:upper\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ActionGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ConfigurationGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ConfigurationGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in &&, array\|bool\|string\|null given on the left side\.$#'
+			identifier: booleanAnd.leftNotBoolean
+			count: 1
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in &&, array\|bool\|string\|null given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|bool\|string\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, array\|bool\|string\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 2
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 6
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ContainerApiGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
+			count: 2
+			path: src/Generator/Commands/ContainerApiGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 3
+			path: src/Generator/Commands/ContainerGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ContainerGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ContainerGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ContainerGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|bool\|string\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Generator/Commands/ContainerWebGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ContainerWebGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ContainerWebGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ContainerWebGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ControllerGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ControllerGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Generator/Commands/ControllerGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Generator/Commands/EventGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\EventGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/EventGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/EventGenerator.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
+			count: 1
+			path: src/Generator/Commands/EventGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\EventListenerGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/EventListenerGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ExceptionGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ExceptionGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, array\|bool\|string\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Generator/Commands/FunctionalTestGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\FunctionalTestGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/FunctionalTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:camel\(\) expects string, array\|bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/FunctionalTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/FunctionalTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/FunctionalTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:plural\(\) expects string, array\|bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/FunctionalTestGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\JobGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/JobGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\MailGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/MailGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\MiddlewareGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/MiddlewareGenerator.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\Commands\\MigrationGenerator\:\:removeSpecialChars\(\) has parameter \$str with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/Commands/MigrationGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\MigrationGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/MigrationGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ModelFactoryGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ModelFactoryGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Generator/Commands/ModelGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ModelGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ModelGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\NotificationGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/NotificationGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\PolicyGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/PolicyGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ReadmeGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ReadmeGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\RepositoryGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/RepositoryGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, array\|bool\|string\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Generator/Commands/RequestGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\RequestGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/RequestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/RequestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/RequestGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\RouteGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/RouteGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/RouteGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\SeederGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/SeederGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|bool\|string\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ServiceProviderGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_keys expects array, array\|string\|true given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, array\|string\|true given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(non\-falsy\-string\|null, int\|string\)\: \(non\-falsy\-string\|null\), Closure\(mixed, string\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(non\-falsy\-string\|null, int\|string\)\: \(non\-falsy\-string\|null\), Closure\(string, mixed\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(non\-falsy\-string\|null, string\)\: \(non\-falsy\-string\|null\), Closure\(string, string\)\: non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(string\|null, mixed\)\: \(string\|null\), Closure\(string, mixed\)\: string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, array\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/ServiceProviderGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\SubActionGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/SubActionGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, array\|bool\|string\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Generator/Commands/TaskGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\TaskGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/TaskGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/TaskGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\TestCaseGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/TestCaseGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/TestCaseGenerator.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getHidden\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Generator/Commands/TransformerGenerator.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getTable\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Generator/Commands/TransformerGenerator.php
+
+		-
+			message: '#^Call to function in_array\(\) requires parameter \#3 to be true\.$#'
+			identifier: function.strict
+			count: 1
+			path: src/Generator/Commands/TransformerGenerator.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\Commands\\TransformerGenerator\:\:getListOfAllAttributes\(\) has parameter \$full with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/Commands/TransformerGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\TransformerGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/TransformerGenerator.php
+
+		-
+			message: '#^Binary operation "\." between ''tests/unit/'' and non\-empty\-array\|non\-falsy\-string\|true results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 3
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\UnitTestGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:camel\(\) expects string, array\|bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:lower\(\) expects string, array\|string\|true given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:plural\(\) expects string, array\|bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Str\:\:studly\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/Commands/UnitTestGenerator.php
+
+		-
+			message: '#^PHPDoc type string of property Apiato\\Core\\Generator\\Commands\\ValueGenerator\:\:\$description is not the same as PHPDoc type string\|null of overridden property Illuminate\\Console\\Command\:\:\$description\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: src/Generator/Commands/ValueGenerator.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Generator\\GeneratorCommand\:\:\$nameStructure\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Generator\\GeneratorCommand\:\:\$pathStructure\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Generator\\GeneratorCommand\:\:getUserInputs\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:alreadyExists\(\) has parameter \$path with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:checkParameterOrAsk\(\) has parameter \$param with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:checkParameterOrAsk\(\) has parameter \$question with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:checkParameterOrChoice\(\) has parameter \$param with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:checkParameterOrChoice\(\) has parameter \$question with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:checkParameterOrConfirm\(\) has parameter \$param with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:checkParameterOrConfirm\(\) has parameter \$question with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:generateFile\(\) has parameter \$filePath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:generateFile\(\) has parameter \$stubContent with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:getFilePath\(\) has parameter \$path with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:getInput\(\) has parameter \$arg with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:getInput\(\) should return array\|string\|null but returns array\|bool\|string\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:parseFileStructure\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:parseFileStructure\(\) has parameter \$filename with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:parsePathStructure\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:parsePathStructure\(\) has parameter \$path with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:parseStubContent\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:parseStubContent\(\) has parameter \$stub with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:printErrorMessage\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:printInfoMessage\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:removeSpecialChars\(\) has parameter \$str with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Method Apiato\\Core\\Generator\\GeneratorCommand\:\:validateGenerator\(\) has parameter \$generator with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Apiato\\Core\\Generator\\GeneratorCommand\:\:trimString\(\) expects string, array\|bool\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Property Apiato\\Core\\Generator\\GeneratorCommand\:\:\$parsedFileName has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Property Apiato\\Core\\Generator\\GeneratorCommand\:\:\$renderedStubContent has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Property Apiato\\Core\\Generator\\GeneratorCommand\:\:\$stubContent has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Property Apiato\\Core\\Generator\\GeneratorCommand\:\:\$userData has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Generator/GeneratorCommand.php
+
+		-
+			message: '#^Function uncamelize\(\) has parameter \$word with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Helpers/helpers.php
+
+		-
+			message: '#^Function uncamelize\(\) never returns array\<string\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Helpers/helpers.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 100000 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 50200 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 50300 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 50400 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 50500 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 50600 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 70000 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 70100 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 70200 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 70300 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 70400 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 80000 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 80100 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 80200 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 80400 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^PHPDoc tag @implements contains generic type Rector\\VersionBonding\\Contract\\MinPhpVersionInterface\<PhpParser\\Node\> but interface Rector\\VersionBonding\\Contract\\MinPhpVersionInterface is not generic\.$#'
+			identifier: generics.notGeneric
+			count: 1
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Parameter \#1 \$node \(PhpParser\\Node\\Expr\\StaticCall\) of method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:refactor\(\) should be contravariant with parameter \$node \(PhpParser\\Node\) of method Rector\\Contract\\Rector\\RectorInterface\:\:refactor\(\)$#'
+			identifier: method.childParameterType
+			count: 2
+			path: src/Linters/Rector/MockObjectStaticToInstanceCallRector.php
+
+		-
+			message: '#^Trait Apiato\\Core\\Loaders\\SeederLoaderTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Loaders/SeederLoaderTrait.php
+
+		-
+			message: '#^Call to an undefined method Apiato\\Core\\Macros\\Collection\\ContainsDecodedHash\:\:contains\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Macros/Collection/ContainsDecodedHash.php
+
+		-
+			message: '#^Parameter \#1 \$repo of closure expects Illuminate\\Config\\Repository, \$this\(Apiato\\Core\\Macros\\Config\\UnsetKey\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Macros/Config/UnsetKey.php
+
+		-
+			message: '#^Method Apiato\\Core\\Middlewares\\Http\\ProcessETagHeadersMiddleware\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Middlewares/Http/ProcessETagHeadersMiddleware.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, mixed given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Middlewares/Http/ProcessETagHeadersMiddleware.php
+
+		-
+			message: '#^Method Apiato\\Core\\Middlewares\\Http\\ProfilerMiddleware\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Middlewares/Http/ProfilerMiddleware.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, mixed given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Middlewares/Http/ProfilerMiddleware.php
+
+		-
+			message: '#^Method Apiato\\Core\\Middlewares\\Http\\ValidateJsonContent\:\:handle\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Middlewares/Http/ValidateJsonContent.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: src/Middlewares/Http/ValidateJsonContent.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:\$aliases\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:isRouteFile\(\) has parameter \$consoleFile with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadAlias\(\) has parameter \$aliasKey with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadAlias\(\) has parameter \$aliasValue with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadHelpers\(\) has parameter \$helpersFolder with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadLocals\(\) has parameter \$containerName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadLocals\(\) has parameter \$directory with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadLocals\(\) has parameter \$sectionName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadMigrations\(\) has parameter \$directory with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadProvider\(\) has parameter \$providerFullName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadProviders\(\) has parameter \$directory with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadTheConsoles\(\) has parameter \$directory with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadViews\(\) has parameter \$containerName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadViews\(\) has parameter \$directory with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Method Apiato\\Core\\Providers\\ApiatoServiceProvider\:\:loadViews\(\) has parameter \$sectionName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$file of static method Illuminate\\Support\\Facades\\File\:\:isFile\(\) expects string, Symfony\\Component\\Finder\\SplFileInfo given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$path of static method Illuminate\\Support\\Facades\\File\:\:name\(\) expects string, Symfony\\Component\\Finder\\SplFileInfo given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Providers/ApiatoServiceProvider.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getAvailableIncludes\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Services/Response.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Services/Response.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: src/Services/Response.php
+
+		-
+			message: '#^Parameter \#1 \$serializer of method League\\Fractal\\Manager\:\:setSerializer\(\) expects League\\Fractal\\Serializer\\Serializer, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Services/Response.php
+
+		-
+			message: '#^Property Spatie\\Fractalistic\\Fractal\:\:\$serializer \(League\\Fractal\\Serializer\\SerializerAbstract\|string\) does not accept object\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Services/Response.php
+
+		-
+			message: '#^PHPDoc type class\-string\<TModel of Apiato\\Core\\Tests\\Infrastructure\\Doubles\\Book\> of property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\BookFactory\:\:\$model is not the same as PHPDoc type class\-string\<Illuminate\\Database\\Eloquent\\Model\> of overridden property Illuminate\\Database\\Eloquent\\Factories\\Factory\<TModel of Apiato\\Core\\Tests\\Infrastructure\\Doubles\\Book\>\:\:\$model\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: tests/Infrastructure/Doubles/BookFactory.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\Book\:\:\$author\.$#'
+			identifier: property.notFound
+			count: 2
+			path: tests/Infrastructure/Doubles/BookTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\Book\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/BookTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\Book\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/BookTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\Book\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/BookTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$resourceKey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\|Illuminate\\Database\\Eloquent\\Relations\\Relation\:\:where\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 2
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Parameter \#1 \$id of method Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:decode\(\) expects string\|null, array\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Parameter \#1 \$modelName of static method Illuminate\\Database\\Eloquent\\Factories\\Factory\<Illuminate\\Database\\Eloquent\\Model\>\:\:factoryForModel\(\) expects class\-string\<Illuminate\\Database\\Eloquent\\Model\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Variable method call on \$this\(Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\)\.$#'
+			identifier: method.dynamicName
+			count: 3
+			path: tests/Infrastructure/Doubles/User.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserFactory.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserFactory.php
+
+		-
+			message: '#^PHPDoc tag @extends contains generic type Orchestra\\Testbench\\Factories\\UserFactory\<Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\> but class Orchestra\\Testbench\\Factories\\UserFactory is not generic\.$#'
+			identifier: generics.notGeneric
+			count: 1
+			path: tests/Infrastructure/Doubles/UserFactory.php
+
+		-
+			message: '#^PHPDoc type class\-string\<TModel of Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\> of property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\UserFactory\:\:\$model is not the same as PHPDoc type class\-string\<Illuminate\\Database\\Eloquent\\Model\> of overridden property Illuminate\\Database\\Eloquent\\Factories\\Factory\<Illuminate\\Foundation\\Auth\\User\>\:\:\$model\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: tests/Infrastructure/Doubles/UserFactory.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<Illuminate\\Foundation\\Auth\\User\>\:\:afterCreating\(\) expects Closure\(Illuminate\\Database\\Eloquent\\Model, Illuminate\\Database\\Eloquent\\Model\|null\)\: mixed, Closure\(Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\)\: void given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Infrastructure/Doubles/UserFactory.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$books\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$children\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$parent\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 2
+			path: tests/Infrastructure/Doubles/UserTransformer.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$books\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
+
+		-
+			message: '#^Access to an undefined property Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\:\:\$children\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertCount\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 3
+			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 2
+			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 5
+			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertContains\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Abstracts/Tests/PhpUnit/TestCaseTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 5
+			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 3
+			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertSame\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 2
+			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
+
+		-
+			message: '#^Cannot call method getCurrentScope\(\) on \(callable\)\|League\\Fractal\\TransformerAbstract\|string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Unit/Services/ResponseTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 5
+			path: tests/Unit/Services/ResponseTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertSame\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Services/ResponseTest.php
+
+		-
+			message: '#^Parameter \#1 \$resourceName of method Spatie\\Fractalistic\\Fractal\:\:withResourceName\(\) expects string, bool\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/Services/ResponseTest.php
+
+		-
+			message: '#^Property Apiato\\Core\\Tests\\Unit\\Services\\ResponseTest\:\:\$user \(Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\) does not accept Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/Unit/Services/ResponseTest.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$decode\.$#'
+			identifier: property.notFound
+			count: 4
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:105\:\:getAttribute\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:105\:\:getKeyName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:decode\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:decodeArray\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:encode\(\)\.$#'
+			identifier: method.notFound
+			count: 7
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:publicDecodeHashedIdsBeforeValidation\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:skipHashIdDecode\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to function property_exists\(\) with \$this\(class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:105\) and ''decode'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 5
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 3
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:markTestSkipped\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 3
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Parameter \#1 \$id of method class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:105\:\:decode\(\) expects string\|null, array\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Property Apiato\\Core\\Tests\\Unit\\Traits\\HashIdTraitTest\:\:\$mockTrait is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 3
+			path: tests/Unit/Traits/HashIdTraitTest.php
+
+		-
+			message: '#^Call to an undefined method object\:\:withMeta\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Call to an undefined static method Spatie\\Fractal\\Facades\\Fractal\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 8
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertArrayNotHasKey\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertContains\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 4
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertIsArray\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:accepted\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:accepted\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:accepted\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:created\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:created\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:created\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:json\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:json\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:json\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:noContent\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:transform\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:transform\(\) has parameter \$resourceKey with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:transform\(\) has parameter \$transformerName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Method class@anonymous/tests/Unit/Traits/ResponseTraitTest\.php\:34\:\:withMeta\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
+
+		-
+			message: '#^Property Apiato\\Core\\Tests\\Unit\\Traits\\ResponseTraitTest\:\:\$user \(Apiato\\Core\\Tests\\Infrastructure\\Doubles\\User\) does not accept Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/Unit/Traits/ResponseTraitTest.php
