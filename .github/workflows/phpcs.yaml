@@ -1,4 +1,4 @@
-name: "Linter - PHPMD"
+name: "Linter - PHP_CodeSniffer"
 
 on:
   push:
@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  phpmd:
-    name: PHP Mess Detector
+  phpcs:
+    name: PHP_CodeSniffer
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -35,19 +35,18 @@ jobs:
       - name: Copy environment file for Composer
         run: cp .env.ci .env
 
-      - name: Cache PHPMD results
+      - name: Cache PHPCS results
         uses: actions/cache@v4
         with:
-          path: .phpmd.result-cache.php
-          key: ${{ runner.os }}-phpmd-${{ github.sha }}
+          path: .phpcs-cache
+          key: ${{ runner.os }}-phpcs-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-phpmd-
+            ${{ runner.os }}-phpcs-
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
           composer-options: --prefer-dist
 
-      - name: Run PHPMD
-        run: vendor/bin/phpmd . github phpmd.ruleset.xml --ignore-violations-on-exit --color --cache
-
+      - name: Run PHP_CodeSniffer
+        run: vendor/bin/phpcs -p --error-severity=1 --warning-severity=6 --colors --cache=.phpcs-cache

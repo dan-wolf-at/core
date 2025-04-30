@@ -1,4 +1,4 @@
-name: "Linter - PHPMD"
+name: "Composer - quality"
 
 on:
   push:
@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  phpmd:
-    name: PHP Mess Detector
+  composer-quality:
+    name: Composer Quality Checks
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -26,7 +26,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          extensions: dom, curl, libxml, mbstring, zip
           coverage: none
 
       - name: Setup Composer token
@@ -35,19 +35,13 @@ jobs:
       - name: Copy environment file for Composer
         run: cp .env.ci .env
 
-      - name: Cache PHPMD results
-        uses: actions/cache@v4
-        with:
-          path: .phpmd.result-cache.php
-          key: ${{ runner.os }}-phpmd-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-phpmd-
-
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
-          composer-options: --prefer-dist
+          composer-options: --prefer-dist --optimize-autoloader
 
-      - name: Run PHPMD
-        run: vendor/bin/phpmd . github phpmd.ruleset.xml --ignore-violations-on-exit --color --cache
+      - name: Validate composer.json / composer.lock
+        run: composer validate --strict --no-check-publish --ansi
 
+      - name: Detect unused packages
+        run: vendor/bin/composer-unused --no-progress --ansi

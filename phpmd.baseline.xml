@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<phpmd-baseline>
+  <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/Abstracts/Commands/ConsoleCommand.php"/>
+  <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/Abstracts/Exceptions/Exception.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Abstracts/Exceptions/Exception.php"/>
+  <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/Abstracts/Middlewares/Middleware.php"/>
+  <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/Abstracts/Providers/MainServiceProvider.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Foundation/Apiato.php" method="getClassNamespaceFromFile"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseVariableName" file="src/Foundation/Apiato.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Generator/Commands/ContainerApiGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="src/Generator/Commands/ContainerApiGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Generator/Commands/ContainerApiGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseVariableName" file="src/Generator/Commands/ContainerApiGenerator.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Generator/Commands/ContainerGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Generator/Commands/ContainerGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseVariableName" file="src/Generator/Commands/ContainerGenerator.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Generator/Commands/ContainerWebGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Generator/Commands/ContainerWebGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseVariableName" file="src/Generator/Commands/ContainerWebGenerator.php"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Generator/Commands/RouteGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Generator/Commands/ServiceProviderGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseVariableName" file="src/Generator/Commands/TransformerGenerator.php"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Generator/Commands/UnitTestGenerator.php" method="getUserInputs"/>
+  <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="src/Generator/GeneratorCommand.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Generator/GeneratorCommand.php"/>
+  <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="src/Generator/GeneratorsServiceProvider.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Helpers/helpers.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Middlewares/Http/ProcessETagHeadersMiddleware.php" method="handle"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Services/Response.php" method="createData"/>
+  <violation rule="PHPMD\Rule\Naming\ShortMethodName" file="src/Services/Response.php" method="ok"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Traits/HashIdTrait.php" method="processField"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Traits/HashIdTrait.php" method="processField"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="src/Traits/ResponseTrait.php" method="transform"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="src/Traits/ResponseTrait.php" method="transform"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Traits/TestTraits/PhpUnit/TestAssertionHelperTrait.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Traits/TestTraits/PhpUnit/TestAuthHelperTrait.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Traits/TestTraits/PhpUnit/TestRequestHelperTrait.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\UndefinedVariable" file="src/Traits/TestTraits/PhpUnit/TestRequestHelperTrait.php"/>
+  <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Abstracts/Repositories/RepositoryTest.php"/>
+  <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Abstracts/Tests/PhpUnit/TestCaseTest.php"/>
+  <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php"/>
+  <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="tests/Unit/Services/ResponseTest.php"/>
+  <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Services/ResponseTest.php"/>
+  <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Traits/HashIdTraitTest.php"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="tests/Unit/Traits/HashIdTraitTest.php" method="hashedIdsProvider"/>
+  <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Traits/ResponseTraitTest.php"/>
+  <violation rule="PHPMD\Rule\Design\NumberOfChildren" file="tests/Unit/UnitTestCase.php"/>
+</phpmd-baseline>

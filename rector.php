@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Apiato\Core\Linters\Rector\MockObjectStaticToInstanceCallRector;
+use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector;
 use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
@@ -28,6 +29,12 @@ use RectorLaravel\Set\LaravelLevelSetList;
 use RectorLaravel\Set\LaravelSetList;
 
 return RectorConfig::configure()
+    ->withCache(
+        // specify a path that works locally as well as on CI job runners
+        cacheDirectory: '/tmp/rector',
+        // ensure file system caching is used instead of in-memory
+        cacheClass: FileCacheStorage::class
+    )
     // https://getrector.com/documentation/troubleshooting-parallel
     ->withParallel(360, 2, 40)
     ->withImportNames(importDocBlockNames: false, importShortClasses: false)
@@ -68,13 +75,13 @@ return RectorConfig::configure()
         SetList::EARLY_RETURN,
         SetList::STRICT_BOOLEANS,
 
-        LevelSetList::UP_TO_PHP_83,
+        LevelSetList::UP_TO_PHP_82,
         LaravelLevelSetList::UP_TO_LARAVEL_100,
         LaravelSetList::LARAVEL_100,
         LaravelSetList::LARAVEL_CODE_QUALITY,
         LaravelSetList::LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL,
     ])
-    ->withPhpVersion(PhpVersion::PHP_83)
+    ->withPhpVersion(PhpVersion::PHP_82)
     ->withPaths([
         __DIR__ . '/src',
         __DIR__ . '/tests',

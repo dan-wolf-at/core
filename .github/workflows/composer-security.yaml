@@ -1,10 +1,12 @@
-name: "Linter - PHPMD"
+name: "Composer - security audit"
 
 on:
   push:
     branches: [ master, '*.x' ]
   pull_request:
     types: [ opened, synchronize, reopened ]
+  schedule:
+    - cron: '0 6 * * *' # daily at 06:00 UTC
 
 permissions:
   contents: read
@@ -14,10 +16,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  phpmd:
-    name: PHP Mess Detector
+  composer-security:
+    name: Composer Security Audit
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,7 +28,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          extensions: dom, curl, libxml, mbstring, zip
           coverage: none
 
       - name: Setup Composer token
@@ -35,19 +37,14 @@ jobs:
       - name: Copy environment file for Composer
         run: cp .env.ci .env
 
-      - name: Cache PHPMD results
-        uses: actions/cache@v4
-        with:
-          path: .phpmd.result-cache.php
-          key: ${{ runner.os }}-phpmd-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-phpmd-
-
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
+          dependency-versions: locked
           composer-options: --prefer-dist
 
-      - name: Run PHPMD
-        run: vendor/bin/phpmd . github phpmd.ruleset.xml --ignore-violations-on-exit --color --cache
+      - name: Run composer audit
+        run: composer audit --locked --ansi
 
+      - name: Run security check (roave/security-advisories)
+        run: composer update --dry-run --ansi --quiet --no-scripts --no-interaction roave/security-advisories
