@@ -225,18 +225,15 @@ abstract class Request extends LaravelRequest
 
     protected function preparingAccessValues(string $key): array
     {
-        if (
-            \array_key_exists($key, $this->access) === false
-            || (
-                $this->access[$key] === ''
-                || $this->access[$key] === null
-                || $this->access[$key] === []
-            )
-        ) {
+        if (\array_key_exists($key, $this->access) === false) {
             return [];
         }
 
         $accessValues = $this->access[$key];
+
+        if ($accessValues === '' || $accessValues === null || $accessValues === []) {
+            return [];
+        }
 
         // If a string and this string contains a delimiter, then convert this to an array.
         if (\is_string($accessValues)) {

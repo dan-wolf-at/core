@@ -15,15 +15,9 @@ class Apiato
      */
     public const VERSION = '12.0.0';
 
-    /**
-     * @var string
-     */
-    private const SHIP_NAME = 'ship';
+    private const string SHIP_NAME = 'ship';
 
-    /**
-     * @var string
-     */
-    private const CONTAINERS_DIRECTORY_NAME = 'Containers';
+    private const string CONTAINERS_DIRECTORY_NAME = 'Containers';
 
     /**
      * @return string[]

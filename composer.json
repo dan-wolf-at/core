@@ -28,26 +28,26 @@
         "source": "https://github.com/apiato/core"
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-gettext": "*",
         "ext-json": "*",
         "apiato/container-installer": "^2.0.8",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^10.0",
-        "laravel/passport": "^11.0.0",
+        "laravel/framework": "^11",
+        "laravel/passport": "^13.0",
         "prettus/l5-repository": "^2.9.0",
         "spatie/laravel-fractal": "^6.0",
-        "vinkla/hashids": "^11.0"
+        "vinkla/hashids": "^12.0"
     },
     "require-dev": {
         "driftingly/rector-laravel": "^2.0",
-        "fakerphp/faker": "^1.19.1",
+        "fakerphp/faker": "^1.24",
         "friendsofphp/php-cs-fixer": "^3.8.0",
         "icanhazstring/composer-unused": "^0.8",
         "jetbrains/phpstorm-attributes": "^1.0",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^7.0",
-        "orchestra/testbench": "^8.15",
+        "nunomaduro/collision": "^8.5",
+        "orchestra/testbench": "^9.13",
         "phpmd/phpmd": "@stable",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.0",
@@ -61,7 +61,7 @@
         "rector/rector": "^2.0",
         "roave/security-advisories": "dev-latest",
         "slevomat/coding-standard": "^8.15",
-        "squizlabs/php_codesniffer": "^3.11"
+        "squizlabs/php_codesniffer": "^3.12"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,

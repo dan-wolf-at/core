@@ -69,7 +69,15 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
             $_containerName,
             $model,
             $models,
-        ] = $this->runCallParam($ui);
+        ] = $this->runCallParam();
+
+        $this->printInfoMessage('Generating MainServiceProvider');
+        $this->call('apiato:generate:provider', [
+            '--section'   => $sectionName,
+            '--container' => $containerName,
+            '--file'      => 'MainServiceProvider',
+            '--stub'      => 'main-service-provider',
+        ]);
 
         $this->printInfoMessage('Generating Default Routes');
         $version = 1;

@@ -27,10 +27,6 @@ class User extends UserModel
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
@@ -44,5 +40,12 @@ class User extends UserModel
     public function books(): HasMany
     {
         return $this->hasMany(Book::class, 'author_id');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+        ];
     }
 }
