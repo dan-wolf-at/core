@@ -7,15 +7,11 @@ namespace Apiato\Core\Generator\Commands;
 use Apiato\Core\Generator\GeneratorCommand;
 use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-    /**
-     * @var string
-     */
-    public const FORMAT_TIME = 'Y_m_d_His';
+    public const string FORMAT_TIME = 'Y_m_d_His';
 
     /**
      * User required/optional inputs expected to be passed while calling the command.

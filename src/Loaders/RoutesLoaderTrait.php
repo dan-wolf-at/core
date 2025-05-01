@@ -16,15 +16,9 @@ use Symfony\Component\Finder\SplFileInfo;
 
 trait RoutesLoaderTrait
 {
-    /**
-     * @var string
-     */
-    public const UI_API = 'API';
+    public const string UI_API = 'API';
 
-    /**
-     * @var string
-     */
-    public const UI_WEB = 'WEB';
+    public const string UI_WEB = 'WEB';
 
     /**
      * Register all the containers routes files in the framework.
