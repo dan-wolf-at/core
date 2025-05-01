@@ -58,17 +58,17 @@ abstract class GeneratorCommand extends Command
     protected string $filePath;
 
     /**
-     * The name of the section to generate the stubs
+     * The name of the section to generate the stubs.
      */
     protected string $sectionName;
 
     /**
-     * The name of the container to generate the stubs
+     * The name of the container to generate the stubs.
      */
     protected string $containerName;
 
     /**
-     * The name of the file to be created (entered by the user)
+     * The name of the file to be created (entered by the user).
      */
     protected string $fileName;
 
@@ -144,7 +144,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Checks if the param is set (via CLI), otherwise asks the user for a value.
      */
-    protected function checkParameterOrAsk(string $param, string $question, string|int|null $default = null): array | string
+    protected function checkParameterOrAsk(string $param, string $question, null|string|int $default = null): array|string
     {
         // Check if we already have a param set
         $value = $this->option($param);
@@ -171,7 +171,7 @@ abstract class GeneratorCommand extends Command
     protected function removeSpecialChars(string $str): string
     {
         // remove everything that is NOT a character or digit
-        return preg_replace('/[^A-Za-z0-9]/', '', (string) $str);
+        return preg_replace('/[^A-Za-z0-9]/', '', $str);
     }
 
     protected function getFilePath(string $path): string
@@ -231,7 +231,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Checks if the param is set (via CLI), otherwise proposes choices to the user.
      */
-    protected function checkParameterOrChoice(string $param, string $question, array $choices, string|int|null $default = null): array|string|bool|null
+    protected function checkParameterOrChoice(string $param, string $question, array $choices, null|string|int $default = null): null|array|string|bool
     {
         // Check if we already have a param set
         $value = $this->option($param);
@@ -244,7 +244,7 @@ abstract class GeneratorCommand extends Command
         return $value;
     }
 
-    protected function checkParameterOrConfirm(string $param, string $question, bool $default = false): string|array|bool|null
+    protected function checkParameterOrConfirm(string $param, string $question, bool $default = false): null|string|array|bool
     {
         // Check if we already have a param set
         $value = $this->option($param);

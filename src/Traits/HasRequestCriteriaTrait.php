@@ -107,21 +107,23 @@ trait HasRequestCriteriaTrait
         $searchKey = config('repository.criteria.params.search', 'search');
         $searchQuery = $request->get($searchKey);
 
-        if (is_string($searchQuery) === false || $searchQuery === '') {
+        if (\is_string($searchQuery) === false || $searchQuery === '') {
             return;
         }
 
         $searchData = $this->parserSearchData($searchQuery);
         $decodedData = $this->decodeSearchValues($searchData);
 
-        if ($decodedData !== $searchData) {
-            $newSearchQuery = $this->buildSearchQuery($decodedData);
-
-            $query = $request->query();
-            $query[$searchKey] = $newSearchQuery;
-
-            $request->query->replace($query);
+        if ($decodedData === $searchData) {
+            return;
         }
+
+        $newSearchQuery = $this->buildSearchQuery($decodedData);
+
+        $query = $request->query();
+        $query[$searchKey] = $newSearchQuery;
+
+        $request->query->replace($query);
     }
 
     private function parserSearchData(string $search): array
@@ -140,11 +142,13 @@ trait HasRequestCriteriaTrait
             }
 
             $parts = explode(':', $field, 2);
-            if (count($parts) !== 2) {
+
+            if (\count($parts) !== 2) {
                 continue;
             }
 
             $field = trim($parts[0]);
+
             if ($field === '') {
                 continue;
             }
@@ -163,11 +167,17 @@ trait HasRequestCriteriaTrait
 
         foreach ($searchData as $field => $value) {
             $isBool = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-            if (isset($isBool) || is_numeric($value)) {
+
+            if (isset($isBool)) {
+                continue;
+            }
+
+            if (is_numeric($value)) {
                 continue;
             }
 
             $decodedId = $this->decode($value);
+
             if ($decodedId === null) {
                 continue;
             }
@@ -185,7 +195,7 @@ trait HasRequestCriteriaTrait
     {
         $parts = [];
         foreach ($searchData as $field => $value) {
-            $parts[] = sprintf('%s:%s', $field, $value);
+            $parts[] = \sprintf('%s:%s', $field, $value);
         }
 
         return implode(';', $parts);

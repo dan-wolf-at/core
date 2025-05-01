@@ -96,9 +96,9 @@ abstract class Repository extends BaseRepository implements CacheableInterface
      * The client can request all data (skipping pagination) by applying ?limit=0 to the request, if
      * skipping pagination is allowed.
      *
-     * @param null|int $limit
-     * @param array  $columns
-     * @param string $method
+     * @param int|null $limit
+     * @param array    $columns
+     * @param string   $method
      */
     #[\Override]
     public function paginate($limit = null, $columns = ['*'], $method = 'paginate'): mixed
@@ -116,7 +116,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
         return $this->cacheablePaginate($limit, $columns, $method);
     }
 
-    public function setPaginationLimit(int|string|null $limit = null): int
+    public function setPaginationLimit(null|int|string $limit = null): int
     {
         // The priority is for the function parameter, if not available then take it
         // from the request if available and if not keep it null.
@@ -144,7 +144,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
         return $this->maxPaginationLimit > 0 && $limit > $this->maxPaginationLimit;
     }
 
-    public function addRequestCriteria(): static
+    public function addRequestCriteria(?self $repository = null): static
     {
         if ($this->shouldDecodeSearch()) {
             $this->decodeSearchParameter();

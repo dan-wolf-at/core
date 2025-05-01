@@ -27,7 +27,7 @@ trait ConfigsLoaderTrait
 
             foreach ($files as $file) {
                 $name = File::name((string)$file);
-                $path = sprintf('%s/%s.php', $configFolder, $name);
+                $path = \sprintf('%s/%s.php', $configFolder, $name);
 
                 $this->mergeConfigFrom($path, $name);
             }

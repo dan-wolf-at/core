@@ -179,7 +179,7 @@ abstract class Request extends LaravelRequest
      * Overriding this function to modify any user input before
      * applying the validation rules.
      *
-     * @param null|array $keys
+     * @param array|null $keys
      *
      * @throws IncorrectIdException
      * @throws Throwable
@@ -207,31 +207,39 @@ abstract class Request extends LaravelRequest
     protected function hasAnyPermissionAccess(?User $user): array
     {
         // If not in parameters, take from the request object {$this}
-        $user = $user ?: $this->user();
+        $user = $user instanceof User ? $user : $this->user();
 
         $permissions = $this->preparingAccessValues('permissions');
-        return array_map(static fn($permission) => $user?->hasPermissionTo($permission), $permissions);
+
+        return array_map(static fn ($permission) => $user?->hasPermissionTo($permission), $permissions);
     }
 
     protected function hasAnyRoleAccess(?User $user): array
     {
         // If not in parameters, take from the request object {$this}
-        $user = $user ?: $this->user();
+        $user = $user instanceof User ? $user : $this->user();
         $roles = $this->preparingAccessValues('roles');
 
-        return array_map(static fn($role) => $user?->hasRole($role), $roles);
+        return array_map(static fn ($role) => $user?->hasRole($role), $roles);
     }
 
-    private function preparingAccessValues(string $key): array
+    protected function preparingAccessValues(string $key): array
     {
-        if (!\array_key_exists($key, $this->access) || !$this->access[$key]) {
+        if (
+            \array_key_exists($key, $this->access) === false
+            || (
+                $this->access[$key] === ''
+                || $this->access[$key] === null
+                || $this->access[$key] === []
+            )
+        ) {
             return [];
         }
 
         $accessValues = $this->access[$key];
 
         // If a string and this string contains a delimiter, then convert this to an array.
-        if (is_string($accessValues)) {
+        if (\is_string($accessValues)) {
             $accessValues = explode('|', $accessValues);
         }
 
@@ -239,7 +247,12 @@ abstract class Request extends LaravelRequest
         $accessValues = Arr::wrap($accessValues);
 
         // If an element of an array is an enumeration, then there is a need to cast it to a string.
-        return array_map(static fn(string|int|UnitEnum $accessValue): string|int => $accessValue instanceof UnitEnum ? $accessValue->value : $accessValue, $accessValues);
+        return array_map(
+            static fn (string|int|UnitEnum $accessValue): string|int => $accessValue instanceof UnitEnum ?
+                $accessValue->value
+                : $accessValue,
+            $accessValues
+        );
     }
 
     /**
@@ -249,9 +262,9 @@ abstract class Request extends LaravelRequest
      */
     protected function mergeUrlParametersWithRequestData(array $requestData): array
     {
-        if (property_exists($this, 'urlParameters') && !empty($this->urlParameters)) {
-            foreach ($this->urlParameters as $param) {
-                $requestData[$param] = $this->route($param);
+        if (property_exists($this, 'urlParameters') && $this->urlParameters !== []) {
+            foreach ($this->urlParameters as $urlParameter) {
+                $requestData[$urlParameter] = $this->route($urlParameter);
             }
         }
 

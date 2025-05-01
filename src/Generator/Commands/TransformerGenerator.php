@@ -110,13 +110,13 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
             'id' => '$' . $_model . '->getHashedKey()',
         ]);
 
-        $lengths   = array_map([Str::class, 'length'], array_keys($fields));
+        $lengths   = array_map(Str::length(...), array_keys($fields));
         $maxLength = max($lengths);
 
         $attributes = '';
         foreach ($fields as $key => $value) {
             $tab         = str_repeat(' ', $maxLength - Str::length($key));
-            $attributes .= $indent . sprintf("'%s'%s => %s,", $key, $tab, $value) . $this->getEndOfLine($key, $fields);
+            $attributes .= $indent . \sprintf("'%s'%s => %s,", $key, $tab, $value) . $this->getEndOfLine($key, $fields);
         }
 
         return $attributes;

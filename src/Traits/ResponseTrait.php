@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Collection;
 use ReflectionClass;
-use ReflectionException;
 use Spatie\Fractal\Facades\Fractal;
 
 // TODO: Remove this after migrating everything to use Response facade
@@ -171,6 +170,7 @@ trait ResponseTrait
                 } else {
                     $responseArray[$k] = $v;
                 }
+
                 // Check if the array is not in our filter-list
             } elseif (!\in_array($k, $filters, true)) {
                 unset($responseArray[$k]);

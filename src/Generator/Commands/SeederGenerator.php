@@ -60,7 +60,7 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
 
     private ?string $fileParametersDate = null;
 
-    public function getUserInputs(): array|null
+    public function getUserInputs(): null|array
     {
         return [
             'path-parameters' => [
@@ -86,7 +86,7 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
     #[\Override]
     public function getDefaultFileName(): string
     {
-        return sprintf('Order_%s_%sSeeder', $this->getDate(), $this->containerName);
+        return \sprintf('Order_%s_%sSeeder', $this->getDate(), $this->containerName);
     }
 
     private function getDate(): string

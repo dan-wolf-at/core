@@ -18,10 +18,10 @@ abstract class TestCase extends LaravelTestCase
 {
     use HashIdTrait;
     use LazilyRefreshDatabase;
-    use TestCaseTrait;
-    use TestAuthHelperTrait;
-    use TestRequestHelperTrait;
     use TestAssertionHelperTrait;
+    use TestAuthHelperTrait;
+    use TestCaseTrait;
+    use TestRequestHelperTrait;
 
     /**
      * The base URL to use while testing the application.

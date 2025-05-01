@@ -13,7 +13,8 @@ trait ParserTrait
     {
         $path = str_replace(
             array_map(
-                [$this, 'maskPathVariables'], array_keys($data)
+                [$this, 'maskPathVariables'],
+                array_keys($data)
             ),
             array_values($data),
             $path,
@@ -27,7 +28,7 @@ trait ParserTrait
      */
     public function parseFileStructure(string $filename, array $data): string
     {
-        return (string) str_replace(
+        return str_replace(
             array_map(
                 [$this, 'maskFileVariables'],
                 array_keys($data)
