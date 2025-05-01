@@ -64,14 +64,13 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
         $ui = 'web';
 
         [
-            $useTransporters,
             $sectionName,
             $_sectionName,
             $containerName,
             $_containerName,
             $model,
             $models,
-        ] = $this->runCallParam();
+        ] = $this->runCallParam($ui);
 
         $this->printInfoMessage('Generating Default Routes');
         $version = 1;

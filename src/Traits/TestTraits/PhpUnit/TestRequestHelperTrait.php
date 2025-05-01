@@ -57,7 +57,7 @@ trait TestRequestHelperTrait
         // test. Or create one if you never called this function from your tests "Only if the endpoint is protected".
         $this->getTestingUser();
 
-        // read the $endpoint property from the test and set the verb and the uri as properties on this trait
+        // Read the $endpoint property from the test and set the verb and the uri as properties on this trait
         $endpoint = $this->parseEndpoint();
         $verb = $endpoint['verb'];
         $url = $endpoint['url'];
@@ -184,7 +184,7 @@ trait TestRequestHelperTrait
         // In case Hash ID is enabled it will encode the ID first
         $ids = [];
         foreach ((array)$id as $value) {
-            $ids[] = $skipEncoding ? $value : $this->hashEndpointId($value);
+            $ids[] = $skipEncoding ? $value : $this->hashIdIfEnabled($value);
         }
 
         $injectedEndpoint = str_replace((array)$replace, $ids, $this->getEndpoint());

@@ -11,6 +11,7 @@ use Apiato\Core\Traits\SanitizerTrait;
 use Illuminate\Foundation\Http\FormRequest as LaravelRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Throwable;
 use UnitEnum;
 
@@ -58,8 +59,13 @@ abstract class Request extends LaravelRequest
     /**
      * To be used mainly from unit tests.
      */
-    public static function injectData(array $parameters = [], null|User $user = null, array $cookies = [], array $files = [], array $server = []): static
-    {
+    public static function injectData(
+        array $parameters = [],
+        null|User $user = null,
+        array $cookies = [],
+        array $files = [],
+        array $server = [],
+    ): static {
         // If user is passed, will be returned when asking for the authenticated user using `\Auth::user()`
         if ($user !== null) {
             $app = App::getInstance();
@@ -68,7 +74,7 @@ abstract class Request extends LaravelRequest
         }
 
         // For now doesn't matter which URI or Method is used.
-        $request = parent::create('/', \Symfony\Component\HttpFoundation\Request::METHOD_GET, $parameters, $cookies, $files, $server);
+        $request = parent::create('/', SymfonyRequest::METHOD_GET, $parameters, $cookies, $files, $server);
 
         $request->setUserResolver(static fn (): ?User => $user);
 
@@ -170,7 +176,7 @@ abstract class Request extends LaravelRequest
     }
 
     /**
-     * Overriding this function to modify the any user input before
+     * Overriding this function to modify any user input before
      * applying the validation rules.
      *
      * @param null|array $keys

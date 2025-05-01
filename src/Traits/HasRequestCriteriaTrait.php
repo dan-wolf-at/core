@@ -6,16 +6,15 @@ namespace Apiato\Core\Traits;
 
 use Apiato\Core\Abstracts\Repositories\Repository;
 use Apiato\Core\Exceptions\CoreInternalErrorException;
-use Apiato\Core\Repository\Interfaces\RequestCriteriaInterface;
+use Illuminate\Http\Request;
 use JetBrains\PhpStorm\Deprecated;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Exception;
 use Prettus\Repository\Exceptions\RepositoryException;
-use Throwable;
-use Vinkla\Hashids\Facades\Hashids;
 
 trait HasRequestCriteriaTrait
 {
+    use HashIdTrait;
+
     /**
      * @throws CoreInternalErrorException
      * @throws RepositoryException
@@ -25,14 +24,15 @@ trait HasRequestCriteriaTrait
         Will be removed from Tasks and Actions.',
         replacement: '%class%->repository->addRequestCriteria();',
     )]
-    public function addRequestCriteria(?Repository $repository = null, array $fieldsToDecode = ['id']): static
+    public function addRequestCriteria(?Repository $repository = null): static
     {
         $validatedRepository = $this->validateRepository($repository);
-        $validatedRepository->pushCriteria(app(RequestCriteriaInterface::class));
 
         if ($this->shouldDecodeSearch()) {
-            $this->decodeSearchQueryString($fieldsToDecode);
+            $this->decodeSearchQueryString();
         }
+
+        $validatedRepository->pushCriteria(app(RequestCriteria::class));
 
         return $this;
     }
@@ -43,7 +43,7 @@ trait HasRequestCriteriaTrait
     public function removeRequestCriteria(?Repository $repository = null): static
     {
         $validatedRepository = $this->validateRepository($repository);
-        $validatedRepository->popCriteria(app(RequestCriteriaInterface::class)::class);
+        $validatedRepository->popCriteria(RequestCriteria::class);
 
         return $this;
     }
@@ -81,127 +81,113 @@ trait HasRequestCriteriaTrait
 
     private function shouldDecodeSearch(): bool
     {
-        return $this->hashIdEnabled() && $this->isSearching(request()?->query() ?? []);
-    }
-
-    private function hashIdEnabled(): bool
-    {
-        return config('apiato.hash-id');
-    }
-
-    private function isSearching(array $query): bool
-    {
-        return \array_key_exists('search', $query) && $query['search'];
-    }
-
-    private function decodeSearchQueryString(array $fieldsToDecode): void
-    {
-        $query = request()?->query();
-        $searchQuery = $query['search'] ?? '';
-
-        $decodedValue = $this->decodeValue($searchQuery);
-        $decodedData = $this->decodeData($fieldsToDecode, $searchQuery);
-
-        $decodedQuery = $this->arrayToSearchQuery($decodedData);
-
-        if ($decodedValue) {
-            if (empty($decodedQuery)) {
-                $decodedQuery .= $decodedValue;
-            } else {
-                $decodedQuery .= (';' . $decodedValue);
-            }
+        if (config('apiato.hash-id', false) === false) {
+            return false;
         }
 
-        $query['search'] = $decodedQuery;
+        $searchKey = config('repository.criteria.params.search', 'search');
+        /** @var Request $request */
+        $request = app(Request::class);
 
-        request()->query->replace($query);
+        return $request->filled($searchKey);
     }
 
-    private function decodeValue(string $searchQuery): null|string
+    /**
+     * Decodes hashed IDs and processes boolean values
+     * within field:value pairs of the request's ‘search’ parameter.
+     * Modifies the current Request object if changes have been made.
+     *
+     * Without decoding the encoded ID's you won't be able to use
+     * repository search features like `?search=user_id:hash_id;other_id:other_hash_id`.
+     */
+    private function decodeSearchQueryString(): void
     {
-        $searchValue = $this->parserSearchValue($searchQuery);
+        /** @var Request $request */
+        $request = app(Request::class);
+        $searchKey = config('repository.criteria.params.search', 'search');
+        $searchQuery = $request->get($searchKey);
 
-        if ($searchValue) {
-            $decodedId = Hashids::decode($searchValue);
-
-            if ($decodedId !== []) {
-                return $decodedId[0];
-            }
+        if (is_string($searchQuery) === false || $searchQuery === '') {
+            return;
         }
 
-        return $searchValue;
-    }
+        $searchData = $this->parserSearchData($searchQuery);
+        $decodedData = $this->decodeSearchValues($searchData);
 
-    private function parserSearchValue($search)
-    {
-        if (strpos((string) $search, ';') || strpos((string) $search, ':')) {
-            $values = explode(';', (string) $search);
-            foreach ($values as $value) {
-                $s = explode(':', $value);
+        if ($decodedData !== $searchData) {
+            $newSearchQuery = $this->buildSearchQuery($decodedData);
 
-                if (\count($s) === 1) {
-                    return $s[0];
-                }
-            }
+            $query = $request->query();
+            $query[$searchKey] = $newSearchQuery;
 
-            return null;
+            $request->query->replace($query);
         }
-
-        return $search;
     }
 
-    private function decodeData(array $fieldsToDecode, string $searchQuery): array
-    {
-        $searchArray = $this->parserSearchData($searchQuery);
-
-        foreach ($fieldsToDecode as $fieldToDecode) {
-            if (\array_key_exists($fieldToDecode, $searchArray)) {
-                if (empty(Hashids::decode($searchArray[$fieldToDecode]))) {
-                    throw new \InvalidArgumentException(\sprintf('Only hash ids are allowed. %s:%s', $fieldToDecode, $searchArray[$fieldToDecode]));
-                }
-
-                $searchArray[$fieldToDecode] = Hashids::decode($searchArray[$fieldToDecode])[0];
-            }
-        }
-
-        return $searchArray;
-    }
-
-    private function parserSearchData($search): array
+    private function parserSearchData(string $search): array
     {
         $searchData = [];
 
-        if (strpos((string) $search, ':')) {
-            $fields = explode(';', (string) $search);
+        if (str_contains($search, ':') === false) {
+            return $searchData;
+        }
 
-            foreach ($fields as $row) {
-                try {
-                    [$field, $value] = explode(':', $row);
-                    $searchData[$field] = $value;
-                } catch (Throwable) {
-                    // Surround offset error
-                }
+        $fields = explode(';', $search);
+
+        foreach ($fields as $field) {
+            if (str_contains($field, ':') === false) {
+                continue;
             }
+
+            $parts = explode(':', $field, 2);
+            if (count($parts) !== 2) {
+                continue;
+            }
+
+            $field = trim($parts[0]);
+            if ($field === '') {
+                continue;
+            }
+
+            $searchData[$field] = trim($parts[1]);
         }
 
         return $searchData;
     }
 
-    private function arrayToSearchQuery(array $decodedSearchArray): string
+    private function decodeSearchValues(array $searchData): array
     {
-        $decodedSearchQuery = '';
-
-        $fields = array_keys($decodedSearchArray);
-        $length = \count($fields);
-        foreach ($fields as $i => $iValue) {
-            $field = $iValue;
-            $decodedSearchQuery .= \sprintf('%s:%s', $field, $decodedSearchArray[$field]);
-
-            if ($length !== 1 && $i < $length - 1) {
-                $decodedSearchQuery .= ';';
-            }
+        if ($searchData === []) {
+            return $searchData;
         }
 
-        return $decodedSearchQuery;
+        foreach ($searchData as $field => $value) {
+            $isBool = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if (isset($isBool) || is_numeric($value)) {
+                continue;
+            }
+
+            $decodedId = $this->decode($value);
+            if ($decodedId === null) {
+                continue;
+            }
+
+            $searchData[$field] = $decodedId;
+        }
+
+        return $searchData;
+    }
+
+    /**
+     * Reconstructs the search string from an array of field => value pairs.
+     */
+    private function buildSearchQuery(array $searchData): string
+    {
+        $parts = [];
+        foreach ($searchData as $field => $value) {
+            $parts[] = sprintf('%s:%s', $field, $value);
+        }
+
+        return implode(';', $parts);
     }
 }

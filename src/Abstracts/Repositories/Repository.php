@@ -144,13 +144,13 @@ abstract class Repository extends BaseRepository implements CacheableInterface
         return $this->maxPaginationLimit > 0 && $limit > $this->maxPaginationLimit;
     }
 
-    public function addRequestCriteria(array $fieldsToDecode = ['id']): static
+    public function addRequestCriteria(): static
     {
-        $this->pushCriteria(app(RequestCriteria::class));
-
         if ($this->shouldDecodeSearch()) {
-            $this->decodeSearchQueryString($fieldsToDecode);
+            $this->decodeSearchParameter();
         }
+
+        $this->pushCriteria(app(RequestCriteria::class));
 
         return $this;
     }
