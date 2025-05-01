@@ -30,7 +30,7 @@ trait FileSystemTrait
                 $this->fileSystem->makeDirectory(\dirname($path), 0777, true, true);
             }
         } catch (Throwable) {
-            $this->printErrorMessage(sprintf('Could not create %s', $path));
+            $this->printErrorMessage(\sprintf('Could not create %s', $path));
         }
     }
 

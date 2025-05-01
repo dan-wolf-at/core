@@ -18,7 +18,6 @@ use Throwable;
 abstract class Transformer extends FractalTransformer
 {
     /**
-     * @param mixed                       $data
      * @param callable|FractalTransformer $transformer
      */
     public function nullableItem($data, $transformer, ?string $resourceKey = null): Primitive|Item
@@ -31,7 +30,6 @@ abstract class Transformer extends FractalTransformer
     }
 
     /**
-     * @param mixed                       $data
      * @param callable|FractalTransformer $transformer
      */
     public function item($data, $transformer, ?string $resourceKey = null): Item
@@ -45,7 +43,6 @@ abstract class Transformer extends FractalTransformer
     }
 
     /**
-     * @param mixed                       $data
      * @param callable|FractalTransformer $transformer
      */
     public function collection($data, $transformer, ?string $resourceKey = null): Collection
@@ -69,19 +66,19 @@ abstract class Transformer extends FractalTransformer
      * @throws CoreInternalErrorException
      * @throws UnsupportedFractalIncludeException
      */
-    protected function callIncludeMethod(Scope $scope, string $includeName, $data): ResourceInterface | bool
+    protected function callIncludeMethod(Scope $scope, string $includeName, $data): ResourceInterface|bool
     {
         try {
             return parent::callIncludeMethod($scope, $includeName, $data);
-        } catch (Throwable $exception) {
+        } catch (Throwable $throwable) {
             if (
-                $exception instanceof ErrorException &&
+                $throwable instanceof ErrorException &&
                 config('apiato.requests.force-valid-includes', true)
             ) {
-                throw new UnsupportedFractalIncludeException($exception->getMessage());
+                throw new UnsupportedFractalIncludeException($throwable->getMessage());
             }
 
-            throw new CoreInternalErrorException($exception->getMessage());
+            throw new CoreInternalErrorException($throwable->getMessage());
         }
     }
 }

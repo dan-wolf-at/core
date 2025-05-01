@@ -200,7 +200,7 @@ trait TestRequestHelperTrait
      * or else injectId() will not replace the ID in the overridden endpoint.
      */
     // TODO: @next - add $endpoint parameter type
-    public function endpoint(string|null $endpoint): static
+    public function endpoint(null|string $endpoint): static
     {
         $this->overrideEndpoint = $endpoint;
 
@@ -209,7 +209,7 @@ trait TestRequestHelperTrait
 
     /**
      * Override the default class auth property before making the call
-     * to be used as follows: $this->auth('false')->makeCall($data);
+     * to be used as follows: $this->auth('false')->makeCall($data);.
      */
     public function auth(bool $auth): static
     {
@@ -278,6 +278,7 @@ trait TestRequestHelperTrait
         [$verb, $uri] = explode($separator, $this->getEndpoint(), 2);
 
         /** @var string $verb */
+
         /** @var string $uri */
         return [
             'verb' => $verb,

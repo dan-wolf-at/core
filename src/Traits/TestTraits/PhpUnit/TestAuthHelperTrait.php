@@ -50,7 +50,7 @@ trait TestAuthHelperTrait
      * (roles and permissions) with null. So the user can be used to test
      * if unauthorized user tried to access your protected endpoint.
      */
-    public function getTestingUserWithoutAccess(array|UserModel|null $userDetails = null, bool $createUserAsAdmin = false): UserModel
+    public function getTestingUserWithoutAccess(null|array|UserModel $userDetails = null, bool $createUserAsAdmin = false): UserModel
     {
         return $this->getTestingUser($userDetails, $this->getNullAccess(), $createUserAsAdmin);
     }
@@ -64,14 +64,14 @@ trait TestAuthHelperTrait
      * `$access` property. But the $access parameter can be used to override the
      * defined roles and permissions in the `$access` property of your class.
      *
-     * @param array|UserModel|null $userDetails what to be attached on the User object
-     * @param array|null $access            roles and permissions you'd like to provide this user with
-     * @param bool       $createUserAsAdmin should create testing user as admin
+     * @param array|UserModel|null $userDetails       what to be attached on the User object
+     * @param array|null           $access            roles and permissions you'd like to provide this user with
+     * @param bool                 $createUserAsAdmin should create testing user as admin
      */
-    public function getTestingUser(array|UserModel|null $userDetails = null, array|null $access = null, bool $createUserAsAdmin = false): UserModel
+    public function getTestingUser(null|array|UserModel $userDetails = null, null|array $access = null, bool $createUserAsAdmin = false): UserModel
     {
         $this->createUserAsAdmin = $createUserAsAdmin;
-        $this->userClass = $this->userClass ?? config('apiato.tests.user-class');
+        $this->userClass ??= config('apiato.tests.user-class');
         $this->userAdminState = config('apiato.tests.user-admin-state');
 
         if (!$this->userClass) {
@@ -85,12 +85,12 @@ trait TestAuthHelperTrait
         return $this->createTestingUser($userDetails, $access);
     }
 
-    private function findOrCreateTestingUser(array|UserModel|null $userDetails = null, array|null $access = null): UserModel
+    private function findOrCreateTestingUser(null|array|UserModel $userDetails = null, null|array $access = null): UserModel
     {
         return $this->testingUser ?: $this->createTestingUser($userDetails, $access);
     }
 
-    private function createTestingUser(array|UserModel|null $userDetails = null, array|null $access = null): UserModel
+    private function createTestingUser(null|array|UserModel $userDetails = null, null|array $access = null): UserModel
     {
         // Create new user
         $user = $userDetails instanceof UserModel ? $userDetails : $this->factoryCreateUser($userDetails);
@@ -105,7 +105,7 @@ trait TestAuthHelperTrait
         return $this->testingUser = $user;
     }
 
-    private function factoryCreateUser(array|null $userDetails = null): UserModel
+    private function factoryCreateUser(null|array $userDetails = null): UserModel
     {
         /** @var UserModel $user */
         $user = str_replace('::class', '', $this->userClass);
@@ -119,12 +119,12 @@ trait TestAuthHelperTrait
         return $user::factory()->create($this->prepareUserDetails($userDetails));
     }
 
-    private function prepareUserDetails(array|null $userDetails = null): array
+    private function prepareUserDetails(null|array $userDetails = null): array
     {
         $defaultUserDetails = [
             $this->userName => $this->faker->name,
             'email'         => $this->faker->email,
-            'password' => 'testing-password',
+            'password'      => 'testing-password',
         ];
 
         // if no user detail provided, use the default details, to find the password or generate one before encoding it

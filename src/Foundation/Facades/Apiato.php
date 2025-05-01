@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array  getShipFoldersNames()
  * @method static array  getShipPath()
  * @method static array  getSectionContainerNames(string $sectionName)
- * @method static mixed getClassObjectFromFile(string $filePathName)
+ * @method static mixed  getClassObjectFromFile(string $filePathName)
  * @method static string getClassFullNameFromFile(string $filePathName)
  * @method static array  getSectionPaths()
  * @method static string getClassType(string $className)

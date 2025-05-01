@@ -41,10 +41,10 @@ trait UIGeneratorTrait
         if ($ui === 'web') {
             $this->printInfoMessage('Generating MainServiceProvider');
             $this->call('apiato:generate:provider', [
-                '--section' => $sectionName,
+                '--section'   => $sectionName,
                 '--container' => $containerName,
-                '--file' => 'MainServiceProvider',
-                '--stub' => 'main-service-provider',
+                '--file'      => 'MainServiceProvider',
+                '--stub'      => 'main-service-provider',
             ]);
         }
 

@@ -62,7 +62,7 @@ class UnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
     {
         $folderName = $this->checkParameterOrAsk('foldername', 'Enter the folder name to create the test in');
 
-        if ($folderName) {
+        if ($folderName !== '') {
             $this->pathStructure = '{section-name}/{container-name}/Tests/Unit/' . $folderName . '/*';
         }
 

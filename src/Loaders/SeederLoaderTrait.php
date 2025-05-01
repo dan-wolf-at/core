@@ -48,12 +48,12 @@ trait SeederLoaderTrait
             if (File::isDirectory($directory)) {
                 $files = File::allFiles($directory);
 
-                foreach ($files as $seederClass) {
-                    if (File::isFile((string)$seederClass)) {
+                foreach ($files as $file) {
+                    if (File::isFile((string)$file)) {
                         // Do not seed the classes now, just store them in a collection.
                         $seedersClasses->push(
                             Apiato::getClassFullNameFromFile(
-                                $seederClass->getPathname(),
+                                $file->getPathname(),
                             ),
                         );
                     }
@@ -85,7 +85,7 @@ trait SeederLoaderTrait
         // Sort the classes that needed to be ordered.
         // Get the order number form the end of each class name.
         $orderedSeederClasses = $orderedSeederClasses->sortBy(
-            fn ($seederFullClassName): string => substr(
+            static fn ($seederFullClassName): string => substr(
                 $seederFullClassName,
                 strpos((string)$seederFullClassName, '_') + 1
             )
@@ -101,12 +101,12 @@ trait SeederLoaderTrait
 
     private function loadSeeders(Collection $seedersClasses): void
     {
-        foreach ($seedersClasses as $seeder) {
+        foreach ($seedersClasses as $seederClass) {
             /**
-             * @var class-string<Seeder> $seeder
+             * @var class-string<Seeder> $seederClass
              * @var Seeder $this
              */
-            $seeder::WITH_TRANSACTIONS ? DB::transaction(fn () => $this->call($seeder)) : $this->call($seeder);
+            $seederClass::WITH_TRANSACTIONS ? DB::transaction(fn () => $this->call($seederClass)) : $this->call($seederClass);
         }
     }
 }
