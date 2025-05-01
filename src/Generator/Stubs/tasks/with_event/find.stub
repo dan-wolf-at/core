@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
 
 use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}Repository;
@@ -7,6 +9,7 @@ use App\Containers\{{section-name}}\{{container-name}}\Events\{{event}};
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Tasks\Task as ParentTask;
+use Exception;
 
 class {{class-name}} extends ParentTask
 {
@@ -18,14 +21,14 @@ class {{class-name}} extends ParentTask
     /**
      * @throws NotFoundException
      */
-    public function run($id): {{model}}
+    public function run(int $id): {{model}}
     {
         try {
             ${{model_}} = $this->repository->find($id);
             {{event}}::dispatch(${{model_}});
 
             return ${{model_}};
-        } catch (\Exception) {
+        } catch (Exception) {
             throw new NotFoundException();
         }
     }

@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Tests\E2E;
 
 use App\Containers\{{section-name}}\{{container-name}}\UI\WEB\Tests\WebTestCase;
 use PHPUnit\Framework\Attributes\CoversNothing;
 
+/**
+ * @group {{_container-name}}
+ * @group web
+ */
 #[CoversNothing]
 class {{class-name}} extends WebTestCase
 {

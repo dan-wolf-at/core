@@ -11,6 +11,7 @@ trait MigrationsLoaderTrait
     public function loadMigrationsFromContainers(string $containerPath): void
     {
         $containerMigrationDirectory = $containerPath . '/Data/Migrations';
+
         $this->loadMigrations($containerMigrationDirectory);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
 
 use App\Containers\{{section-name}}\{{container-name}}\Actions\Create{{model}}Action;
@@ -18,43 +20,44 @@ use App\Ship\Parents\Controllers\WebController;
 
 class {{class-name}} extends WebController
 {
-    public function index(List{{models}}Request $request)
+    public function index(List{{models}}Request $request, List{{models}}Action $action)
     {
-        ${{entities}} = app(List{{models}}Action::class)->run($request);
+        ${{entities}} = $action->run($request);
         // ...
     }
 
-    public function show(Find{{model}}ByIdRequest $request)
+    public function show(Find{{model}}ByIdRequest $request, Find{{model}}ByIdAction $action)
     {
-        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request);
+        ${{entity}} = $action->run($request);
         // ...
     }
 
     public function create(Create{{model}}Request $request)
     {
-    }
-
-    public function store(Store{{model}}Request $request)
-    {
-        ${{entity}} = app(Create{{model}}Action::class)->run($request);
         // ...
     }
 
-    public function edit(Edit{{model}}Request $request)
+    public function store(Store{{model}}Request $request, Create{{model}}Action $action)
     {
-        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request);
+        ${{entity}} = $action->run($request);
         // ...
     }
 
-    public function update(Update{{model}}Request $request)
+    public function edit(Edit{{model}}Request $request, Find{{model}}ByIdAction $action)
     {
-        ${{entity}} = app(Update{{model}}Action::class)->run($request);
+        ${{entity}} = $action->run($request);
         // ...
     }
 
-    public function destroy(Delete{{model}}Request $request)
+    public function update(Update{{model}}Request $request, Update{{model}}Action $action)
     {
-        $result = app(Delete{{model}}Action::class)->run($request);
+        ${{entity}} = $action->run($request);
+        // ...
+    }
+
+    public function destroy(Delete{{model}}Request $request, Delete{{model}}Action $action)
+    {
+        $result = $action->run($request);
         // ...
     }
 }

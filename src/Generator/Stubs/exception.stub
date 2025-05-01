@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Exceptions;
 
 use App\Ship\Parents\Exceptions\Exception as ParentException;
@@ -7,6 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class {{class-name}} extends ParentException
 {
+    /**
+     * @var int
+     */
     protected $code = Response::HTTP_BAD_REQUEST;
+
+    /**
+     * @var string
+     */
     protected $message = 'Exception Default Message.';
 }

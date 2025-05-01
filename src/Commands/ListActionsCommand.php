@@ -12,25 +12,22 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class ListActionsCommand extends ConsoleCommand
 {
     /**
-     * @var ConsoleOutput
-     */
-    public $console;
-
-    /**
      * The name and signature of the console command.
+     *
+     * @var string
      */
     protected $signature = 'apiato:list:actions {--withfilename}';
 
     /**
      * The console command description.
+     *
+     * @var string
      */
     protected $description = 'List all Actions in the Application.';
 
-    public function __construct(ConsoleOutput $console)
+    public function __construct(protected ConsoleOutput $console)
     {
         parent::__construct();
-
-        $this->console = $console;
     }
 
     public function handle(): void

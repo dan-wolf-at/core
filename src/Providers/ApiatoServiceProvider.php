@@ -17,6 +17,11 @@ class ApiatoServiceProvider extends AbstractMainServiceProvider
     use AutoLoaderTrait;
     use ValidationTrait;
 
+    /**
+     * @var int
+     */
+    private const DEFAULT_STRING_LENGTH = 191;
+
     public array $serviceProviders = [
         CollectionMacroServiceProvider::class,
         ConfigMacroServiceProvider::class,
@@ -51,8 +56,12 @@ class ApiatoServiceProvider extends AbstractMainServiceProvider
         // Autoload most of the Containers and Ship Components
         $this->runLoadersBoot();
 
-        // Solves the "specified key was too long" error, introduced in L5.4
-        Schema::defaultStringLength(191);
+        /**
+         * Solves the "specified key was too long" error, introduced in L5.4.
+         *
+         * @see https://laravel.com/docs/8.x/migrations#index-lengths-mysql-mariadb
+         */
+        Schema::defaultStringLength(self::DEFAULT_STRING_LENGTH);
 
         // Registering custom validation rules
         $this->extendValidationRules();

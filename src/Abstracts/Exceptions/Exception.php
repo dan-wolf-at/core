@@ -6,6 +6,7 @@ namespace Apiato\Core\Abstracts\Exceptions;
 
 use Exception as BaseException;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 abstract class Exception extends BaseException
 {
@@ -14,9 +15,9 @@ abstract class Exception extends BaseException
     protected array $errors = [];
 
     public function __construct(
-        null|string $message = null,
-        null|int $code = null,
-        null|\Throwable $previous = null,
+        null|string    $message = null,
+        null|int       $code = null,
+        null|Throwable $previous = null,
     ) {
         // Detect and set the running environment
         $this->environment = config('app.env');
@@ -28,13 +29,13 @@ abstract class Exception extends BaseException
      * Help developers debug the error without showing these details to the end user.
      * Usage: `throw (new MyCustomException())->debug($e)`.
      */
-    public function debug($error, bool $force = false): self
+    public function debug(BaseException|string $error, bool $force = false): self
     {
         if ($error instanceof BaseException) {
             $error = $error->getMessage();
         }
 
-        if ($this->environment !== 'testing' || $force === true) {
+        if ($this->environment !== 'testing' || $force) {
             Log::error('[DEBUG] ' . $error);
         }
 

@@ -83,7 +83,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         ];
     }
 
-    private function getListOfAllAttributes($full, string $model): string
+    private function getListOfAllAttributes(bool $full, string $model): string
     {
         $indent = str_repeat(' ', 12);
         $_model = Str::lower($model);
@@ -110,9 +110,13 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
             'id' => '$' . $_model . '->getHashedKey()',
         ]);
 
+        $lengths   = array_map([Str::class, 'length'], array_keys($fields));
+        $maxLength = max($lengths);
+
         $attributes = '';
         foreach ($fields as $key => $value) {
-            $attributes .= $indent . \sprintf("'%s' => %s,", $key, $value) . $this->getEndOfLine($key, $fields);
+            $tab         = str_repeat(' ', $maxLength - Str::length($key));
+            $attributes .= $indent . sprintf("'%s'%s => %s,", $key, $tab, $value) . $this->getEndOfLine($key, $fields);
         }
 
         return $attributes;
@@ -123,6 +127,6 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         $keys = array_keys($fields);
         $lastKey = end($keys);
 
-        return $currentKey === $lastKey ? '' : PHP_EOL;
+        return $currentKey === (string)$lastKey ? '' : PHP_EOL;
     }
 }

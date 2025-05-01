@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Apiato\Core\Traits;
 
+use ReflectionClass;
+
 trait HasResourceKeyTrait
 {
     /**
@@ -14,11 +16,11 @@ trait HasResourceKeyTrait
      */
     public function getResourceKey(): string
     {
-        if (isset($this->resourceKey)) {
+        if (property_exists($this, 'resourceKey') && isset($this->resourceKey)) {
             return $this->resourceKey;
         }
 
-        $reflectionClass = new \ReflectionClass($this);
+        $reflectionClass = new ReflectionClass($this);
 
         return $reflectionClass->getShortName();
     }

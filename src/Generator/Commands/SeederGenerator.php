@@ -6,10 +6,17 @@ namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
 use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
 {
+    /**
+     * @var string
+     */
+    public const FORMAT_TIME = 'Y_m_d_His';
+
     /**
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
@@ -51,7 +58,9 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected string $stubName = 'seeder.stub';
 
-    public function getUserInputs(): null|array
+    private ?string $fileParametersDate = null;
+
+    public function getUserInputs(): array|null
     {
         return [
             'path-parameters' => [
@@ -77,6 +86,15 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
     #[\Override]
     public function getDefaultFileName(): string
     {
-        return $this->containerName . 'Seeder';
+        return sprintf('Order_%s_%sSeeder', $this->getDate(), $this->containerName);
+    }
+
+    private function getDate(): string
+    {
+        if ($this->fileParametersDate === null) {
+            $this->fileParametersDate = Carbon::now()->format(self::FORMAT_TIME);
+        }
+
+        return $this->fileParametersDate;
     }
 }

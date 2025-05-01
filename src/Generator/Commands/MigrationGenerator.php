@@ -15,6 +15,11 @@ use Symfony\Component\Console\Input\InputOption;
 class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
 {
     /**
+     * @var string
+     */
+    public const FORMAT_TIME = 'Y_m_d_His';
+
+    /**
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      */
@@ -100,7 +105,7 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
                 'table-name'      => $tableName,
             ],
             'file-parameters' => [
-                'date'      => Carbon::now()->format('Y_m_d_His'),
+                'date'      => Carbon::now()->format(self::FORMAT_TIME),
                 'file-name' => $this->fileName,
             ],
         ];

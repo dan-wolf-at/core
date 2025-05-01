@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
 
 use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}Repository;
 use App\Ship\Exceptions\DeleteResourceFailedException;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Tasks\Task as ParentTask;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class {{class-name}} extends ParentTask
 {
@@ -18,8 +22,14 @@ class {{class-name}} extends ParentTask
      * @throws DeleteResourceFailedException
      * @throws NotFoundException
      */
-    public function run($id): bool
+    public function run(int $id): bool
     {
-        return $this->repository->delete($id);
+        try {
+            return $this->repository->delete($id);
+        } catch (ModelNotFoundException) {
+            throw new NotFoundException();
+        } catch (Exception) {
+            throw new DeleteResourceFailedException();
+        }
     }
 }

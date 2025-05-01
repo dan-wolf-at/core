@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Notifications;
 
 use App\Ship\Parents\Notifications\Notification as ParentNotification;
@@ -7,9 +9,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class {{class-name}} extends ParentNotification
 {
-    /**
-     * Create a new notification instance.
-     */
     public function __construct()
     {
     }

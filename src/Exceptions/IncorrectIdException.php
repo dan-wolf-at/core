@@ -9,7 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IncorrectIdException extends Exception
 {
+    /**
+     * @var int
+     */
     protected $code = Response::HTTP_BAD_REQUEST;
 
+    /**
+     * @var string
+     */
     protected $message = 'Incorrect value. consider using the hashed ID.';
 }

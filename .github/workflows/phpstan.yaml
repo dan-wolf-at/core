@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-phpstan-result-cache-
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse --memory-limit=512M --ansi
+        run: vendor/bin/phpstan analyse --memory-limit=512M --ansi --error-format=github
 
       - name: Save PHPStan result cache
         uses: actions/cache/save@v4

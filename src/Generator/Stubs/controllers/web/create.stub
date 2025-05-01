@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
 
 use App\Containers\{{section-name}}\{{container-name}}\Actions\Create{{model}}Action;
@@ -13,9 +15,9 @@ class {{class-name}} extends WebController
     {
     }
 
-    public function store(Store{{model}}Request $request)
+    public function store(Store{{model}}Request $request, Create{{model}}Action $action)
     {
-        ${{entity}} = app(Create{{model}}Action::class)->run($request);
+        ${{entity}} = $action->run($request);
         // ...
     }
 }

@@ -12,7 +12,7 @@ trait ModelTrait
     use FactoryLocatorTrait, HasFactory {
         FactoryLocatorTrait::newFactory insteadof HasFactory;
     }
-    use HashedRouteBindingTrait;
     use HashIdTrait;
+    use HashedRouteBindingTrait;
     use HasResourceKeyTrait;
 }

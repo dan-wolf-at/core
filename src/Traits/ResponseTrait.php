@@ -10,6 +10,8 @@ use Apiato\Core\Exceptions\InvalidTransformerException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Collection;
+use ReflectionClass;
+use ReflectionException;
 use Spatie\Fractal\Facades\Fractal;
 
 // TODO: Remove this after migrating everything to use Response facade
@@ -94,11 +96,19 @@ trait ResponseTrait
         return $this;
     }
 
+    /**
+     * @param int $status
+     * @param int $options
+     */
     public function json($data, $status = 200, array $headers = [], $options = 0): JsonResponse
     {
         return new JsonResponse($data, $status, $headers, $options);
     }
 
+    /**
+     * @param int $status
+     * @param int $options
+     */
     public function created($data = null, $status = 201, array $headers = [], $options = 0): JsonResponse
     {
         return new JsonResponse($data, $status, $headers, $options);
@@ -111,18 +121,25 @@ trait ResponseTrait
         }
 
         $id = $deletedModel->getHashedKey();
-        $className = (new \ReflectionClass($deletedModel))->getShortName();
+        $className = (new ReflectionClass($deletedModel))->getShortName();
 
         return $this->accepted([
             'message' => \sprintf('%s (%s) Deleted Successfully.', $className, $id),
         ]);
     }
 
+    /**
+     * @param int $status
+     * @param int $options
+     */
     public function accepted($data = null, $status = 202, array $headers = [], $options = 0): JsonResponse
     {
         return new JsonResponse($data, $status, $headers, $options);
     }
 
+    /**
+     * @param int $status
+     */
     public function noContent($status = 204): JsonResponse
     {
         return new JsonResponse(null, $status);
@@ -130,8 +147,6 @@ trait ResponseTrait
 
     /**
      * @return string[]
-     *
-     * @phpstan-return non-empty-list<string>
      */
     protected function parseRequestedIncludes(): array
     {
@@ -156,8 +171,8 @@ trait ResponseTrait
                 } else {
                     $responseArray[$k] = $v;
                 }
+                // Check if the array is not in our filter-list
             } elseif (!\in_array($k, $filters, true)) {
-                // check if the array is not in our filter-list
                 unset($responseArray[$k]);
             }
         }

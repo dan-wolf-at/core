@@ -11,6 +11,8 @@ use Apiato\Core\Traits\SanitizerTrait;
 use Illuminate\Foundation\Http\FormRequest as LaravelRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
+use Throwable;
+use UnitEnum;
 
 abstract class Request extends LaravelRequest
 {
@@ -58,7 +60,7 @@ abstract class Request extends LaravelRequest
      */
     public static function injectData(array $parameters = [], null|User $user = null, array $cookies = [], array $files = [], array $server = []): static
     {
-        // if user is passed, will be returned when asking for the authenticated user using `\Auth::user()`
+        // If user is passed, will be returned when asking for the authenticated user using `\Auth::user()`
         if ($user !== null) {
             $app = App::getInstance();
             $app['auth']->guard($driver = 'api')->setUser($user);
@@ -68,9 +70,7 @@ abstract class Request extends LaravelRequest
         // For now doesn't matter which URI or Method is used.
         $request = parent::create('/', \Symfony\Component\HttpFoundation\Request::METHOD_GET, $parameters, $cookies, $files, $server);
 
-        $request->setUserResolver(static function () use ($user): ?User {
-            return $user;
-        });
+        $request->setUserResolver(static fn (): ?User => $user);
 
         return $request;
     }
@@ -108,19 +108,19 @@ abstract class Request extends LaravelRequest
     }
 
     /**
-     * check if a user has permission to perform an action.
+     * Check if a user has permission to perform an action.
      * User can set multiple permissions (separated with "|") and if the user has
      * any of the permissions, he will be authorized to proceed with this action.
      */
     public function hasAccess(null|User $user = null): bool
     {
-        // if not in parameters, take from the request object {$this}
+        // If not in parameters, take from the request object {$this}
         $user = $user instanceof User ? $user : $this->user();
 
         if ($user) {
             $autoAccessRoles = config('apiato.requests.allow-roles-to-access-all-routes');
 
-            // there are some roles defined that will automatically grant access
+            // There are some roles defined that will automatically grant access
             if (!empty($autoAccessRoles)) {
                 $hasAutoAccessByRole = $user->hasAnyRole($autoAccessRoles);
 
@@ -130,13 +130,13 @@ abstract class Request extends LaravelRequest
             }
         }
 
-        // check if the user has any role / permission to access the route
+        // Check if the user has any role / permission to access the route
         $hasAccess = array_merge(
             $this->hasAnyPermissionAccess($user),
             $this->hasAnyRoleAccess($user),
         );
 
-        // allow access if user has access to any of the defined roles or permissions.
+        // Allow access if user has access to any of the defined roles or permissions. Or if $hasAccess are empty.
         return $hasAccess === [] || \in_array(true, $hasAccess, true);
     }
 
@@ -148,24 +148,24 @@ abstract class Request extends LaravelRequest
      * Be sure you know what you do!
      *
      * @throws IncorrectIdException
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function mapInput(array $fields): void
     {
         $data = $this->all();
 
         foreach ($fields as $oldKey => $newKey) {
-            // the key to be mapped does not exist - skip it
+            // The key to be mapped does not exist - skip it
             if (!Arr::has($data, $oldKey)) {
                 continue;
             }
 
-            // set the new field and remove the old one
+            // Set the new field and remove the old one
             Arr::set($data, $newKey, Arr::get($data, $oldKey));
             Arr::forget($data, $oldKey);
         }
 
-        // overwrite the initial request
+        // Overwrite the initial request
         $this->replace($data);
     }
 
@@ -173,9 +173,10 @@ abstract class Request extends LaravelRequest
      * Overriding this function to modify the any user input before
      * applying the validation rules.
      *
+     * @param null|array $keys
      *
      * @throws IncorrectIdException
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function all($keys = null): array
     {
@@ -190,51 +191,62 @@ abstract class Request extends LaravelRequest
      * This method mimics the $request->input() method but works on the "decoded" values.
      *
      * @throws IncorrectIdException
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function getInputByKey($key = null, $default = null): mixed
     {
         return data_get($this->all(), $key, $default);
     }
 
-    protected function hasAnyPermissionAccess($user): array
+    protected function hasAnyPermissionAccess(?User $user): array
     {
-        if (!\array_key_exists('permissions', $this->access) || !$this->access['permissions']) {
-            return [];
-        }
+        // If not in parameters, take from the request object {$this}
+        $user = $user ?: $this->user();
 
-        $permissions = \is_array($this->access['permissions']) ? $this->access['permissions'] :
-            explode('|', $this->access['permissions']);
-
-        return array_map(static function ($permission) use ($user) {
-            return $user->hasPermissionTo($permission);
-        }, $permissions);
+        $permissions = $this->preparingAccessValues('permissions');
+        return array_map(static fn($permission) => $user?->hasPermissionTo($permission), $permissions);
     }
 
-    protected function hasAnyRoleAccess($user): array
+    protected function hasAnyRoleAccess(?User $user): array
     {
-        if (!\array_key_exists('roles', $this->access) || !$this->access['roles']) {
+        // If not in parameters, take from the request object {$this}
+        $user = $user ?: $this->user();
+        $roles = $this->preparingAccessValues('roles');
+
+        return array_map(static fn($role) => $user?->hasRole($role), $roles);
+    }
+
+    private function preparingAccessValues(string $key): array
+    {
+        if (!\array_key_exists($key, $this->access) || !$this->access[$key]) {
             return [];
         }
 
-        $roles = \is_array($this->access['roles']) ? $this->access['roles'] :
-            explode('|', $this->access['roles']);
+        $accessValues = $this->access[$key];
 
-        return array_map(static function ($role) use ($user) {
-            return $user->hasRole($role);
-        }, $roles);
+        // If a string and this string contains a delimiter, then convert this to an array.
+        if (is_string($accessValues)) {
+            $accessValues = explode('|', $accessValues);
+        }
+
+        // If it is not already an array, wrap it with an array.
+        $accessValues = Arr::wrap($accessValues);
+
+        // If an element of an array is an enumeration, then there is a need to cast it to a string.
+        return array_map(static fn(string|int|UnitEnum $accessValue): string|int => $accessValue instanceof UnitEnum ? $accessValue->value : $accessValue, $accessValues);
     }
 
     /**
-     * apply validation rules to the ID's in the URL, since Laravel
+     * Apply validation rules to the ID's in the URL, since Laravel
      * doesn't validate them by default!
-     *
-     * Now you can use validation rules like this: `'id' => 'required|integer|exists:items,id'`
+     * Now you can use validation rules like this: `'id' => 'required|integer|exists:items,id'`.
      */
     protected function mergeUrlParametersWithRequestData(array $requestData): array
     {
-        foreach ($this->urlParameters as $urlParameter) {
-            $requestData[$urlParameter] = $this->route($urlParameter);
+        if (property_exists($this, 'urlParameters') && !empty($this->urlParameters)) {
+            foreach ($this->urlParameters as $param) {
+                $requestData[$param] = $this->route($param);
+            }
         }
 
         return $requestData;
@@ -276,6 +288,6 @@ abstract class Request extends LaravelRequest
         // if in_array returned `true` means a function returned `false` thus return `false` to prevent access.
         // if in_array returned `false` means all functions returned `true` thus return `true` to allow access.
         // return the final boolean
-        return !\in_array(false, $returns, true);
+        return \in_array(false, $returns, true) === false;
     }
 }

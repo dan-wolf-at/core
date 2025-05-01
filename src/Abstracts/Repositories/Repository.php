@@ -51,7 +51,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
      * This function relies on strict conventions:
      *    - Repository name should be same as it's model name (model: Foo -> repository: FooRepository).
      *    - If the container contains Models with names different from the container name, the repository class must
-     *      implement model() method and return the FQCN e.g., Role::class
+     *      implement model() method and return the FQCN e.g., Role::class.
      */
     public function model(): string
     {
@@ -68,12 +68,12 @@ abstract class Repository extends BaseRepository implements CacheableInterface
         return substr($fullName, strrpos($fullName, '\\') + 1);
     }
 
-    public function getModelName(string $className): string|array
+    public function getModelName(string $className): string
     {
         return str_replace('Repository', '', $className);
     }
 
-    public function getModelNamespace(array|string $modelName): string
+    public function getModelNamespace(string $modelName): string
     {
         return 'App\\Containers\\' . $this->getCurrentSection() . '\\' . $this->getCurrentContainer() . '\\Models\\' . $modelName;
     }
@@ -96,6 +96,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
      * The client can request all data (skipping pagination) by applying ?limit=0 to the request, if
      * skipping pagination is allowed.
      *
+     * @param null|int $limit
      * @param array  $columns
      * @param string $method
      */
@@ -115,26 +116,26 @@ abstract class Repository extends BaseRepository implements CacheableInterface
         return $this->cacheablePaginate($limit, $columns, $method);
     }
 
-    public function setPaginationLimit($limit): mixed
+    public function setPaginationLimit(int|string|null $limit = null): int
     {
-        // the priority is for the function parameter, if not available then take
-        // it from the request if available and if not keep it null.
-        return $limit ?? request()?->input('limit');
+        // The priority is for the function parameter, if not available then take it
+        // from the request if available and if not keep it null.
+        return (int)($limit ?? request()?->input('limit', 0));
     }
 
-    public function wantsToSkipPagination(mixed $limit): bool
+    public function wantsToSkipPagination(int $limit): bool
     {
-        return $limit === '0';
+        return $limit === 0;
     }
 
     public function canSkipPagination(): mixed
     {
-        // check local (per repository) rule
-        if (!\is_null($this->allowDisablePagination)) {
+        // Check local (per repository) rule
+        if (\is_null($this->allowDisablePagination) === false) {
             return $this->allowDisablePagination;
         }
 
-        // check global (.env) rule
+        // Check global (.env) rule
         return config('repository.pagination.skip');
     }
 

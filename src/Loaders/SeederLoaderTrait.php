@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Apiato\Core\Loaders;
 
+use Apiato\Core\Abstracts\Seeders\Seeder;
 use Apiato\Core\Foundation\Facades\Apiato;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -46,12 +48,12 @@ trait SeederLoaderTrait
             if (File::isDirectory($directory)) {
                 $files = File::allFiles($directory);
 
-                foreach ($files as $file) {
-                    if (File::isFile($file)) {
-                        // do not seed the classes now, just store them in a collection and w
+                foreach ($files as $seederClass) {
+                    if (File::isFile((string)$seederClass)) {
+                        // Do not seed the classes now, just store them in a collection.
                         $seedersClasses->push(
                             Apiato::getClassFullNameFromFile(
-                                $file->getPathname(),
+                                $seederClass->getPathname(),
                             ),
                         );
                     }
@@ -71,22 +73,25 @@ trait SeederLoaderTrait
         }
 
         foreach ($seedersClasses as $key => $seederFullClassName) {
-            // if the class full namespace contain "_" it means it needs to be seeded in order
+            // If the class full namespace contain '_' it means it needs to be seeded in order.
             if (str_contains((string) $seederFullClassName, '_')) {
-                // move all the seeder classes that needs to be seeded in order to their own Collection
+                // Move all the seeder classes that needs to be seeded in order to their own Collection.
                 $orderedSeederClasses->push($seederFullClassName);
-                // delete the moved classes from the original collection
+                // Delete the moved classes from the original collection.
                 $seedersClasses->forget($key);
             }
         }
 
-        // sort the classes that needed to be ordered
-        $orderedSeederClasses = $orderedSeederClasses->sortBy(static function ($seederFullClassName): string {
-            // get the order number form the end of each class name
-            return substr((string) $seederFullClassName, strpos((string) $seederFullClassName, '_') + 1);
-        });
+        // Sort the classes that needed to be ordered.
+        // Get the order number form the end of each class name.
+        $orderedSeederClasses = $orderedSeederClasses->sortBy(
+            fn ($seederFullClassName): string => substr(
+                $seederFullClassName,
+                strpos((string)$seederFullClassName, '_') + 1
+            )
+        );
 
-        // append the randomly ordered seeder classes to the end of the ordered seeder classes
+        // Append the randomly ordered seeder classes to the end of the ordered seeder classes.
         foreach ($seedersClasses as $seederClass) {
             $orderedSeederClasses->push($seederClass);
         }
@@ -94,11 +99,14 @@ trait SeederLoaderTrait
         return $orderedSeederClasses;
     }
 
-    private function loadSeeders($seedersClasses): void
+    private function loadSeeders(Collection $seedersClasses): void
     {
-        foreach ($seedersClasses as $seederClass) {
-            // seed it with call
-            $this->call($seederClass);
+        foreach ($seedersClasses as $seeder) {
+            /**
+             * @var class-string<Seeder> $seeder
+             * @var Seeder $this
+             */
+            $seeder::WITH_TRANSACTIONS ? DB::transaction(fn () => $this->call($seeder)) : $this->call($seeder);
         }
     }
 }

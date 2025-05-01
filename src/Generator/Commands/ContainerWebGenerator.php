@@ -6,12 +6,15 @@ namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
 use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
+use Apiato\Core\Generator\Traits\UIGeneratorTrait;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenerator
 {
+    use UIGeneratorTrait;
+
     /**
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
@@ -60,52 +63,15 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
     {
         $ui = 'web';
 
-        $sectionName = $this->sectionName;
-        $_sectionName = Str::lower($this->sectionName);
-
-        $containerName = $this->containerName;
-        $_containerName = Str::lower($this->containerName);
-
-        $model = $this->containerName;
-        $models = Pluralizer::plural($model);
-
-        $this->printInfoMessage('Generating README File');
-        $this->call('apiato:generate:readme', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => 'README',
-        ]);
-
-        $this->printInfoMessage('Generating Configuration File');
-        $this->call('apiato:generate:configuration', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => Str::camel($this->sectionName) . '-' . Str::camel($this->containerName),
-        ]);
-
-        $this->printInfoMessage('Generating MainServiceProvider');
-        $this->call('apiato:generate:provider', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => 'MainServiceProvider',
-            '--stub'      => 'main-service-provider',
-        ]);
-
-        $this->printInfoMessage('Generating Model and Repository');
-        $this->call('apiato:generate:model', [
-            '--section'    => $sectionName,
-            '--container'  => $containerName,
-            '--file'       => $model,
-            '--repository' => true,
-        ]);
-
-        $this->printInfoMessage('Generating a basic Migration file');
-        $this->call('apiato:generate:migration', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => 'create_' . Str::snake($models) . '_table',
-            '--tablename' => Str::snake($models),
-        ]);
+        [
+            $useTransporters,
+            $sectionName,
+            $_sectionName,
+            $containerName,
+            $_containerName,
+            $model,
+            $models,
+        ] = $this->runCallParam();
 
         $this->printInfoMessage('Generating Default Routes');
         $version = 1;
@@ -304,7 +270,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
             return $generateComposerFile;
         }
 
-        return null;
+        return [];
     }
 
     #[\Override]

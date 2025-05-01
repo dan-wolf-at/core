@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
 
 use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}Repository;
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
 use App\Ship\Exceptions\CreateResourceFailedException;
 use App\Ship\Parents\Tasks\Task as ParentTask;
+use Exception;
 
 class {{class-name}} extends ParentTask
 {
@@ -21,7 +24,7 @@ class {{class-name}} extends ParentTask
     {
         try {
             return $this->repository->create($data);
-        } catch (\Exception) {
+        } catch (Exception) {
             throw new CreateResourceFailedException();
         }
     }

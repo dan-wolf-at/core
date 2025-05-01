@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Tests\Functional\API;
 
 use App\Containers\{{section-name}}\{{container-name}}\Tests\Functional\ApiTestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\CoversNothing;
 
+/**
+ * @group {{_container-name}}
+ * @group api
+ */
 #[CoversNothing]
 class {{class-name}} extends ApiTestCase
 {
@@ -59,7 +65,7 @@ class {{class-name}} extends ApiTestCase
     // add some roles and permissions to this route's request
     // then add them to the $access array above
     // uncomment this test to test accesses
-    // public function testGivenHaveNoAccess_CannotCreate{{model}}(): void
+    // public function testGivenHaveNoAccessCannotCreate{{model}}(): void
     // {
     //     $this->getTestingUserWithoutAccess();
     //

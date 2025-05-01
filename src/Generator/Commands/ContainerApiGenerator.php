@@ -6,12 +6,15 @@ namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
 use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
+use Apiato\Core\Generator\Traits\UIGeneratorTrait;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenerator
 {
+    use UIGeneratorTrait;
+
     /**
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
@@ -66,44 +69,15 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
     {
         $ui = 'api';
 
-        $sectionName = $this->sectionName;
-        $_sectionName = Str::lower($this->sectionName);
-
-        $containerName = $this->containerName;
-        $_containerName = Str::lower($this->containerName);
-
-        $model = $this->containerName;
-        $models = Pluralizer::plural($model);
-
-        $this->printInfoMessage('Generating README File');
-        $this->call('apiato:generate:readme', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => 'README',
-        ]);
-
-        $this->printInfoMessage('Generating Configuration File');
-        $this->call('apiato:generate:configuration', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => Str::camel($this->sectionName) . '-' . Str::camel($this->containerName),
-        ]);
-
-        $this->printInfoMessage('Generating Model and Repository');
-        $this->call('apiato:generate:model', [
-            '--section'    => $sectionName,
-            '--container'  => $containerName,
-            '--file'       => $model,
-            '--repository' => true,
-        ]);
-
-        $this->printInfoMessage('Generating a basic Migration file');
-        $this->call('apiato:generate:migration', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => 'create_' . Str::snake($models) . '_table',
-            '--tablename' => Str::snake($models),
-        ]);
+        [
+            $useTransporters,
+            $sectionName,
+            $_sectionName,
+            $containerName,
+            $_containerName,
+            $model,
+            $models,
+        ] = $this->runCallParam();
 
         $this->printInfoMessage('Generating Transformer for the Model');
         $this->call('apiato:generate:transformer', [
@@ -126,11 +100,11 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         $version = $this->checkParameterOrAsk('docversion', 'Enter the version for all API endpoints (integer)', '1');
         $doctype = $this->checkParameterOrChoice('doctype', 'Select the type for all API endpoints', ['private', 'public'], 0);
 
-        // get the URI and remove the first trailing slash
+        // Get the URI and remove the first trailing slash
         $url = Str::lower($this->checkParameterOrAsk('url', 'Enter the base URI for all API endpoints (foo/bar/{id})', Str::kebab($models)));
         $url = ltrim($url, '/');
 
-        $controllertype = Str::lower($this->checkParameterOrChoice('controllertype', 'Select the controller type (Single or Multi Action Controller)', ['SAC', 'MAC'], 0));
+        $controllerType = Str::lower($this->checkParameterOrChoice('controllertype', 'Select the controller type (Single or Multi Action Controller)', ['SAC', 'MAC'], 0));
 
         $generateEvents = $this->checkParameterOrConfirm('events', 'Do you want to generate the corresponding CRUD Events for this Container?', false);
         $generateListeners = false;
@@ -148,6 +122,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
 
         $generateEvents ?: $this->printInfoMessage('Generating CRUD Events');
         $generateTests ?: $this->printInfoMessage('Generating Tests for Container');
+
         $this->printInfoMessage('Generating Requests for Routes');
         $this->printInfoMessage('Generating Default Actions');
         $this->printInfoMessage('Generating Default Tasks');
@@ -291,7 +266,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
                     '--file'      => $route['event'],
                     '--model'     => $model,
                     '--stub'      => $route['stub'],
-                    '--listener'  => false,
+                    '--listener' => false,
                 ]);
                 $events[] = $route['event'];
             }
@@ -341,7 +316,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
                 ]);
             }
 
-            if ($controllertype === 'sac') {
+            if ($controllerType === 'sac') {
                 $this->call('apiato:generate:route', [
                     '--section'    => $sectionName,
                     '--container'  => $containerName,
@@ -379,7 +354,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
             }
         }
 
-        if ($controllertype === 'mac') {
+        if ($controllerType === 'mac') {
             $this->printInfoMessage('Generating Controller to wire everything together');
             $this->call('apiato:generate:controller', [
                 '--section'   => $sectionName,
@@ -464,7 +439,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
             return $generateComposerFile;
         }
 
-        return null;
+        return [];
     }
 
     #[\Override]

@@ -12,25 +12,22 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class ListTasksCommand extends ConsoleCommand
 {
     /**
-     * @var ConsoleOutput
-     */
-    public $console;
-
-    /**
      * The name and signature of the console command.
+     *
+     * @var string
      */
     protected $signature = 'apiato:list:tasks {--withfilename}';
 
     /**
      * The console command description.
+     *
+     * @var string
      */
     protected $description = 'List all Tasks in the Application.';
 
-    public function __construct(ConsoleOutput $console)
+    public function __construct(protected ConsoleOutput $console)
     {
         parent::__construct();
-
-        $this->console = $console;
     }
 
     public function handle(): void

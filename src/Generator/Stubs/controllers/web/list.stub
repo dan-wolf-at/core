@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
 
 use App\Containers\{{section-name}}\{{container-name}}\Actions\List{{models}}Action;
@@ -8,9 +10,9 @@ use App\Ship\Parents\Controllers\WebController;
 
 class {{class-name}} extends WebController
 {
-    public function index(List{{models}}Request $request)
+    public function index(List{{models}}Request $request, List{{models}}Action $action)
     {
-        ${{entities}} = app(List{{models}}Action::class)->run($request);
+        ${{entities}} = $action->run($request);
         // ...
     }
 }

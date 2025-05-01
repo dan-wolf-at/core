@@ -8,6 +8,9 @@ use Apiato\Core\Abstracts\Middlewares\Middleware;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @depricated Should move to the appropriate container.
+ */
 class ProfilerMiddleware extends Middleware
 {
     public function handle(Request $request, \Closure $next)
