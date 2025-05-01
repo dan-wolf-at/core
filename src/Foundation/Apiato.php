@@ -10,10 +10,8 @@ class Apiato
 {
     /**
      * The Apiato version.
-     *
-     * @var string
      */
-    public const VERSION = '12.0.0';
+    public const string VERSION = '12.0.0';
 
     private const string SHIP_NAME = 'ship';
 

@@ -23,31 +23,23 @@ abstract class GeneratorCommand extends Command
 
     /**
      * Root directory of all sections.
-     *
-     * @var string
      */
-    private const ROOT = 'app/Containers';
+    private const string ROOT = 'app/Containers';
 
     /**
      * Relative path for the stubs (relative to this directory / file).
-     *
-     * @var string
      */
-    private const STUB_PATH = 'Stubs/*';
+    private const string STUB_PATH = 'Stubs/*';
 
     /**
      * Relative path for the custom stubs (relative to the app/Ship directory!).
-     *
-     * @var string
      */
-    private const CUSTOM_STUB_PATH = 'Generators/CustomStubs/*';
+    private const string CUSTOM_STUB_PATH = 'Generators/CustomStubs/*';
 
     /**
      * Default section name.
-     *
-     * @var string
      */
-    private const DEFAULT_SECTION_NAME = 'AppSection';
+    private const string DEFAULT_SECTION_NAME = 'AppSection';
 
     protected array $inputs;
 
