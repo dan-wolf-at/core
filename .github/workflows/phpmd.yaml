@@ -46,5 +46,5 @@ jobs:
           composer-options: --prefer-dist
 
       - name: Run PHPMD
-        run: vendor/bin/phpmd . github phpmd.ruleset.xml --ignore-violations-on-exit --color --cache
+        run: vendor/bin/phpmd src,tests github phpmd.ruleset.xml --ignore-violations-on-exit --color --cache
 
