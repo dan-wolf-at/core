@@ -134,11 +134,11 @@ final class RepositoryTest extends UnitTestCase
         config()->set('repository.cache.minutes', 1);
         config()->set('cache.default', 'array');
 
-        $model = UserFactory::new()->createOne();
-        $repository = $this->app->make(UserRepository::class);
+        $user = UserFactory::new()->createOne();
+        $userRepository = $this->app->make(UserRepository::class);
 
         DB::enableQueryLog();
-        $firstUser = $repository->find($model->id);
+        $firstUser = $userRepository->find($user->id);
         $this->assertCount(
             1,
             DB::getQueryLog(),
@@ -146,7 +146,7 @@ final class RepositoryTest extends UnitTestCase
         );
 
         DB::flushQueryLog();
-        $secondUser = $repository->find($model->id);
+        $secondUser = $userRepository->find($user->id);
         $this->assertCount(
             0,
             DB::getQueryLog(),
@@ -155,10 +155,10 @@ final class RepositoryTest extends UnitTestCase
         $this->assertEquals($firstUser->toArray(), $secondUser->toArray());
 
         $updatedName = 'new name';
-        $repository->update(['name' => $updatedName], $model->id);
+        $userRepository->update(['name' => $updatedName], $user->id);
 
         DB::flushQueryLog();
-        $thirdUser = $repository->find($model->id);
+        $thirdUser = $userRepository->find($user->id);
         $this->assertCount(
             1,
             DB::getQueryLog(),

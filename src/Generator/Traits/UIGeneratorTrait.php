@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
  */
 trait UIGeneratorTrait
 {
-    protected function runCallParam(string $ui): array
+    protected function runCallParam(): array
     {
         $sectionName  = $this->sectionName;
         $_sectionName = Str::lower($this->sectionName);
@@ -37,16 +37,6 @@ trait UIGeneratorTrait
             '--container' => $containerName,
             '--file'      => Str::camel($this->sectionName) . '-' . Str::camel($this->containerName),
         ]);
-
-        if ($ui === 'web') {
-            $this->printInfoMessage('Generating MainServiceProvider');
-            $this->call('apiato:generate:provider', [
-                '--section'   => $sectionName,
-                '--container' => $containerName,
-                '--file'      => 'MainServiceProvider',
-                '--stub'      => 'main-service-provider',
-            ]);
-        }
 
         $this->printInfoMessage('Generating Model and Repository');
         $this->call('apiato:generate:model', [

@@ -17,10 +17,7 @@ class ApiatoServiceProvider extends AbstractMainServiceProvider
     use AutoLoaderTrait;
     use ValidationTrait;
 
-    /**
-     * @var int
-     */
-    private const DEFAULT_STRING_LENGTH = 191;
+    private const int DEFAULT_STRING_LENGTH = 191;
 
     public array $serviceProviders = [
         CollectionMacroServiceProvider::class,

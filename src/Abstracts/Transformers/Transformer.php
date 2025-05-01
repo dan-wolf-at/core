@@ -32,6 +32,7 @@ abstract class Transformer extends FractalTransformer
     /**
      * @param callable|FractalTransformer $transformer
      */
+    #[\Override]
     public function item($data, $transformer, ?string $resourceKey = null): Item
     {
         // Set a default resource key if none is set
@@ -45,6 +46,7 @@ abstract class Transformer extends FractalTransformer
     /**
      * @param callable|FractalTransformer $transformer
      */
+    #[\Override]
     public function collection($data, $transformer, ?string $resourceKey = null): Collection
     {
         // Set a default resource key if none is set
@@ -66,6 +68,7 @@ abstract class Transformer extends FractalTransformer
      * @throws CoreInternalErrorException
      * @throws UnsupportedFractalIncludeException
      */
+    #[\Override]
     protected function callIncludeMethod(Scope $scope, string $includeName, $data): ResourceInterface|bool
     {
         try {
