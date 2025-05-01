@@ -10,11 +10,15 @@ class SeedDeploymentDataCommand extends ConsoleCommand
 {
     /**
      * The name and signature of the console command.
+     *
+     * @var string
      */
-    protected $signature = 'apiato:seed-deploy';
+    protected $signature = 'apiato:seed-deploy {--force : Force the operation to run when in production}';
 
     /**
      * The console command description.
+     *
+     * @var string
      */
     protected $description = 'Seed data for initial deployment.';
 
@@ -39,6 +43,7 @@ class SeedDeploymentDataCommand extends ConsoleCommand
 
         $this->call('db:seed', [
             '--class' => config('apiato.seeders.deployment'),
+            '--force' => $this->option('force'),
         ]);
 
         $this->info('Deployment Data Seeded Successfully.');

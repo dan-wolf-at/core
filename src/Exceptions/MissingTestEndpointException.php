@@ -9,7 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MissingTestEndpointException extends Exception
 {
+    /**
+     * @var int
+     */
     protected $code = Response::HTTP_INTERNAL_SERVER_ERROR;
 
+    /**
+     * @var string
+     */
     protected $message = 'Property ($this->endpoint) is missed in your test.';
 }

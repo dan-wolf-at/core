@@ -19,7 +19,6 @@ abstract class AuthServiceProvider extends LaravelAuthServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**

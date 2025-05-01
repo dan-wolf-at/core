@@ -19,27 +19,34 @@ use Symfony\Component\Console\Input\InputOption;
 abstract class GeneratorCommand extends Command
 {
     use FileSystemTrait;
-    use FormatterTrait;
     use ParserTrait;
     use PrinterTrait;
 
     /**
      * Root directory of all sections.
+     *
+     * @var string
      */
     private const ROOT = 'app/Containers';
 
     /**
      * Relative path for the stubs (relative to this directory / file).
+     *
+     * @var string
      */
     private const STUB_PATH = 'Stubs/*';
 
     /**
      * Relative path for the custom stubs (relative to the app/Ship directory!).
+     *
+     * @var string
      */
     private const CUSTOM_STUB_PATH = 'Generators/CustomStubs/*';
 
     /**
      * Default section name.
+     *
+     * @var string
      */
     private const DEFAULT_SECTION_NAME = 'AppSection';
 
@@ -52,27 +59,27 @@ abstract class GeneratorCommand extends Command
     protected string $filePath;
 
     /**
-     * @var string the name of the section to generate the stubs
+     * The name of the section to generate the stubs
      */
     protected string $sectionName;
 
     /**
-     * @var string the name of the container to generate the stubs
+     * The name of the container to generate the stubs
      */
     protected string $containerName;
 
     /**
-     * @var string The name of the file to be created (entered by the user)
+     * The name of the file to be created (entered by the user)
      */
     protected string $fileName;
 
-    protected $userData;
+    protected ?array $userData;
 
-    protected $parsedFileName;
+    protected string $parsedFileName = '';
 
-    protected $stubContent;
+    protected string $stubContent;
 
-    protected $renderedStubContent;
+    protected string $renderedStubContent;
 
     private array $defaultInputs = [
         ['section', null, InputOption::VALUE_OPTIONAL, 'The name of the section'],
@@ -86,11 +93,9 @@ abstract class GeneratorCommand extends Command
     }
 
     /**
-     * @void
-     *
      * @throws GeneratorErrorException|FileNotFoundException
      */
-    public function handle()
+    public function handle(): int
     {
         $this->validateGenerator($this);
 
@@ -114,7 +119,7 @@ abstract class GeneratorCommand extends Command
 
         if ($this->userData === null) {
             // The user skipped this step
-            return null;
+            return Command::FAILURE;
         }
 
         $this->userData = $this->sanitizeUserData($this->userData);
@@ -134,19 +139,19 @@ abstract class GeneratorCommand extends Command
         }
 
         // Exit the command successfully
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
      * Checks if the param is set (via CLI), otherwise asks the user for a value.
      */
-    protected function checkParameterOrAsk($param, $question, null|string $default = null): mixed
+    protected function checkParameterOrAsk(string $param, string $question, string|int|null $default = null): array | string
     {
         // Check if we already have a param set
         $value = $this->option($param);
 
         if ($value === null) {
-            // There was no value provided via CLI, so ask the user…
+            // There was no value provided via CLI, so ask the user.
             return $this->ask($question, $default);
         }
 
@@ -164,13 +169,13 @@ abstract class GeneratorCommand extends Command
     /**
      * Removes "special characters" from a string.
      */
-    protected function removeSpecialChars($str): string
+    protected function removeSpecialChars(string $str): string
     {
         // remove everything that is NOT a character or digit
         return preg_replace('/[^A-Za-z0-9]/', '', (string) $str);
     }
 
-    protected function getFilePath($path): string
+    protected function getFilePath(string $path): string
     {
         // Complete the missing parts of the path
         $path = base_path() . '/' .
@@ -221,32 +226,32 @@ abstract class GeneratorCommand extends Command
 
     protected function getInput($arg, bool $trim = true): null|array|string
     {
-        return $trim ? $this->trimString($this->argument($arg)) : $this->argument($arg);
+        return $trim ? trim($this->argument($arg)) : $this->argument($arg);
     }
 
     /**
      * Checks if the param is set (via CLI), otherwise proposes choices to the user.
      */
-    protected function checkParameterOrChoice($param, $question, array $choices, mixed $default = null): null|bool|array|string
+    protected function checkParameterOrChoice(string $param, string $question, array $choices, string|int|null $default = null): array|string|bool|null
     {
         // Check if we already have a param set
         $value = $this->option($param);
 
         if ($value === null) {
-            // There was no value provided via CLI, so ask the user…
+            // There was no value provided via CLI, so ask the user.
             return $this->choice($question, $choices, $default);
         }
 
         return $value;
     }
 
-    protected function checkParameterOrConfirm($param, $question, bool $default = false): null|string|array|bool
+    protected function checkParameterOrConfirm(string $param, string $question, bool $default = false): string|array|bool|null
     {
         // Check if we already have a param set
         $value = $this->option($param);
 
         if ($value === null) {
-            // There was no value provided via CLI, so ask the user...
+            // There was no value provided via CLI, so ask the user.
             return $this->confirm($question, $default);
         }
 
@@ -254,6 +259,8 @@ abstract class GeneratorCommand extends Command
     }
 
     /**
+     * @param static $generator
+     *
      * @throws GeneratorErrorException
      */
     private function validateGenerator($generator): void
@@ -267,7 +274,7 @@ abstract class GeneratorCommand extends Command
      * Checks, if the data from the generator contains path, stub and file-parameters.
      * Adds empty arrays, if they are missing.
      */
-    private function sanitizeUserData(array $data): mixed
+    private function sanitizeUserData(array $data): array
     {
         if (!\array_key_exists('path-parameters', $data)) {
             $data['path-parameters'] = [];

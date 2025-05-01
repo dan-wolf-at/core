@@ -37,7 +37,7 @@ trait ProvidersLoaderTrait
 
     public function loadOnlyShipProviderFromShip(): void
     {
-        $this->loadProvider('App\Ship\Providers\ShipProvider');
+        $this->loadProvider(config('apiato.ship.namespace-ship-provider'));
     }
 
     private function loadProviders($directory): void
@@ -51,7 +51,7 @@ trait ProvidersLoaderTrait
         $files = File::allFiles($directory);
 
         foreach ($files as $file) {
-            if (File::isFile($file) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
+            if (File::isFile((string)$file) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
                 $serviceProviderClass = Apiato::getClassFullNameFromFile($file->getPathname());
                 $this->loadProvider($serviceProviderClass);
             }

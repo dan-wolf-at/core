@@ -9,7 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GeneratorErrorException extends Exception
 {
+    /**
+     * @var int
+     */
     protected $code = Response::HTTP_BAD_REQUEST;
 
+    /**
+     * @var string
+     */
     protected $message = 'Generator Error.';
 }

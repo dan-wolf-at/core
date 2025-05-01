@@ -11,7 +11,7 @@ trait PrinterTrait
         $this->printInfoMessage('> Generating (' . $fileName . ') in (' . $containerName . ') Container.');
     }
 
-    public function printInfoMessage($message): void
+    public function printInfoMessage(string $message): void
     {
         $this->info($message);
     }
@@ -21,7 +21,7 @@ trait PrinterTrait
         $this->printInfoMessage($type . ' generated successfully.');
     }
 
-    public function printErrorMessage($message): void
+    public function printErrorMessage(string $message): void
     {
         $this->error($message);
     }

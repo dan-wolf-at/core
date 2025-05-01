@@ -35,6 +35,6 @@ trait LocalizationLoaderTrait
 
     private function buildLocaleNamespace(null|string $sectionName, string $containerName): string
     {
-        return $sectionName !== null && $sectionName !== '' && $sectionName !== '0' ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
+        return $sectionName !== null && $sectionName !== '' ? (Str::camel($sectionName) . '@' . Str::camel($containerName)) : Str::camel($containerName);
     }
 }

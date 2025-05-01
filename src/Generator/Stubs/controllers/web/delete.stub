@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
 
 use App\Containers\{{section-name}}\{{container-name}}\Actions\Delete{{model}}Action;
@@ -8,9 +10,9 @@ use App\Ship\Parents\Controllers\WebController;
 
 class {{class-name}} extends WebController
 {
-    public function destroy(Delete{{model}}Request $request)
+    public function destroy(Delete{{model}}Request $request, Delete{{model}}Action $action)
     {
-        $result = app(Delete{{model}}Action::class)->run($request);
+        $result = $action->run($request);
         // ...
     }
 }

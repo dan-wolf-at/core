@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Apiato\Core\Loaders;
 
 use Apiato\Core\Foundation\Facades\Apiato;
+use Illuminate\Routing\Router;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -15,6 +16,16 @@ use Symfony\Component\Finder\SplFileInfo;
 
 trait RoutesLoaderTrait
 {
+    /**
+     * @var string
+     */
+    public const UI_API = 'API';
+
+    /**
+     * @var string
+     */
+    public const UI_WEB = 'WEB';
+
     /**
      * Register all the containers routes files in the framework.
      */
@@ -53,7 +64,7 @@ trait RoutesLoaderTrait
      */
     private function loadApiContainerRoutes(string $containerPath): void
     {
-        $apiRoutesPath = $this->getRoutePathsForUI($containerPath, 'API');
+        $apiRoutesPath = $this->getRoutePathsForUI($containerPath, static::UI_API);
 
         if (!File::isDirectory($apiRoutesPath)) {
             return;
@@ -82,16 +93,14 @@ trait RoutesLoaderTrait
     {
         $files = File::allFiles($apiRoutesPath);
 
-        return Arr::sort($files, static function ($file) {
-            return $file->getFilename();
-        });
+        return Arr::sort($files, static fn (SplFileInfo $file): string => $file->getFilename());
     }
 
     private function loadApiRoute(SplFileInfo $file): void
     {
         $routeGroupArray = $this->getApiRouteGroup($file);
 
-        Route::group($routeGroupArray, static function ($router) use ($file): void {
+        Route::group($routeGroupArray, static function (Router $router) use ($file): void {
             require $file->getPathname();
         });
     }
@@ -142,7 +151,7 @@ trait RoutesLoaderTrait
     //   - It expects version to be the one element before the last one (split on ".").
     //   - If user forgets to add the version to the file name, it will not work.
     //      And we will have a problem!
-    private function getRouteFileVersionFromFileName(SplFileInfo $file): string|bool
+    private function getRouteFileVersionFromFileName(SplFileInfo $file): string
     {
         $fileNameWithoutExtension = $this->getRouteFileNameWithoutExtension($file);
 
@@ -151,7 +160,7 @@ trait RoutesLoaderTrait
         end($fileNameWithoutExtensionExploded);
 
         // get the array before the last one
-        return prev($fileNameWithoutExtensionExploded);
+        return (string) prev($fileNameWithoutExtensionExploded);
     }
 
     private function getRouteFileNameWithoutExtension(SplFileInfo $file): string
@@ -162,9 +171,9 @@ trait RoutesLoaderTrait
     /**
      * Register the Containers WEB routes files.
      */
-    private function loadWebContainerRoutes($containerPath): void
+    private function loadWebContainerRoutes(string $containerPath): void
     {
-        $webRoutesPath = $this->getRoutePathsForUI($containerPath, 'WEB');
+        $webRoutesPath = $this->getRoutePathsForUI($containerPath, static::UI_WEB);
 
         if (!File::isDirectory($webRoutesPath)) {
             return;
@@ -180,7 +189,7 @@ trait RoutesLoaderTrait
     {
         Route::group([
             'middleware' => ['web'],
-        ], static function ($router) use ($file): void {
+        ], static function (Router $router) use ($file): void {
             require $file->getPathname();
         });
     }

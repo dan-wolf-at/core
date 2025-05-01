@@ -30,6 +30,7 @@ trait HelpersLoaderTrait
                 try {
                     require $file;
                 } catch (FileNotFoundException) {
+                    // idle
                 }
             }
         }

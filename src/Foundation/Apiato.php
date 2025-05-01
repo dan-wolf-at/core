@@ -10,13 +10,24 @@ class Apiato
 {
     /**
      * The Apiato version.
+     *
+     * @var string
      */
     public const VERSION = '12.0.0';
 
-    private const string SHIP_NAME = 'ship';
+    /**
+     * @var string
+     */
+    private const SHIP_NAME = 'ship';
 
-    private const string CONTAINERS_DIRECTORY_NAME = 'Containers';
+    /**
+     * @var string
+     */
+    private const CONTAINERS_DIRECTORY_NAME = 'Containers';
 
+    /**
+     * @return string[]
+     */
     public function getShipFoldersNames(): array
     {
         $shipFoldersNames = [];
@@ -66,11 +77,11 @@ class Apiato
      * Get the last part of a camel case string.
      * Example input = helloDearWorld | returns = World.
      */
-    public function getClassType(string $className): mixed
+    public function getClassType(string $className): string
     {
         $array = preg_split('/(?=[A-Z])/', $className);
 
-        return end($array);
+        return (string)end($array);
     }
 
     public function getAllContainerNames(): array

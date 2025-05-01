@@ -10,11 +10,15 @@ class SeedTestingDataCommand extends ConsoleCommand
 {
     /**
      * The name and signature of the console command.
+     *
+     * @var string
      */
     protected $signature = 'apiato:seed-test';
 
     /**
      * The console command description.
+     *
+     * @var string
      */
     protected $description = 'Seed testing data.';
 

@@ -10,7 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class InvalidTransformerException extends Exception
 {
+    /**
+     * @var int
+     */
     protected $code = Response::HTTP_INTERNAL_SERVER_ERROR;
 
+    /**
+     * @var string
+     */
     protected $message = 'Transformers must extended the ' . Transformer::class . ' class.';
 }

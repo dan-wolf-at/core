@@ -13,7 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 )]
 class WrongConfigurationsException extends Exception
 {
+    /**
+     * @var int
+     */
     protected $code = Response::HTTP_INTERNAL_SERVER_ERROR;
 
+    /**
+     * @var string
+     */
     protected $message = 'Ops! Some Containers configurations are incorrect!';
 }

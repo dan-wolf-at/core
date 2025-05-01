@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
 
 use App\Containers\{{section-name}}\{{container-name}}\Actions\Find{{model}}ByIdAction;
@@ -8,9 +10,9 @@ use App\Ship\Parents\Controllers\WebController;
 
 class {{class-name}} extends WebController
 {
-    public function show(Find{{model}}ByIdRequest $request)
+    public function show(Find{{model}}ByIdRequest $request, Find{{model}}ByIdAction $action)
     {
-        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request);
+        ${{entity}} = $action->run($request);
         // ...
     }
 }

@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Apiato\Core\Middlewares\Http;
 
 use Apiato\Core\Abstracts\Middlewares\Middleware;
+use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 class ProcessETagHeadersMiddleware extends Middleware
 {
-    public function handle(Request $request, \Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         /*
          * This middleware will add the "ETag" HTTP Header to a Response. The ETag, in turn, is a
@@ -20,14 +21,14 @@ class ProcessETagHeadersMiddleware extends Middleware
          * - the body content (i.e., the content that was supposed to be delivered) is removed --> the client receives an empty body
          */
 
-        // the feature is disabled - so skip everything
+        // The feature is disabled - so skip everything.
         if (!config('apiato.requests.use-etag', false)) {
             return $next($request);
         }
 
-        // check, if an "if-none-match" header is supplied
+        // Check, if an "if-none-match" header is supplied.
         if ($request->hasHeader('if-none-match')) {
-            // check, if the request method is GET or HEAD
+            // Check, if the request method is GET or HEAD.
             $method = $request->method();
 
             if ($method !== 'GET' && $method !== 'HEAD') {
@@ -35,16 +36,16 @@ class ProcessETagHeadersMiddleware extends Middleware
             }
         }
 
-        // everything is fine, just call the next middleware. We will process the ETag later on…
+        // Everything is fine, just call the next middleware. We will process the ETag later on.
         $response = $next($request);
 
-        // now we have processed the request and have a response that is sent back to the client.
-        // calculate the etag of the content!
+        // Now we have processed the request and have a response that is sent back to the client.
+        // Calculate the etag of the content!
         $content = $response->getContent();
         $etag = md5((string) $content);
         $response->headers->set('Etag', $etag);
 
-        // now, lets check, if the request contains a "if-none-match" http header field
+        // Now, lets check, if the request contains an "if-none-match" http header field
         // now check, if the if-none-match etag is the same as the calculated etag!
         if ($request->hasHeader('if-none-match') && $request->header('if-none-match') === $etag) {
             $response->setStatusCode(304);

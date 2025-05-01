@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
 
 use Apiato\Core\Exceptions\CoreInternalErrorException;
@@ -62,10 +64,10 @@ class {{class-name}} extends {{base-controller}}
     }
 
     /**
-     * @throws InvalidTransformerException
-     * @throws UpdateResourceFailedException
      * @throws IncorrectIdException
+     * @throws InvalidTransformerException
      * @throws NotFoundException
+     * @throws UpdateResourceFailedException
      */
     public function update(Update{{model}}Request $request, Update{{model}}Action $action): array
     {

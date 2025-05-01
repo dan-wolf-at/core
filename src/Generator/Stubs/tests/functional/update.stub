@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\{{section-name}}\{{container-name}}\Tests\Functional\API;
 
 use App\Containers\{{section-name}}\{{container-name}}\Data\Factories\{{model}}Factory;
@@ -7,6 +9,10 @@ use App\Containers\{{section-name}}\{{container-name}}\Tests\Functional\ApiTestC
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\CoversNothing;
 
+/**
+ * @group {{_container-name}}
+ * @group api
+ */
 #[CoversNothing]
 class {{class-name}} extends ApiTestCase
 {

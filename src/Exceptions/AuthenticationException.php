@@ -9,7 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationException extends Exception
 {
+    /**
+     * @var int
+     */
     protected $code = Response::HTTP_UNAUTHORIZED;
 
+    /**
+     * @var string
+     */
     protected $message = 'An Exception occurred while trying to authenticate the User.';
 }

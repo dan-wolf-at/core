@@ -41,7 +41,7 @@ trait CanOwnTrait
      */
     public function owns(Model $ownable, null|string $relation = null): bool
     {
-        if ($relation !== null && $relation !== '' && $relation !== '0') {
+        if ($relation !== null && $relation !== '') {
             return $this->{$relation}()->find($ownable) !== null;
         }
 

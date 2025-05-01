@@ -26,11 +26,11 @@ trait SanitizerTrait
         $inputAsArray = [];
         $fieldsWithDefaultValue = [];
 
-        // create a multidimensional array based on $fields
-        // which was submitted as DOT notation (e.g., data.name)
+        // Create a multidimensional array based on $fields
+        // which was submitted as DOT notation (e.g., data.name).
         foreach ($fields as $key => $value) {
             if (\is_string($key)) {
-                // save fields with default values
+                // Save fields with default values
                 $fieldsWithDefaultValue[$key] = $value;
                 Arr::set($inputAsArray, $key, $value);
             } else {
@@ -38,10 +38,10 @@ trait SanitizerTrait
             }
         }
 
-        // check, if the keys exist in both arrays
+        // Check, if the keys exist in both arrays
         $data = $this->recursiveArrayIntersectKey($data, $inputAsArray);
 
-        // set default values if key doesn't exist
+        // Set default values if key doesn't exist
         foreach ($fieldsWithDefaultValue as $key => $value) {
             $data = Arr::add($data, $key, $value);
         }

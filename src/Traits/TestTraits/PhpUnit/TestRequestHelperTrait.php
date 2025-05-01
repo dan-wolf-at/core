@@ -10,6 +10,8 @@ use Apiato\Core\Exceptions\WrongEndpointFormatException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
+use JsonException;
+use stdClass;
 use Vinkla\Hashids\Facades\Hashids;
 
 trait TestRequestHelperTrait
@@ -30,7 +32,7 @@ trait TestRequestHelperTrait
 
     protected null|array $responseContentArray = null;
 
-    protected null|\stdClass $responseContentObject = null;
+    protected null|stdClass $responseContentObject = null;
 
     /**
      * Allows users to override the default class property `endpoint` directly before calling the `makeCall` function.
@@ -60,7 +62,7 @@ trait TestRequestHelperTrait
         $verb = $endpoint['verb'];
         $url = $endpoint['url'];
 
-        // validating user http verb input + converting `get` data to query parameter
+        // Validating user http verb input + converting `get` data to query parameter.
         switch ($verb) {
             case 'get':
                 $url = $this->dataArrayToQueryParam($data, $url);
@@ -79,22 +81,47 @@ trait TestRequestHelperTrait
         return $this->setResponseObjectAndContent($httpResponse);
     }
 
-    public function getEndpoint(): string
+    /**
+     * @throws WrongEndpointFormatException
+     * @throws MissingTestEndpointException
+     * @throws UndefinedMethodException
+     */
+    public function makeUploadCall(array $files = [], array $params = [], array $headers = []): TestResponse
     {
-        if ($this->overrideEndpoint !== null) {
-            return $this->overrideEndpoint;
+        // Get or create a testing user. It will get your existing user if you already called this function from your
+        // test. Or create one if you never called this function from your tests "Only if the endpoint is protected".
+        $this->getTestingUser();
+
+        // Read the $parseEndpoint property from the test and set the verb and the uri as properties on this trait
+        $parseEndpoint = $this->parseEndpoint();
+        $verb          = $parseEndpoint['verb'];
+        $url           = $parseEndpoint['url'];
+
+        // Validating user http verb input + converting `get` data to query parameter
+        if ($verb !== 'post') {
+            throw new UndefinedMethodException('Unsupported HTTP Verb (' . $verb . ')!');
         }
 
-        return $this->endpoint;
+        $headers = array_merge([
+            'Accept' => 'application/json',
+        ], $headers);
+
+        $server  = $this->transformHeadersToServerVars($this->injectAccessToken($headers));
+        $cookies = $this->prepareCookiesForRequest();
+
+        $httpResponse = $this->call($verb, $url, $params, $cookies, $files, $server);
+
+        return $this->setResponseObjectAndContent($httpResponse);
+    }
+
+    public function getEndpoint(): string
+    {
+        return \is_null($this->overrideEndpoint) ? $this->endpoint : $this->overrideEndpoint;
     }
 
     public function getAuth(): bool
     {
-        if ($this->overrideAuth === null) {
-            return $this->auth;
-        }
-
-        return $this->overrideAuth;
+        return $this->overrideAuth ?? $this->auth;
     }
 
     public function setResponseObjectAndContent(TestResponse $httpResponse): TestResponse
@@ -105,12 +132,16 @@ trait TestRequestHelperTrait
     }
 
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function getResponseContentArray()
     {
         if ($this->responseContentArray) {
             return $this->responseContentArray;
+        }
+
+        if ($this->getResponseContent() === '') {
+            return null;
         }
 
         return $this->responseContentArray = json_decode($this->getResponseContent(), true, 512, JSON_THROW_ON_ERROR);
@@ -128,12 +159,16 @@ trait TestRequestHelperTrait
     }
 
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function getResponseContentObject()
     {
         if ($this->responseContentObject) {
             return $this->responseContentObject;
+        }
+
+        if ($this->getResponseContent() === '') {
+            return null;
         }
 
         return $this->responseContentObject = json_decode($this->getResponseContent(), false, 512, JSON_THROW_ON_ERROR);
@@ -142,20 +177,19 @@ trait TestRequestHelperTrait
     /**
      * Inject the ID in the Endpoint URI before making the call by
      * overriding the `$this->endpoint` property.
+     * Example: you give it ('users/{id}/stores', 100) it returns 'users/100/stores'.
      */
-    public function injectId($id, bool $skipEncoding = false, string $replace = '{id}'): static
+    public function injectId(string|int|array $id, bool $skipEncoding = false, string|array $replace = '{id}'): static
     {
-        if (!$skipEncoding) {
-            $id = $this->hashIdIfEnabled($id);
+        // In case Hash ID is enabled it will encode the ID first
+        $ids = [];
+        foreach ((array)$id as $value) {
+            $ids[] = $skipEncoding ? $value : $this->hashEndpointId($value);
         }
 
-        if ($this->overrideEndpoint === null) {
-            $this->endpoint = str_replace($replace, $id, $this->endpoint);
-        } else {
-            $this->overrideEndpoint = str_replace($replace, $id, $this->overrideEndpoint);
-        }
+        $injectedEndpoint = str_replace((array)$replace, $ids, $this->getEndpoint());
 
-        return $this;
+        return $this->endpoint($injectedEndpoint);
     }
 
     /**
@@ -166,7 +200,7 @@ trait TestRequestHelperTrait
      * or else injectId() will not replace the ID in the overridden endpoint.
      */
     // TODO: @next - add $endpoint parameter type
-    public function endpoint($endpoint): static
+    public function endpoint(string|null $endpoint): static
     {
         $this->overrideEndpoint = $endpoint;
 
@@ -174,7 +208,8 @@ trait TestRequestHelperTrait
     }
 
     /**
-     * Override the default class auth property before making the call.
+     * Override the default class auth property before making the call
+     * to be used as follows: $this->auth('false')->makeCall($data);
      */
     public function auth(bool $auth): static
     {
@@ -194,11 +229,25 @@ trait TestRequestHelperTrait
     }
 
     /**
+     * Change to public we need because sometimes some web routes need to test by makeCall and all web routes has different url.
+     */
+    public function buildUrlForUri($uri): string
+    {
+        $uri = config('apiato.api.prefix') . $uri;
+
+        if (!Str::startsWith($uri, '/')) {
+            $uri = '/' . $uri;
+        }
+
+        return $this->getUrl() . $uri;
+    }
+
+    /**
      * Transform headers array to array of $_SERVER vars with HTTP_* format.
      */
     protected function transformHeadersToServerVars(array $headers): array
     {
-        return collect($headers)->mapWithKeys(function ($value, $name) {
+        return collect($headers)->mapWithKeys(function ($value, $name): array {
             $name = str_replace('-', '_', strtoupper($name));
 
             return [$this->formatServerHeaderKey($name) => $value];
@@ -208,7 +257,11 @@ trait TestRequestHelperTrait
     /**
      * Read `$this->endpoint` property from the test class (`verb@uri`) and convert it to usable data.
      *
-     * @return array<string, string>
+     * @return array{
+     *     verb: string,
+     *     uri: string,
+     *     url: string
+     * }
      *
      * @throws WrongEndpointFormatException
      * @throws MissingTestEndpointException
@@ -221,14 +274,10 @@ trait TestRequestHelperTrait
 
         $this->validateEndpointFormat($separator);
 
-        $asArray = explode($separator, $this->getEndpoint(), 2);
-
         // Get the verb and uri values from the array
-        $parts = array_combine(['verb', 'uri'], $asArray);
-        extract($parts);
+        [$verb, $uri] = explode($separator, $this->getEndpoint(), 2);
 
         /** @var string $verb */
-
         /** @var string $uri */
         return [
             'verb' => $verb,
@@ -257,17 +306,6 @@ trait TestRequestHelperTrait
         }
     }
 
-    private function buildUrlForUri($uri): string
-    {
-        $uri = config('apiato.api.prefix') . $uri;
-
-        if (!Str::startsWith($uri, '/')) {
-            $uri = '/' . $uri;
-        }
-
-        return $this->getUrl() . $uri;
-    }
-
     private function getUrl(): string
     {
         // 'API_URL' value comes from `phpunit.xml` during testing
@@ -290,7 +328,7 @@ trait TestRequestHelperTrait
      */
     private function injectAccessToken(array $headers = []): array
     {
-        // if endpoint is protected (requires token to access its functionality)
+        // If endpoint is protected (requires token to access its functionality)
         if ($this->getAuth() && !$this->headersContainAuthorization($headers)) {
             // create token
             $accessToken = $this->getTestingUser()->createToken('token')->accessToken;

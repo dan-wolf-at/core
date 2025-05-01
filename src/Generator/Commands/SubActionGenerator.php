@@ -39,7 +39,7 @@ class SubActionGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file path.
      */
-    protected string $pathStructure = '{section-name}/{container-name}/Actions/*';
+    protected string $pathStructure = '{section-name}/{container-name}/SubActions/*';
 
     /**
      * The structure of the file name.
@@ -77,6 +77,6 @@ class SubActionGenerator extends GeneratorCommand implements ComponentsGenerator
     #[\Override]
     public function getDefaultFileName(): string
     {
-        return 'DefaultAction';
+        return 'DefaultSubAction';
     }
 }

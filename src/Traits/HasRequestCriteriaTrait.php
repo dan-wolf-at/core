@@ -6,9 +6,12 @@ namespace Apiato\Core\Traits;
 
 use Apiato\Core\Abstracts\Repositories\Repository;
 use Apiato\Core\Exceptions\CoreInternalErrorException;
+use Apiato\Core\Repository\Interfaces\RequestCriteriaInterface;
 use JetBrains\PhpStorm\Deprecated;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Exception;
 use Prettus\Repository\Exceptions\RepositoryException;
+use Throwable;
 use Vinkla\Hashids\Facades\Hashids;
 
 trait HasRequestCriteriaTrait
@@ -22,10 +25,10 @@ trait HasRequestCriteriaTrait
         Will be removed from Tasks and Actions.',
         replacement: '%class%->repository->addRequestCriteria();',
     )]
-    public function addRequestCriteria($repository = null, array $fieldsToDecode = ['id']): static
+    public function addRequestCriteria(?Repository $repository = null, array $fieldsToDecode = ['id']): static
     {
         $validatedRepository = $this->validateRepository($repository);
-        $validatedRepository->pushCriteria(app(RequestCriteria::class));
+        $validatedRepository->pushCriteria(app(RequestCriteriaInterface::class));
 
         if ($this->shouldDecodeSearch()) {
             $this->decodeSearchQueryString($fieldsToDecode);
@@ -37,10 +40,10 @@ trait HasRequestCriteriaTrait
     /**
      * @throws CoreInternalErrorException
      */
-    public function removeRequestCriteria($repository = null): static
+    public function removeRequestCriteria(?Repository $repository = null): static
     {
         $validatedRepository = $this->validateRepository($repository);
-        $validatedRepository->popCriteria(RequestCriteria::class);
+        $validatedRepository->popCriteria(app(RequestCriteriaInterface::class)::class);
 
         return $this;
     }
@@ -50,11 +53,11 @@ trait HasRequestCriteriaTrait
      *
      * @throws CoreInternalErrorException
      */
-    private function validateRepository($repository): Repository
+    private function validateRepository(?Repository $repository): Repository
     {
         $validatedRepository = $repository;
 
-        // check if we have a "custom" repository
+        // Check if we have a "custom" repository
         if (\is_null($repository)) {
             if (!isset($this->repository)) {
                 throw new CoreInternalErrorException('No protected or public accessible repository available');
@@ -63,12 +66,12 @@ trait HasRequestCriteriaTrait
             $validatedRepository = $this->repository;
         }
 
-        // check, if the validated repository is null
+        // Check, if the validated repository is null
         if (\is_null($validatedRepository)) {
             throw new CoreInternalErrorException();
         }
 
-        // check if it is a Repository class
+        // Check if it is a Repository class
         if (!($validatedRepository instanceof Repository)) {
             throw new CoreInternalErrorException();
         }
@@ -94,7 +97,7 @@ trait HasRequestCriteriaTrait
     private function decodeSearchQueryString(array $fieldsToDecode): void
     {
         $query = request()?->query();
-        $searchQuery = $query['search'];
+        $searchQuery = $query['search'] ?? '';
 
         $decodedValue = $this->decodeValue($searchQuery);
         $decodedData = $this->decodeData($fieldsToDecode, $searchQuery);
@@ -121,7 +124,7 @@ trait HasRequestCriteriaTrait
         if ($searchValue) {
             $decodedId = Hashids::decode($searchValue);
 
-            if ($decodedId) {
+            if ($decodedId !== []) {
                 return $decodedId[0];
             }
         }
@@ -175,7 +178,7 @@ trait HasRequestCriteriaTrait
                 try {
                     [$field, $value] = explode(':', $row);
                     $searchData[$field] = $value;
-                } catch (\Throwable) {
+                } catch (Throwable) {
                     // Surround offset error
                 }
             }
