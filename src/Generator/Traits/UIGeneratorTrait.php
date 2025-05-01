@@ -13,10 +13,8 @@ use Illuminate\Support\Str;
  */
 trait UIGeneratorTrait
 {
-    protected function runCallParam(): array
+    protected function runCallParam(string $ui): array
     {
-        $useTransporters = $this->checkParameterOrConfirm('transporters', 'Would you like to use specific Transporters?', true);
-
         $sectionName  = $this->sectionName;
         $_sectionName = Str::lower($this->sectionName);
 
@@ -40,13 +38,15 @@ trait UIGeneratorTrait
             '--file'      => Str::camel($this->sectionName) . '-' . Str::camel($this->containerName),
         ]);
 
-        $this->printInfoMessage('Generating MainServiceProvider');
-        $this->call('apiato:generate:provider', [
-            '--section'   => $sectionName,
-            '--container' => $containerName,
-            '--file'      => 'MainServiceProvider',
-            '--stub'      => 'main-service-provider',
-        ]);
+        if ($ui === 'web') {
+            $this->printInfoMessage('Generating MainServiceProvider');
+            $this->call('apiato:generate:provider', [
+                '--section' => $sectionName,
+                '--container' => $containerName,
+                '--file' => 'MainServiceProvider',
+                '--stub' => 'main-service-provider',
+            ]);
+        }
 
         $this->printInfoMessage('Generating Model and Repository');
         $this->call('apiato:generate:model', [
@@ -62,11 +62,9 @@ trait UIGeneratorTrait
             '--container' => $containerName,
             '--file'      => 'create_' . Str::snake($models) . '_table',
             '--tablename' => Str::snake($models),
-            '--new'       => true,
         ]);
 
         return [
-            $useTransporters,
             $sectionName,
             $_sectionName,
             $containerName,

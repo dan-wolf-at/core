@@ -70,14 +70,13 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         $ui = 'api';
 
         [
-            $useTransporters,
             $sectionName,
             $_sectionName,
             $containerName,
             $_containerName,
             $model,
             $models,
-        ] = $this->runCallParam();
+        ] = $this->runCallParam($ui);
 
         $this->printInfoMessage('Generating Transformer for the Model');
         $this->call('apiato:generate:transformer', [
