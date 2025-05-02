@@ -19,82 +19,6 @@ final class HashIdTraitTest extends UnitTestCase
 
     private LegacyMockInterface|MockInterface $mockTrait;
 
-    public static function hashedIdsProvider(): \Iterator
-    {
-        $firstId = 1;
-        $secondId = 2;
-        yield 'top level value' => [
-            ['id' => $firstId],
-            ['id'],
-            ['id' => 1],
-        ];
-        yield 'top level empty string' => [
-            ['id' => ''],
-            ['id'],
-            ['id' => ''],
-        ];
-        yield 'nested value' => [
-            ['data' => ['id' => $firstId]],
-            ['data.id'],
-            ['data' => ['id' => 1]],
-        ];
-        yield 'array' => [
-            ['ids' => [$firstId, $secondId]],
-            ['ids.*'],
-            ['ids' => [1, 2]],
-        ];
-        yield 'nested array' => [
-            ['nested' => ['ids' => [$firstId, $secondId]]],
-            ['nested.ids.*'],
-            ['nested' => ['ids' => [1, 2]]],
-        ];
-        yield 'string non existent key - should return value as is' => [
-            ['non_existent_key' => 'value'],
-            ['id'],
-            ['non_existent_key' => 'value'],
-        ];
-        yield 'null top level value' => [
-            ['id' => null],
-            ['id'],
-            ['id' => null],
-        ];
-        yield 'null nested value' => [
-            ['data' => ['id' => null]],
-            ['data.id'],
-            ['data' => ['id' => null]],
-        ];
-        yield 'null array' => [
-            ['ids' => [null, null]],
-            ['ids.*'],
-            ['ids' => [null, null]],
-        ];
-        yield 'null nested array' => [
-            ['nested' => ['ids' => [null, null]]],
-            ['nested.ids.*'],
-            ['nested' => ['ids' => [null, null]]],
-        ];
-    }
-
-    public static function invalidHashedIdsProvider(): \Iterator
-    {
-        yield 'top level value' => [
-            ['id' => 'invalid'],
-            ['id'],
-        ];
-        yield 'nested value' => [
-            ['data' => ['id' => 'invalid']],
-            ['data.id'],
-        ];
-        yield 'array' => [
-            ['ids' => ['invalid', 'invalid']],
-            ['ids.*'],
-        ];
-        yield 'nested array' => [
-            ['nested' => ['ids' => ['invalid', 'invalid']]],
-            ['nested.ids.*'],
-        ];
-    }
-
     #[\Override]
     public function setUp(): void
     {
@@ -250,6 +174,82 @@ final class HashIdTraitTest extends UnitTestCase
         $this->trait->decode = $decode;
 
         $this->trait->publicDecodeHashedIdsBeforeValidation($requestData);
+    }
+
+    public static function hashedIdsProvider(): \Iterator
+    {
+        $firstId = 1;
+        $secondId = 2;
+        yield 'top level value' => [
+            ['id' => $firstId],
+            ['id'],
+            ['id' => 1],
+        ];
+        yield 'top level empty string' => [
+            ['id' => ''],
+            ['id'],
+            ['id' => ''],
+        ];
+        yield 'nested value' => [
+            ['data' => ['id' => $firstId]],
+            ['data.id'],
+            ['data' => ['id' => 1]],
+        ];
+        yield 'array' => [
+            ['ids' => [$firstId, $secondId]],
+            ['ids.*'],
+            ['ids' => [1, 2]],
+        ];
+        yield 'nested array' => [
+            ['nested' => ['ids' => [$firstId, $secondId]]],
+            ['nested.ids.*'],
+            ['nested' => ['ids' => [1, 2]]],
+        ];
+        yield 'string non existent key - should return value as is' => [
+            ['non_existent_key' => 'value'],
+            ['id'],
+            ['non_existent_key' => 'value'],
+        ];
+        yield 'null top level value' => [
+            ['id' => null],
+            ['id'],
+            ['id' => null],
+        ];
+        yield 'null nested value' => [
+            ['data' => ['id' => null]],
+            ['data.id'],
+            ['data' => ['id' => null]],
+        ];
+        yield 'null array' => [
+            ['ids' => [null, null]],
+            ['ids.*'],
+            ['ids' => [null, null]],
+        ];
+        yield 'null nested array' => [
+            ['nested' => ['ids' => [null, null]]],
+            ['nested.ids.*'],
+            ['nested' => ['ids' => [null, null]]],
+        ];
+    }
+
+    public static function invalidHashedIdsProvider(): \Iterator
+    {
+        yield 'top level value' => [
+            ['id' => 'invalid'],
+            ['id'],
+        ];
+        yield 'nested value' => [
+            ['data' => ['id' => 'invalid']],
+            ['data.id'],
+        ];
+        yield 'array' => [
+            ['ids' => ['invalid', 'invalid']],
+            ['ids.*'],
+        ];
+        yield 'nested array' => [
+            ['nested' => ['ids' => ['invalid', 'invalid']]],
+            ['nested.ids.*'],
+        ];
     }
 
     private function recursiveEncode(array $data): array
