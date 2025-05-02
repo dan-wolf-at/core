@@ -7,18 +7,6 @@ parameters:
 			path: src/Abstracts/Actions/Action.php
 
 		-
-			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Actions\\Action\:\:getAttribute\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Abstracts/Actions/Action.php
-
-		-
-			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Actions\\Action\:\:getKeyName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Abstracts/Actions/Action.php
-
-		-
 			message: '#^Call to an undefined static method Apiato\\Core\\Abstracts\\Actions\\Action\:\:run\(\)\.$#'
 			identifier: staticMethod.notFound
 			count: 1
@@ -27,18 +15,6 @@ parameters:
 		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
 			identifier: empty.notAllowed
-			count: 2
-			path: src/Abstracts/Actions/Action.php
-
-		-
-			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
-			identifier: booleanAnd.rightNotBoolean
-			count: 1
-			path: src/Abstracts/Actions/Action.php
-
-		-
-			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
-			identifier: if.condNotBoolean
 			count: 1
 			path: src/Abstracts/Actions/Action.php
 
@@ -253,38 +229,14 @@ parameters:
 			path: src/Abstracts/Repositories/Repository.php
 
 		-
-			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:decodeSearchParameter\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Abstracts/Repositories/Repository.php
-
-		-
-			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:getAttribute\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Abstracts/Repositories/Repository.php
-
-		-
-			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Repositories\\Repository\:\:getKeyName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Abstracts/Repositories/Repository.php
-
-		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
 			identifier: empty.notAllowed
-			count: 2
+			count: 1
 			path: src/Abstracts/Repositories/Repository.php
 
 		-
 			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
 			identifier: booleanAnd.rightNotBoolean
-			count: 2
-			path: src/Abstracts/Repositories/Repository.php
-
-		-
-			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
-			identifier: if.condNotBoolean
 			count: 1
 			path: src/Abstracts/Repositories/Repository.php
 
@@ -421,32 +373,8 @@ parameters:
 			path: src/Abstracts/Tasks/Task.php
 
 		-
-			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:getAttribute\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Abstracts/Tasks/Task.php
-
-		-
-			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Tasks\\Task\:\:getKeyName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Abstracts/Tasks/Task.php
-
-		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
 			identifier: empty.notAllowed
-			count: 2
-			path: src/Abstracts/Tasks/Task.php
-
-		-
-			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
-			identifier: booleanAnd.rightNotBoolean
-			count: 1
-			path: src/Abstracts/Tasks/Task.php
-
-		-
-			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
-			identifier: if.condNotBoolean
 			count: 1
 			path: src/Abstracts/Tasks/Task.php
 
@@ -1471,19 +1399,37 @@ parameters:
 			path: tests/Unit/Services/ResponseTest.php
 
 		-
-			message: '#^Call to an undefined method class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:105\:\:getAttribute\(\)\.$#'
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: tests/Unit/Traits/HasRequestCriteriaTraitTest.php
+
+		-
+			message: '#^Instanceof between Apiato\\Core\\Abstracts\\Repositories\\Repository and Apiato\\Core\\Abstracts\\Repositories\\Repository will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: tests/Unit/Traits/HasRequestCriteriaTraitTest.php
+
+		-
+			message: '#^Parameter \#1 \$repository of method Apiato\\Core\\Tests\\Unit\\Traits\\HasRequestCriteriaTraitTest\:\:getTraitObject\(\) expects Apiato\\Core\\Abstracts\\Repositories\\Repository\|null, Mockery\\MockInterface given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/Traits/HasRequestCriteriaTraitTest.php
+
+		-
+			message: '#^Call to an undefined method class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:29\:\:getAttribute\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: tests/Unit/Traits/HashIdTraitTest.php
 
 		-
-			message: '#^Call to an undefined method class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:105\:\:getKeyName\(\)\.$#'
+			message: '#^Call to an undefined method class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:29\:\:getKeyName\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: tests/Unit/Traits/HashIdTraitTest.php
 
 		-
-			message: '#^Call to function property_exists\(\) with \$this\(class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:105\) and ''decode'' will always evaluate to false\.$#'
+			message: '#^Call to function property_exists\(\) with \$this\(class@anonymous/tests/Unit/Traits/HashIdTraitTest\.php\:29\) and ''decode'' will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
 			path: tests/Unit/Traits/HashIdTraitTest.php
