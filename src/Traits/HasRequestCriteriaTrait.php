@@ -10,11 +10,10 @@ use Illuminate\Http\Request;
 use JetBrains\PhpStorm\Deprecated;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
+use Vinkla\Hashids\Facades\Hashids;
 
 trait HasRequestCriteriaTrait
 {
-    use HashIdTrait;
-
     /**
      * @throws CoreInternalErrorException
      * @throws RepositoryException
@@ -46,6 +45,30 @@ trait HasRequestCriteriaTrait
         $validatedRepository->popCriteria(RequestCriteria::class);
 
         return $this;
+    }
+
+    /**
+     * If the decoded id is bigger than PHP_INT_MAX, the decoder will return a string
+     * we will cut that off from propagating, because such big numerical identifiers
+     * are not practically used.
+     *
+     * if the id is not decodable, null will be returned
+     */
+    public function decode(null|string $id): null|int
+    {
+        // Check if passed as null, (could be an optional decodable variable).
+        if ($id === null || strtolower($id) === 'null') {
+            return null;
+        }
+
+        // Do the decoding if the ID looks like a hashed one.
+        $decoded = $this->decoder($id);
+
+        if (empty($decoded)) {
+            return null;
+        }
+
+        return (int)$decoded[0];
     }
 
     /**
@@ -195,5 +218,13 @@ trait HasRequestCriteriaTrait
         }
 
         return implode(';', $parts);
+    }
+
+    /**
+     * @param string $id
+     */
+    private function decoder($id): array
+    {
+        return Hashids::decode($id);
     }
 }

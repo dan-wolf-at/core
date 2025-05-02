@@ -147,7 +147,7 @@ abstract class Repository extends BaseRepository implements CacheableInterface
     public function addRequestCriteria(?self $repository = null): static
     {
         if ($this->shouldDecodeSearch()) {
-            $this->decodeSearchParameter();
+            $this->decodeSearchQueryString();
         }
 
         $this->pushCriteria(app(RequestCriteria::class));

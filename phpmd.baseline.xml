@@ -37,6 +37,10 @@
   <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php"/>
   <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="tests/Unit/Services/ResponseTest.php"/>
   <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Services/ResponseTest.php"/>
+  <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="tests/Unit/Traits/HasRequestCriteriaTraitTest.php"/>
+  <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Traits/HasRequestCriteriaTraitTest.php"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="tests/Unit/Traits/HasRequestCriteriaTraitTest.php" method="parseSearchStringForTest"/>
+  <violation rule="PHPMD\Rule\Design\NpathComplexity" file="tests/Unit/Traits/HasRequestCriteriaTraitTest.php" method="parseSearchStringForTest"/>
   <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Traits/HashIdTraitTest.php"/>
   <violation rule="PHPMD\Rule\Design\LongMethod" file="tests/Unit/Traits/HashIdTraitTest.php" method="hashedIdsProvider"/>
   <violation rule="PHPMD\Rule\Design\DepthOfInheritance" file="tests/Unit/Traits/ResponseTraitTest.php"/>

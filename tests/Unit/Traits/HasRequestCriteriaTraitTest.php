@@ -15,6 +15,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Symfony\Component\HttpFoundation\InputBag;
+use Vinkla\Hashids\Facades\Hashids;
 
 #[CoversClass(HasRequestCriteriaTrait::class)]
 final class HasRequestCriteriaTraitTest extends UnitTestCase
@@ -51,18 +52,6 @@ final class HasRequestCriteriaTraitTest extends UnitTestCase
         self::assertSame($this->traitObject, $result);
     }
 
-    public function testAddRequestCriteriaThrowsExceptionIfNoRepositoryAvailable(): void
-    {
-        $instanceWithoutRepo = new class () {
-            use HasRequestCriteriaTrait;
-        };
-
-        $this->expectException(CoreInternalErrorException::class);
-        $this->expectExceptionMessage('No protected or public accessible repository available');
-
-        $instanceWithoutRepo->addRequestCriteria();
-    }
-
     public function testRemoveRequestCriteriaPopsCriteriaFromRepository(): void
     {
         $this->mockRepository
@@ -89,18 +78,6 @@ final class HasRequestCriteriaTraitTest extends UnitTestCase
         self::assertSame($this->traitObject, $result);
     }
 
-    public function testRemoveRequestCriteriaThrowsExceptionIfNoRepositoryAvailable(): void
-    {
-        $instanceWithoutRepo = new class () {
-            use HasRequestCriteriaTrait;
-        };
-
-        $this->expectException(CoreInternalErrorException::class);
-        $this->expectExceptionMessage('No protected or public accessible repository available');
-
-        $instanceWithoutRepo->removeRequestCriteria();
-    }
-
     public function testValidateRepositoryReturnsProvidedRepository(): void
     {
         $result = $this->traitObject->exposeValidateRepository($this->mockRepository);
@@ -113,23 +90,6 @@ final class HasRequestCriteriaTraitTest extends UnitTestCase
         $result = $this->traitObject->exposeValidateRepository();
 
         self::assertSame($this->mockRepository, $result);
-    }
-
-    public function testValidateRepositoryThrowsExceptionForNullRepository(): void
-    {
-        $nullRepoInstance = new class () {
-            use HasRequestCriteriaTrait;
-
-            public function exposeValidateRepository(?Repository $repository = null): Repository
-            {
-                return $this->validateRepository($repository);
-            }
-        };
-
-        $this->expectException(CoreInternalErrorException::class);
-        $this->expectExceptionMessage('No protected or public accessible repository available');
-
-        $nullRepoInstance->exposeValidateRepository();
     }
 
     public function testShouldDecodeSearchReturnsFalseWhenHashIdDisabled(): void
@@ -296,6 +256,36 @@ final class HasRequestCriteriaTraitTest extends UnitTestCase
         self::assertEquals($expectedData, $currentData);
     }
 
+    public function testAddRequestCriteriaThrowsExceptionIfNoRepositoryAvailable(): void
+    {
+        $nullRepoTraitObject = $this->getTraitObject(null);
+
+        $this->expectException(CoreInternalErrorException::class);
+        $this->expectExceptionMessage('No protected or public accessible repository available');
+
+        $nullRepoTraitObject->addRequestCriteria();
+    }
+
+    public function testRemoveRequestCriteriaThrowsExceptionIfNoRepositoryAvailable(): void
+    {
+        $nullRepoTraitObject = $this->getTraitObject(null);
+
+        $this->expectException(CoreInternalErrorException::class);
+        $this->expectExceptionMessage('No protected or public accessible repository available');
+
+        $nullRepoTraitObject->removeRequestCriteria();
+    }
+
+    public function testValidateRepositoryThrowsExceptionForNullRepository(): void
+    {
+        $nullRepoTraitObject = $this->getTraitObject(null);
+
+        $this->expectException(CoreInternalErrorException::class);
+        $this->expectExceptionMessage('No protected or public accessible repository available');
+
+        $nullRepoTraitObject->exposeValidateRepository();
+    }
+
     public static function searchDataProvider(): \Iterator
     {
         yield 'empty string' => [
@@ -410,7 +400,12 @@ final class HasRequestCriteriaTraitTest extends UnitTestCase
 
         $this->mockRepository = $this->mock(Repository::class);
 
-        $this->traitObject = new class ($this->mockRepository) {
+        $this->traitObject = $this->getTraitObject($this->mockRepository);
+    }
+
+    private function getTraitObject(?Repository $repository = null): object
+    {
+        return new class ($repository) {
             use HasRequestCriteriaTrait;
 
             public function __construct(public ?Repository $repository)
@@ -449,7 +444,7 @@ final class HasRequestCriteriaTraitTest extends UnitTestCase
 
             public function publicEncode(int $id): string
             {
-                return $this->encode($id);
+                return Hashids::encode($id);
             }
         };
     }
@@ -464,7 +459,11 @@ final class HasRequestCriteriaTraitTest extends UnitTestCase
 
         $pairs = explode(';', $search);
         foreach ($pairs as $pair) {
-            if ($pair === '' || $pair === '0') {
+            if ($pair === '') {
+                continue;
+            }
+
+            if ($pair === '0') {
                 continue;
             }
 
