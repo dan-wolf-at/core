@@ -112,7 +112,7 @@ trait HasRequestCriteriaTrait
         }
 
         $searchData = $this->parserSearchData($searchQuery);
-        $decodedData = $this->decodeSearchValues($searchData);
+        $decodedData = $this->getDecodedSearchValues($searchData);
 
         if ($decodedData === $searchData) {
             return;
@@ -159,16 +159,12 @@ trait HasRequestCriteriaTrait
         return $searchData;
     }
 
-    private function decodeSearchValues(array $searchData): array
+    private function getDecodedSearchValues(array $searchData): array
     {
-        if ($searchData === []) {
-            return $searchData;
-        }
-
         foreach ($searchData as $field => $value) {
             $isBool = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
-            if (isset($isBool)) {
+            if ($isBool !== null) {
                 continue;
             }
 
