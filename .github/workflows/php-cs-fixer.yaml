@@ -46,4 +46,4 @@ jobs:
           composer-options: --prefer-dist
 
       - name: Run PHP-CS-Fixer
-        run: vendor/bin/php-cs-fixer fix --dry-run --diff --allow-risky=yes --using-cache=yes --ansi -vv
+        run: vendor/bin/php-cs-fixer fix --dry-run --format=txt --diff --allow-risky=yes --using-cache=yes --ansi -vv

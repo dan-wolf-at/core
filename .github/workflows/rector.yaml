@@ -49,4 +49,4 @@ jobs:
           composer-options: --prefer-dist
 
       - name: Run Rector Dry Run
-        run: vendor/bin/rector process --dry-run --ansi
+        run: vendor/bin/rector process --dry-run --no-progress-bar --output-format=github --ansi
