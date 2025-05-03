@@ -1,7 +1,8 @@
 {
-    "name": "apiato/core",
+    "name": "dan-wolf-at/apiato-core",
     "description": "Core package for Apiato.",
     "license": "MIT",
+    "type": "library",
     "keywords": [
         "apiato",
         "apiato core",
