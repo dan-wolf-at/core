@@ -501,7 +501,7 @@
     <config name="installed_paths" value="../../slevomat/coding-standard"/>
 
     <!-- https://github.com/slevomat/coding-standard/tree/5.0.4#slevomatcodingstandardtypehintsuselessconstanttypehint- -->
-    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
+    <!--<rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>-->
 
     <!-- https://github.com/slevomat/coding-standard/tree/5.0.4#slevomatcodingstandardtypehintsdeclarestricttypes- -->
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
