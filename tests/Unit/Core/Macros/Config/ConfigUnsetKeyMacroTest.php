@@ -17,25 +17,25 @@ final class ConfigUnsetKeyMacroTest extends UnitTestCase
     {
         config()->set('foo', 'bar');
 
-        $this->assertSame('bar', config('foo'));
-        $this->assertTrue(config()->has('foo'));
+        self::assertSame('bar', config('foo'));
+        self::assertTrue(config()->has('foo'));
 
         config()->unset('foo');
 
-        $this->assertFalse(config()->has('foo'));
-        $this->assertNull(config('foo'));
+        self::assertFalse(config()->has('foo'));
+        self::assertNull(config('foo'));
     }
 
     public function testItRemovesAKeyUsingDotNotation(): void
     {
         config()->set('services.mailgun.secret', '123');
 
-        $this->assertSame('123', config('services.mailgun.secret'));
+        self::assertSame('123', config('services.mailgun.secret'));
 
         config()->unset('services.mailgun.secret');
 
-        $this->assertFalse(config()->has('services.mailgun.secret'));
-        $this->assertNull(config('services.mailgun.secret'));
+        self::assertFalse(config()->has('services.mailgun.secret'));
+        self::assertNull(config('services.mailgun.secret'));
     }
 
     public function testItAcceptsAnArrayOfKeys(): void
@@ -45,16 +45,16 @@ final class ConfigUnsetKeyMacroTest extends UnitTestCase
 
         config()->unset(['a', 'b']);
 
-        $this->assertFalse(config()->has('a'));
-        $this->assertFalse(config()->has('b'));
+        self::assertFalse(config()->has('a'));
+        self::assertFalse(config()->has('b'));
     }
 
     public function testCallingUnsetOnNonExistingKeyIsSilentlyIgnored(): void
     {
         config()->unset('ghost.key');
 
-        $this->assertNull(config('ghost.key'));
-        $this->assertFalse(config()->has('ghost.key'));
+        self::assertNull(config('ghost.key'));
+        self::assertFalse(config()->has('ghost.key'));
     }
 
     #[\Override]

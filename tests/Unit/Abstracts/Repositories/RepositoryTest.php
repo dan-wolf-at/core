@@ -83,19 +83,19 @@ final class RepositoryTest extends UnitTestCase
 
         $result = $repository->all();
 
-        $result->each(function (User $user) use ($userMustLoadRelations, $booksMustLoadRelations, $mustNotLoadRelations): void {
+        $result->each(static function (User $user) use ($userMustLoadRelations, $booksMustLoadRelations, $mustNotLoadRelations): void {
             foreach ($userMustLoadRelations as $userMustLoadRelation) {
-                $this->assertTrue($user->relationLoaded($userMustLoadRelation));
+                self::assertTrue($user->relationLoaded($userMustLoadRelation));
             }
 
             foreach ($booksMustLoadRelations as $bookMustLoadRelation) {
-                $user->books->each(function (Book $book) use ($bookMustLoadRelation): void {
-                    $this->assertTrue($book->relationLoaded($bookMustLoadRelation));
+                $user->books->each(static function (Book $book) use ($bookMustLoadRelation): void {
+                    self::assertTrue($book->relationLoaded($bookMustLoadRelation));
                 });
             }
 
             foreach ($mustNotLoadRelations as $mustNotLoadRelation) {
-                $this->assertFalse($user->relationLoaded($mustNotLoadRelation));
+                self::assertFalse($user->relationLoaded($mustNotLoadRelation));
             }
         });
     }
@@ -119,11 +119,11 @@ final class RepositoryTest extends UnitTestCase
         /** @var Collection<int, User> $result */
         $result = $repository->with('books')->with('children.books')->all();
 
-        $result->each(function (User $user): void {
-            $this->assertTrue($user->relationLoaded('books'));
-            $this->assertTrue($user->relationLoaded('children'));
+        $result->each(static function (User $user): void {
+            self::assertTrue($user->relationLoaded('books'));
+            self::assertTrue($user->relationLoaded('children'));
             foreach ($user->children as $child) {
-                $this->assertTrue($child->relationLoaded('books'));
+                self::assertTrue($child->relationLoaded('books'));
             }
         });
     }
@@ -139,32 +139,20 @@ final class RepositoryTest extends UnitTestCase
 
         DB::enableQueryLog();
         $firstUser = $userRepository->find($user->id);
-        $this->assertCount(
-            1,
-            DB::getQueryLog(),
-            'The first call must query the database to store the result in cache.'
-        );
+        self::assertCount(1, DB::getQueryLog(), 'The first call must query the database to store the result in cache.');
 
         DB::flushQueryLog();
         $secondUser = $userRepository->find($user->id);
-        $this->assertCount(
-            0,
-            DB::getQueryLog(),
-            'The second call should be served from cache without touching the database.'
-        );
-        $this->assertEquals($firstUser->toArray(), $secondUser->toArray());
+        self::assertCount(0, DB::getQueryLog(), 'The second call should be served from cache without touching the database.');
+        self::assertEquals($firstUser->toArray(), $secondUser->toArray());
 
         $updatedName = 'new name';
         $userRepository->update(['name' => $updatedName], $user->id);
 
         DB::flushQueryLog();
         $thirdUser = $userRepository->find($user->id);
-        $this->assertCount(
-            1,
-            DB::getQueryLog(),
-            'After update() the cache must be flushed, so a fresh DB query is expected.'
-        );
-        $this->assertEquals($updatedName, $thirdUser->name);
+        self::assertCount(1, DB::getQueryLog(), 'After update() the cache must be flushed, so a fresh DB query is expected.');
+        self::assertEquals($updatedName, $thirdUser->name);
     }
 
     #[\Override]

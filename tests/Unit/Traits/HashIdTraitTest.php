@@ -41,26 +41,26 @@ final class HashIdTraitTest extends UnitTestCase
     public function testCanEncodeId(): void
     {
         $result = $this->trait->encode(123);
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 
     public function testCanDecodeId(): void
     {
         $encoded = $this->trait->encode(123);
         $result = $this->trait->decode($encoded);
-        $this->assertEquals(123, $result);
+        self::assertEquals(123, $result);
     }
 
     public function testDecodeReturnsNullForInvalidId(): void
     {
         $result = $this->trait->decode('invalid');
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testDecodeReturnsNullForNullId(): void
     {
         $result = $this->trait->decode(null);
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testDecodeArray(): void
@@ -71,24 +71,24 @@ final class HashIdTraitTest extends UnitTestCase
             $this->trait->encode(3),
         ];
         $result = $this->trait->decodeArray($encodedArray);
-        $this->assertEquals([1, 2, 3], $result);
+        self::assertEquals([1, 2, 3], $result);
     }
 
     public function testSkipHashIdDecodeReturnsTrueForEmptyField(): void
     {
         $result = $this->trait->skipHashIdDecode('');
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testSkipHashIdDecodeReturnsFalseForNonEmptyField(): void
     {
         $result = $this->trait->skipHashIdDecode('non-empty');
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 
     public function testCanGetHashedKeyWithDefaultField(): void
     {
-        $this->markTestSkipped('this method should be moved to the model');
+        self::markTestSkipped('this method should be moved to the model');
         $this->mockTrait->expects()
             ->method('getKeyName')
             ->andReturn('id');
@@ -100,12 +100,12 @@ final class HashIdTraitTest extends UnitTestCase
 
         $result = $this->trait->getHashedKey();
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 
     public function testCanGetHashedKeyWithSpecificField(): void
     {
-        $this->markTestSkipped('this method should be moved to the model');
+        self::markTestSkipped('this method should be moved to the model');
         $this->mockTrait->expects()
             ->method('getAttribute')
             ->with('custom_field')
@@ -113,12 +113,12 @@ final class HashIdTraitTest extends UnitTestCase
 
         $result = $this->trait->getHashedKey('custom_field');
 
-        $this->assertIsString($result);
+        self::assertIsString($result);
     }
 
     public function testGetHashedKeyReturnsNullForNullValue(): void
     {
-        $this->markTestSkipped('this method should be moved to the model');
+        self::markTestSkipped('this method should be moved to the model');
         $this->mockTrait->expects()
             ->method('getAttribute')
             ->with('id')
@@ -126,7 +126,7 @@ final class HashIdTraitTest extends UnitTestCase
 
         $result = $this->trait->getHashedKey();
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testSkipsDecodingIfDisabled(): void
@@ -136,7 +136,7 @@ final class HashIdTraitTest extends UnitTestCase
 
         $result = $this->trait->publicDecodeHashedIdsBeforeValidation($requestData);
 
-        $this->assertEquals($requestData, $result);
+        self::assertEquals($requestData, $result);
     }
 
     #[DataProvider('hashedIdsProvider')]
@@ -147,7 +147,7 @@ final class HashIdTraitTest extends UnitTestCase
 
         $result = $this->trait->publicDecodeHashedIdsBeforeValidation($requestData);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function testCanDecodeNestedAssocArray(): void
@@ -157,13 +157,13 @@ final class HashIdTraitTest extends UnitTestCase
 
         $result = $this->trait->publicDecodeHashedIdsBeforeValidation($requestData);
 
-        $this->assertEquals(['nested' => ['ids' => [['first' => 1, 'second' => 2]]]], $result);
+        self::assertEquals(['nested' => ['ids' => [['first' => 1, 'second' => 2]]]], $result);
     }
 
     public function testDecodeReturnsNullForNonHashString(): void
     {
         $result = $this->trait->decode('non_hash_string');
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     #[DataProvider('invalidHashedIdsProvider')]

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Apiato\Core\Linters\Rector\AssertInstanceToStaticCallRector;
 use Apiato\Core\Linters\Rector\MockObjectStaticToInstanceCallRector;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector;
@@ -62,6 +63,7 @@ return RectorConfig::configure()
     )
     ->withRules([
         MockObjectStaticToInstanceCallRector::class,
+        AssertInstanceToStaticCallRector::class,
     ])
     ->withSets([
         PHPUnitSetList::PHPUNIT_90,
