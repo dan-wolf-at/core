@@ -7,19 +7,18 @@ namespace App\Containers\{{section-name}}\{{container-name}}\Tests\Functional\AP
 use App\Containers\{{section-name}}\{{container-name}}\Tests\Functional\ApiTestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group {{_container-name}}
- * @group api
- */
 #[CoversNothing]
-class {{class-name}} extends ApiTestCase
+#[Group('{{_container-name}}')]
+#[Group('api')]
+final class {{class-name}} extends ApiTestCase
 {
     protected string $endpoint = 'post@v1/{{url}}';
 
     protected array $access = [
         'permissions' => null,
-        'roles' => null,
+        'roles'       => null,
     ];
 
     // TODO TEST
@@ -33,7 +32,7 @@ class {{class-name}} extends ApiTestCase
 
         $response->assertCreated();
         $response->assertJson(
-            fn (AssertableJson $json) =>
+            static fn (AssertableJson $json): AssertableJson =>
                 $json->has('data')
                     ->where('data.object', '{{model}}')
                     // ->where('data.something', $data['something'])
@@ -53,12 +52,11 @@ class {{class-name}} extends ApiTestCase
     //
     //     $response->assertUnprocessable();
     //     // validate errors and their messages here
-    //     // $response->assertJson(
-    //     //     fn (AssertableJson $json) =>
-    //     //        $json->has('message')
-    //     //            ->has('errors')
-    //     //            ->where('errors.something.0', 'Some validation error message.')
-    //     // );
+    //    $response->assertJson(
+    //        static fn (AssertableJson $json): AssertableJson => $json->has('message')
+    //            ->has('errors')
+    //            ->where('errors.something.0', 'Some validation error message.')
+    //    );
     // }
 
     // TODO TEST
@@ -73,8 +71,7 @@ class {{class-name}} extends ApiTestCase
     //
     //     $response->assertForbidden();
     //     $response->assertJson(
-    //         fn (AssertableJson $json) =>
-    //             $json->has('message')
+    //        static fn (AssertableJson $json): AssertableJson => $json->has('message')
     //                 ->where('message', 'This action is unauthorized.')
     //                 ->etc()
     //     );

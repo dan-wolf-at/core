@@ -10,7 +10,7 @@ class {{class-name}} extends ParentRequest
 {
     protected array $access = [
         'permissions' => null,
-        'roles' => null,
+        'roles'       => null,
     ];
 
     protected array $decode = [

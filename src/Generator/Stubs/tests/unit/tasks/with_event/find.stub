@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Find{{model}}ByIdTask::class)]
-class {{class-name}} extends UnitTestCase
+final class {{class-name}} extends UnitTestCase
 {
     public function testFind{{model}}ById(): void
     {
@@ -21,7 +21,7 @@ class {{class-name}} extends UnitTestCase
 
         $found{{model}} = app(Find{{model}}ByIdTask::class)->run(${{_model}}->id);
 
-        $this->assertEquals(${{_model}}->id, $found{{model}}->id);
+        self::assertEquals(${{_model}}->id, $found{{model}}->id);
         Event::assertDispatched({{event}}::class);
     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(List{{models}}Task::class)]
-class {{class-name}} extends UnitTestCase
+final class {{class-name}} extends UnitTestCase
 {
     public function testList{{models}}(): void
     {
@@ -22,8 +22,8 @@ class {{class-name}} extends UnitTestCase
 
         $found{{models}} = app(List{{models}}Task::class)->run();
 
-        $this->assertCount(3, $found{{models}});
-        $this->assertInstanceOf(LengthAwarePaginator::class, $found{{models}});
+        self::assertCount(3, $found{{models}});
+        self::assertInstanceOf(LengthAwarePaginator::class, $found{{models}});
         Event::assertDispatched({{event}}::class);
     }
 }

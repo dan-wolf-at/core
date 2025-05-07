@@ -30,6 +30,6 @@ class {{class-name}} extends ParentAction
             // add your request data here
         ]);
 
-        return $this->update{{model}}Task->run($data, $request->id);
+        return $this->update{{model}}Task->run($request->id, $data);
     }
 }

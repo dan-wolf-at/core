@@ -35,9 +35,9 @@ class {{class-name}} extends {{base-controller}}
      */
     public function create(Create{{model}}Request $request, Create{{model}}Action $action): JsonResponse
     {
-       ${{entity}} = $action->run($request);
+        ${{entity}} = $action->run($request);
 
-       return $this->created($this->transform(${{entity}}, {{model}}Transformer::class));
+        return $this->created($this->transform(${{entity}}, {{model}}Transformer::class));
     }
 
     /**
@@ -46,9 +46,9 @@ class {{class-name}} extends {{base-controller}}
      */
     public function findById(Find{{model}}ByIdRequest $request, Find{{model}}ByIdAction $action): array
     {
-     ${{entity}} = $action->run($request);
+        ${{entity}} = $action->run($request);
 
-     return $this->transform(${{entity}}, {{model}}Transformer::class);
+        return $this->transform(${{entity}}, {{model}}Transformer::class);
     }
 
     /**
@@ -58,9 +58,9 @@ class {{class-name}} extends {{base-controller}}
      */
     public function list(List{{models}}Request $request, List{{models}}Action $action): array
     {
-      ${{entities}} = $action->run($request);
+        ${{entities}} = $action->run($request);
 
-      return $this->transform(${{entities}}, {{model}}Transformer::class);
+        return $this->transform(${{entities}}, {{model}}Transformer::class);
     }
 
     /**
@@ -71,9 +71,9 @@ class {{class-name}} extends {{base-controller}}
      */
     public function update(Update{{model}}Request $request, Update{{model}}Action $action): array
     {
-       ${{entity}} = $action->run($request);
+        ${{entity}} = $action->run($request);
 
-       return $this->transform(${{entity}}, {{model}}Transformer::class);
+        return $this->transform(${{entity}}, {{model}}Transformer::class);
     }
 
     /**
@@ -82,8 +82,8 @@ class {{class-name}} extends {{base-controller}}
      */
     public function delete(Delete{{model}}Request $request, Delete{{model}}Action $action): JsonResponse
     {
-       $action->run($request);
+        $action->run($request);
 
-       return $this->noContent();
+        return $this->noContent();
     }
 }

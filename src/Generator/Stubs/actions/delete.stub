@@ -21,7 +21,7 @@ class {{class-name}} extends ParentAction
      * @throws DeleteResourceFailedException
      * @throws NotFoundException
      */
-    public function run(Delete{{model}}Request $request): int
+    public function run(Delete{{model}}Request $request): bool
     {
         return $this->delete{{model}}Task->run($request->id);
     }
