@@ -333,7 +333,7 @@ final class ResponseTest extends UnitTestCase
 
         $jsonResponse = $response->ok();
 
-        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_OK, $jsonResponse->getStatusCode());
+        self::assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_OK, $jsonResponse->getStatusCode());
     }
 
     public function testCanGenerate202OAcceptedResponse(): void
@@ -343,7 +343,7 @@ final class ResponseTest extends UnitTestCase
 
         $jsonResponse = $response->accepted();
 
-        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_ACCEPTED, $jsonResponse->getStatusCode());
+        self::assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_ACCEPTED, $jsonResponse->getStatusCode());
     }
 
     public function testCanGenerate201CreatedResponse(): void
@@ -353,7 +353,7 @@ final class ResponseTest extends UnitTestCase
 
         $jsonResponse = $response->created();
 
-        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_CREATED, $jsonResponse->getStatusCode());
+        self::assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_CREATED, $jsonResponse->getStatusCode());
     }
 
     public function testCanGenerate204NoContentResponse(): void
@@ -363,7 +363,7 @@ final class ResponseTest extends UnitTestCase
 
         $jsonResponse = $response->noContent();
 
-        $this->assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT, $jsonResponse->getStatusCode());
+        self::assertEquals(\Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT, $jsonResponse->getStatusCode());
     }
 
     public function testCanGetRequestedIncludes(): void
@@ -372,7 +372,7 @@ final class ResponseTest extends UnitTestCase
 
         $result = Response::getRequestedIncludes();
 
-        $this->assertSame(['books', 'children', 'children.books'], $result);
+        self::assertSame(['books', 'children', 'children.books'], $result);
     }
 
     public function testCanProcessIncludeParamsWithResourceName(): void
@@ -392,7 +392,7 @@ final class ResponseTest extends UnitTestCase
         $paramBag = new ParamBag([
             'test' => ['2', 'value'],
         ]);
-        $this->assertEquals($paramBag, $actualParams);
+        self::assertEquals($paramBag, $actualParams);
     }
 
     #[\Override]

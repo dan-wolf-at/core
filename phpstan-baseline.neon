@@ -1009,6 +1009,108 @@ parameters:
 			path: src/Helpers/helpers.php
 
 		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 100000 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 50200 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 50300 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 50400 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 50500 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 50600 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 70000 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 70100 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 70200 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 70300 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 70400 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 80000 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 80100 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 80200 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:provideMinPhpVersion\(\) never returns 80400 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^PHPDoc tag @implements contains generic type Rector\\VersionBonding\\Contract\\MinPhpVersionInterface\<PhpParser\\Node\> but interface Rector\\VersionBonding\\Contract\\MinPhpVersionInterface is not generic\.$#'
+			identifier: generics.notGeneric
+			count: 1
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
+			message: '#^Parameter \#1 \$node \(PhpParser\\Node\\Expr\\MethodCall\) of method Apiato\\Core\\Linters\\Rector\\AssertInstanceToStaticCallRector\:\:refactor\(\) should be contravariant with parameter \$node \(PhpParser\\Node\) of method Rector\\Contract\\Rector\\RectorInterface\:\:refactor\(\)$#'
+			identifier: method.childParameterType
+			count: 2
+			path: src/Linters/Rector/AssertInstanceToStaticCallRector.php
+
+		-
 			message: '#^Method Apiato\\Core\\Linters\\Rector\\MockObjectStaticToInstanceCallRector\:\:provideMinPhpVersion\(\) never returns 100000 so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -1285,82 +1387,16 @@ parameters:
 			path: tests/TestCase.php
 
 		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertCount\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 3
-			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 2
-			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 5
-			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
-
-		-
 			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:each\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: mixed, Closure\(Apiato\\Core\\Tests\\Infrastructure\\Doubles\\Book\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
 			path: tests/Unit/Abstracts/Repositories/RepositoryTest.php
 
 		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertContains\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Abstracts/Tests/PhpUnit/TestCaseTest.php
-
-		-
 			message: '#^Call to an undefined method Illuminate\\Config\\Repository\:\:unset\(\)\.$#'
 			identifier: method.notFound
 			count: 4
 			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 5
-			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 3
-			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertSame\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 2
-			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Core/Macros/Config/ConfigUnsetKeyMacroTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 5
-			path: tests/Unit/Services/ResponseTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertSame\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Services/ResponseTest.php
 
 		-
 			message: '#^Parameter \#1 \$resourceName of method Spatie\\Fractalistic\\Fractal\:\:withResourceName\(\) expects string, bool\|null given\.$#'
@@ -1417,42 +1453,6 @@ parameters:
 			path: tests/Unit/Traits/HashIdTraitTest.php
 
 		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 5
-			path: tests/Unit/Traits/HashIdTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Traits/HashIdTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Traits/HashIdTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 3
-			path: tests/Unit/Traits/HashIdTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Traits/HashIdTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:markTestSkipped\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 3
-			path: tests/Unit/Traits/HashIdTraitTest.php
-
-		-
 			message: '#^Only booleans are allowed in &&, mixed given on the right side\.$#'
 			identifier: booleanAnd.rightNotBoolean
 			count: 1
@@ -1483,37 +1483,7 @@ parameters:
 			path: tests/Unit/Traits/ResponseTraitTest.php
 
 		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 8
-			path: tests/Unit/Traits/ResponseTraitTest.php
-
-		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertArrayNotHasKey\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Traits/ResponseTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertContains\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Traits/ResponseTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 4
-			path: tests/Unit/Traits/ResponseTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertIsArray\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Unit/Traits/ResponseTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 1
 			path: tests/Unit/Traits/ResponseTraitTest.php

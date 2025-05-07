@@ -55,10 +55,10 @@ final class ResponseTraitTest extends UnitTestCase
                 meta: $this->customMetadata,
             );
 
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('data', $result);
-        $this->assertArrayHasKey('object', $result['data']);
-        $this->assertEquals($this->user->getResourceKey(), $result['data']['object']);
+        self::assertIsArray($result);
+        self::assertArrayHasKey('data', $result);
+        self::assertArrayHasKey('object', $result['data']);
+        self::assertEquals($this->user->getResourceKey(), $result['data']['object']);
         $this->assertArrayNotHasKey('parent', $result['data']);
         $this->assertMetadata($result);
     }
@@ -76,10 +76,10 @@ final class ResponseTraitTest extends UnitTestCase
                 meta: $this->customMetadata,
             );
 
-        $this->assertArrayHasKey('parent', $result['data']);
-        $this->assertNotNull($result['data']['parent']);
+        self::assertArrayHasKey('parent', $result['data']);
+        self::assertNotNull($result['data']['parent']);
         $this->assertMetadata($result);
-        $this->assertContains($include, $result['meta']['include']);
+        self::assertContains($include, $result['meta']['include']);
     }
 
     public static function resourceKeyProvider(): \Iterator
@@ -114,22 +114,22 @@ final class ResponseTraitTest extends UnitTestCase
                 resourceKey: $resourceKey,
             );
 
-        $this->assertEquals($expected, $result['data']['object']);
+        self::assertEquals($expected, $result['data']['object']);
     }
 
     private function assertMetadata(array $result): void
     {
-        $this->assertArrayHasKey('meta', $result);
+        self::assertArrayHasKey('meta', $result);
         foreach ($this->metadata as $key => $value) {
-            $this->assertArrayHasKey($key, $result['meta']);
-            $this->assertEquals($value, $result['meta'][$key]);
+            self::assertArrayHasKey($key, $result['meta']);
+            self::assertEquals($value, $result['meta'][$key]);
         }
 
-        $this->assertArrayHasKey('include', $result['meta']);
-        $this->assertArrayHasKey('custom', $result['meta']);
+        self::assertArrayHasKey('include', $result['meta']);
+        self::assertArrayHasKey('custom', $result['meta']);
         foreach ($this->customMetadata as $key => $value) {
-            $this->assertArrayHasKey($key, $result['meta']['custom']);
-            $this->assertEquals($value, $result['meta']['custom'][$key]);
+            self::assertArrayHasKey($key, $result['meta']['custom']);
+            self::assertEquals($value, $result['meta']['custom'][$key]);
         }
     }
 }
