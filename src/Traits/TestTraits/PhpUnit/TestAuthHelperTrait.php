@@ -23,9 +23,11 @@ trait TestAuthHelperTrait
     protected null|string $userClass = null;
 
     /**
-     * Logged in user object.
+     * The Faker instance.
+     *
+     * @var Generator
      */
-    protected Generator $faker;
+    protected $faker;
 
     /**
      * Roles and permissions, to be attached on the user.
