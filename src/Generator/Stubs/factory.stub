@@ -20,14 +20,14 @@ class {{class-name}} extends ParentFactory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => fake()->name(),
         ];
     }
 
     public function name(): self
     {
         return $this->state(fn (array $attributes): array => [
-            'name' => $this->faker->name(),
+            'name' => fake()->name(),
         ]);
     }
 }
