@@ -34,19 +34,6 @@ abstract class TestCase extends LaravelTestCase
     protected bool $seed = true;
 
     /**
-     * Refresh the in-memory database.
-     */
-    protected function refreshInMemoryDatabase(): void
-    {
-        $this->artisan('migrate', $this->migrateUsing());
-
-        // Install Passport Client for Testing
-        $this->setupPassportOAuth2();
-
-        $this->app[Kernel::class]->setArtisan(null);
-    }
-
-    /**
      * Refresh a conventional test database.
      */
     protected function refreshTestDatabase(): void

@@ -49,7 +49,7 @@ jobs:
           composer-options: --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit --coverage-clover=coverage.xml --testdox --cache-directory=.phpunit.result.cache --colors=always
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml --testdox --cache-directory=.phpunit.result.cache --colors=always --display-deprecations --display-phpunit-deprecations
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
