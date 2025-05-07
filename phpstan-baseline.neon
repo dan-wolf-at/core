@@ -7,8 +7,8 @@ parameters:
 			path: src/Abstracts/Actions/Action.php
 
 		-
-			message: '#^Call to an undefined static method Apiato\\Core\\Abstracts\\Actions\\Action\:\:run\(\)\.$#'
-			identifier: staticMethod.notFound
+			message: '#^Call to an undefined method Apiato\\Core\\Abstracts\\Actions\\Action\:\:run\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: src/Abstracts/Actions/Action.php
 

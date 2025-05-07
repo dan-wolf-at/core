@@ -13,6 +13,7 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 abstract class TestCase extends LaravelTestCase
 {
@@ -22,6 +23,7 @@ abstract class TestCase extends LaravelTestCase
     use TestAuthHelperTrait;
     use TestCaseTrait;
     use TestRequestHelperTrait;
+    use WithFaker;
 
     /**
      * The base URL to use while testing the application.
