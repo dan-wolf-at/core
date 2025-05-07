@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Group;
 
 #[CoversNothing]
-#[Group('{{_container-name}})]
+#[Group('{{_container-name}}')]
 #[Group('api')]
 final class {{class-name}} extends ApiTestCase
 {
