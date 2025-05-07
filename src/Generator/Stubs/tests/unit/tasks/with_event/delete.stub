@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Event;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Delete{{model}}Task::class)]
-class {{class-name}} extends UnitTestCase
+final class {{class-name}} extends UnitTestCase
 {
     public function testDelete{{model}}(): void
     {
@@ -21,7 +21,7 @@ class {{class-name}} extends UnitTestCase
 
         $result = app(Delete{{model}}Task::class)->run(${{_model}}->id);
 
-        $this->assertEquals(1, $result);
+        self::assertEquals(1, $result);
         Event::assertDispatched({{event}}::class);
     }
 }

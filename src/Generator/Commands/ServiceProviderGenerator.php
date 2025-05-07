@@ -81,37 +81,37 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
         }
 
         $this->stubName = \sprintf('providers/%s.stub', $stub);
-        $eventListeners = $this->option('event-listeners');
+        $eventListeners = (array)$this->option('event-listeners');
         $eventListenersString = '[]';
         $listenersUseStatements = '';
         $eventsUseStatements = '';
 
-        if ($eventListeners) {
-            $listenersWithClass = array_map(static function ($listeners, string $listener) {
+        if ($eventListeners !== []) {
+            $listenersWithClass = array_map(static function (array $listeners, string $listener) {
                 return [$listener . '::class' => array_map(static fn ($event): string => $event . '::class', $listeners)];
             }, $eventListeners, array_keys($eventListeners));
-            $eventListenersString = '[' . PHP_EOL . array_reduce($listenersWithClass, static function (string $carry, $item): string {
-                return $carry . array_reduce(array_keys($item), static function ($carry, string $key) use ($item): string {
+            $eventListenersString = '[' . PHP_EOL . array_reduce($listenersWithClass, static function (string $carry, array $item): string {
+                return $carry . array_reduce(array_keys($item), static function (string $carry, string $key) use ($item): string {
                     $carry .= self::TAB2 . $key . ' => [' . PHP_EOL;
                     $carry .= array_reduce($item[$key], static function (string $carry, string $event): string {
                         return $carry . (self::TAB3 . $event . ',' . PHP_EOL);
-                    });
+                    }, '');
 
                     return $carry . (self::TAB2 . '],' . PHP_EOL);
-                });
-            }) . '    ]';
+                }, '');
+            }, '') . '    ]';
             $listenersUseStatements = array_reduce(array_keys($eventListeners), function (string $carry, string $item): string {
                 return $carry . ('use App\Containers\\' . $this->sectionName . '\\' . $this->containerName . '\Listeners\\' . $item . ';' . PHP_EOL);
-            });
+            }, '');
 
             $eventsUseStatements = array_map(function ($listeners, $listener): array {
                 return array_map(fn ($event): string => 'use App\Containers\\' . $this->sectionName . '\\' . $this->containerName . '\Events\\' . $event . ';', $listeners);
             }, $eventListeners, array_keys($eventListeners));
-            $eventsUseStatements = array_reduce($eventsUseStatements, static function (string $carry, $item): string {
+            $eventsUseStatements = array_reduce($eventsUseStatements, static function (string $carry, array $item): string {
                 return $carry . array_reduce(array_keys($item), static function (string $carry, $key) use ($item): string {
                     return $carry . ($item[$key] . PHP_EOL);
-                });
-            });
+                }, '');
+            }, '');
         }
 
         $useStatements = $eventsUseStatements . $listenersUseStatements;

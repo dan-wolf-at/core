@@ -18,7 +18,7 @@ class {{class-name}} extends ApiTestCase
 
     protected array $access = [
         'permissions' => null,
-        'roles' => null,
+        'roles'       => null,
     ];
 
     public function testABC(): void
