@@ -457,30 +457,6 @@ parameters:
 			path: src/Abstracts/Tests/PhpUnit/TestCase.php
 
 		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEmpty\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Abstracts/Tests/PhpUnit/TestCase.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Abstracts/Tests/PhpUnit/TestCase.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertSameSize\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Abstracts/Tests/PhpUnit/TestCase.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Abstracts/Tests/PhpUnit/TestCase.php
-
-		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\TestCase\:\:once\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 1
@@ -1479,12 +1455,6 @@ parameters:
 		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
 			identifier: empty.notAllowed
-			count: 1
-			path: tests/Unit/Traits/ResponseTraitTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertArrayNotHasKey\(\)\.$#'
-			identifier: staticMethod.dynamicCall
 			count: 1
 			path: tests/Unit/Traits/ResponseTraitTest.php
 

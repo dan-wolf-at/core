@@ -59,7 +59,7 @@ final class ResponseTraitTest extends UnitTestCase
         self::assertArrayHasKey('data', $result);
         self::assertArrayHasKey('object', $result['data']);
         self::assertEquals($this->user->getResourceKey(), $result['data']['object']);
-        $this->assertArrayNotHasKey('parent', $result['data']);
+        self::assertArrayNotHasKey('parent', $result['data']);
         $this->assertMetadata($result);
     }
 

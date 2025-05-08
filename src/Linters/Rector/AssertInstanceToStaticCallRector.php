@@ -42,6 +42,8 @@ final class AssertInstanceToStaticCallRector extends AbstractRector implements M
         'assertIsString',
         'assertIsArray',
         'assertArrayHasKey',
+        'assertArrayNotHasKey',
+        'assertDatabaseTable',
     ];
 
     public function __construct(
@@ -107,17 +109,14 @@ CODE_SAMPLE
             return null;
         }
 
-        // Check if the var is $this
         if (!$this->isName($node->var, 'this')) {
             return null;
         }
 
-        // Check if the method name is one of the assertion methods we want to convert
         if (!$this->isNames($node->name, self::ASSERT_METHODS)) {
             return null;
         }
 
-        // Convert $this->assertSame() to self::assertSame()
         return new StaticCall(
             new Name('self'),
             $this->getName($node->name),

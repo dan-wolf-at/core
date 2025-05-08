@@ -72,15 +72,18 @@ class RouteGenerator extends GeneratorCommand implements ComponentsGenerator
 
         $invokable = false;
 
+        $routeName = $operation;
+
         if ($operation === '__invoke') {
             $invokable = true;
+            $routeName = $this->fileName;
         }
 
         $controllerName = $this->checkParameterOrAsk('controller', 'Enter the controller name', 'Controller');
 
         $docUrl = preg_replace('~{(.+?)}~', ':$1', $url);
 
-        $routeName = Str::lower($ui . '_' . $this->containerName . '_' . Str::snake($operation));
+        $routeName = Str::lower($ui . '_' . $this->containerName . '_' . Str::snake($routeName));
 
         $this->stubName = 'routes/' . $ui . '.mac.stub';
 

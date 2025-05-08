@@ -49,7 +49,7 @@ trait TestAssertionHelperTrait
 
         $casts = [...$defaultCasts, ...$extraDefaultField];
 
-        $this->assertEmpty(array_diff($model->getCasts(), $casts));
+        self::assertEmpty(array_diff($model->getCasts(), $casts));
     }
 
     /**
@@ -75,14 +75,14 @@ trait TestAssertionHelperTrait
      * @param string                $table           the table name
      * @param array<string, string> $expectedColumns The key is the column name and the value is the column type.
      *
-     * Example: $this->assertDatabaseTable('users', ['id' => 'bigint']);
+     * Example: self::assertDatabaseTable('users', ['id' => 'bigint']);
      */
-    protected function assertDatabaseTable(string $table, array $expectedColumns): void
+    protected static function assertDatabaseTable(string $table, array $expectedColumns): void
     {
-        $this->assertSameSize($expectedColumns, Schema::getColumnListing($table), \sprintf("Column count mismatch for '%s' table.", $table));
+        self::assertSameSize($expectedColumns, Schema::getColumnListing($table), \sprintf("Column count mismatch for '%s' table.", $table));
         foreach ($expectedColumns as $column => $type) {
-            $this->assertTrue(Schema::hasColumn($table, $column), \sprintf("Column '%s' not found in '%s' table.", $column, $table));
-            $this->assertEquals($type, Schema::getColumnType($table, $column), \sprintf("Column '%s' in '%s' table does not match expected %s type.", $column, $table, $type));
+            self::assertTrue(Schema::hasColumn($table, $column), \sprintf("Column '%s' not found in '%s' table.", $column, $table));
+            self::assertEquals($type, Schema::getColumnType($table, $column), \sprintf("Column '%s' in '%s' table does not match expected %s type.", $column, $table, $type));
         }
     }
 
