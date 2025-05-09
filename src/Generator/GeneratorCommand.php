@@ -108,9 +108,9 @@ abstract class GeneratorCommand extends Command
         // Get user inputs
         $this->userData = $this->getUserInputs();
 
-        if ($this->userData === null) {
+        if ($this->userData === null || $this->userData === []) {
             // The user skipped this step
-            return Command::FAILURE;
+            return Command::SUCCESS;
         }
 
         $this->userData = $this->sanitizeUserData($this->userData);
