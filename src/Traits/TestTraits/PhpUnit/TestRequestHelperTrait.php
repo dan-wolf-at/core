@@ -55,7 +55,8 @@ trait TestRequestHelperTrait
     {
         // Get or create a testing user. It will get your existing user if you already called this function from your
         // test. Or create one if you never called this function from your tests "Only if the endpoint is protected".
-        $this->getTestingUser();
+        $user = $this->getTestingUser();
+        $this->actingAs($user);
 
         // Read the $endpoint property from the test and set the verb and the uri as properties on this trait
         $endpoint = $this->parseEndpoint();
@@ -76,7 +77,7 @@ trait TestRequestHelperTrait
                 throw new UndefinedMethodException('Unsupported HTTP Verb (' . $verb . ')!');
         }
 
-        $httpResponse = $this->json($verb, $url, $data, $this->injectAccessToken($headers));
+        $httpResponse = $this->json($verb, $url, $data, $headers);
 
         return $this->setResponseObjectAndContent($httpResponse);
     }
@@ -106,7 +107,7 @@ trait TestRequestHelperTrait
             'Accept' => 'application/json',
         ], $headers);
 
-        $server  = $this->transformHeadersToServerVars($this->injectAccessToken($headers));
+        $server  = $this->transformHeadersToServerVars($headers);
         $cookies = $this->prepareCookiesForRequest();
 
         $httpResponse = $this->call($verb, $url, $params, $cookies, $files, $server);
@@ -322,32 +323,7 @@ trait TestRequestHelperTrait
         return $url . '?' . http_build_query($data);
     }
 
-    /**
-     * Attach Authorization Bearer Token to the request headers
-     * if it does not exist already and the authentication is required
-     * for the endpoint, e.g., `$this->auth = true`.
-     */
-    private function injectAccessToken(array $headers = []): array
-    {
-        // If endpoint is protected (requires token to access its functionality)
-        if ($this->getAuth() && !$this->headersContainAuthorization($headers)) {
-            // create token
-            $accessToken = $this->getTestingUser()->createToken('token')->accessToken;
-            // give it to user
-            $this->getTestingUser()->withAccessToken($accessToken);
-            // append the token to the header
-            $headers['Authorization'] = 'Bearer ' . $accessToken;
-        }
-
-        return $headers;
-    }
-
-    private function headersContainAuthorization($headers): bool
-    {
-        return Arr::has($headers, 'Authorization');
-    }
-
-    private function hashIdIfEnabled($id): string
+    private function hashIdIfEnabled(string|int $id): string|int
     {
         if (config('apiato.hash-id')) {
             return Hashids::encode($id);

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Apiato\Core\Traits;
 
 use JetBrains\PhpStorm\Deprecated;
-use Laravel\Passport\ClientRepository;
-use Laravel\Passport\PersonalAccessClient;
 
 #[Deprecated(reason: 'This trait is complicated a lot stuff that can be done in a much simpler way.')]
 trait TestCaseTrait
@@ -35,21 +33,5 @@ trait TestCaseTrait
         $newSubDomain = $info['scheme'] . '://' . $this->subDomain . '.' . $withoutDomain;
 
         return $this->baseUrl = $newSubDomain;
-    }
-
-    /**
-     * Equivalent to passport:install but enough to run the tests.
-     */
-    public function setupPassportOAuth2(): void
-    {
-        $client = (new ClientRepository())->createPersonalAccessClient(
-            null,
-            'Testing Personal Access Client',
-            'http://localhost',
-        );
-
-        $personalAccessClient = new PersonalAccessClient();
-        $personalAccessClient->client_id = $client->id;
-        $personalAccessClient->save();
     }
 }
